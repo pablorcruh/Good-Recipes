@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Good Recipes</string>
+
+    <string name="login_activity_login">Login</string>
+
+    <string name="login_activity_register">Register</string>
+
+
+
 </resources>
