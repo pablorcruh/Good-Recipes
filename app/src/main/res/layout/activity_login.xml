@@ -1,60 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gr_custom"
-    tools:context=".activities.LoginActivity">
+    tools:context=".activities.LoginActivity"
+    android:orientation="vertical"
+    android:gravity="bottom">
 
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:fontFamily="@font/robotoslab_bold"
-        android:text="Email"
-        android:textSize="23sp"
-        android:layout_above="@+id/editText_email"
-        />
+        android:textColorHint="@android:color/white">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editText_email"
-        android:textColor="@android:color/white"
-        android:fontFamily="@font/robotoslab_regular"
-        android:layout_above="@+id/textView_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:background="@color/cardview_dark_background"
+        <AutoCompleteTextView
+            android:id="@+id/login_email"
+            android:fontFamily="@font/robotoslab_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_email"
+            android:imeOptions="actionNext"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textIsSelectable="false"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:textColorHint="@android:color/white"
-        />
+        android:textColorHint="@android:color/white">
 
-    <TextView
-        android:id="@+id/textView_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:fontFamily="@font/robotoslab_bold"
-        android:text="Password"
-        android:textSize="23sp"
-        android:layout_above="@+id/editText_password"
-        />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editText_password"
-        android:textColor="@android:color/white"
-        android:fontFamily="@font/robotoslab_regular"
-        android:inputType="textPassword"
-        android:layout_above="@+id/button_login"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:background="@color/cardview_dark_background"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:textColorHint="@android:color/white"
-        />
+        <EditText
+            android:id="@+id/login_password"
+            android:fontFamily="@font/robotoslab_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:hint="@string/prompt_password"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeActionId="@integer/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
@@ -63,7 +58,6 @@
         android:textColor="@android:color/white"
         android:id="@+id/button_login"
         android:fontFamily="@font/robotoslab_bold"
-        android:layout_above="@+id/button_register"
         android:background="@color/colorPrimary"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -81,4 +75,4 @@
         android:layout_width="match_parent"
         />
 
-</RelativeLayout>
+</LinearLayout>
