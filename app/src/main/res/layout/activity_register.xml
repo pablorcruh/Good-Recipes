@@ -1,9 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gr_custom"
+    android:orientation="vertical"
+    android:gravity="bottom"
     tools:context=".activities.RegisterActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white">
+
+    <AutoCompleteTextView
+        android:id="@+id/register_email"
+        android:fontFamily="@font/robotoslab_bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/prompt_email"
+        android:imeOptions="actionNext"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textIsSelectable="false"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white">
+
+        <EditText
+            android:layout_marginTop="26dp"
+            android:id="@+id/register_password"
+            android:fontFamily="@font/robotoslab_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:hint="@string/prompt_password"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeActionId="@integer/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white">
+
+        <EditText
+            android:id="@+id/register_password_confirm"
+            android:fontFamily="@font/robotoslab_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:hint="@string/prompt_confirm_password"
+            android:imeActionLabel="@string/action_sign_in_short"
+            android:imeActionId="@integer/login"
+            android:imeOptions="actionUnspecified"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:text="@string/register_activity_create_account"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:fontFamily="@font/robotoslab_bold"
+        android:id="@+id/button_register"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        />
+
+
+</LinearLayout>

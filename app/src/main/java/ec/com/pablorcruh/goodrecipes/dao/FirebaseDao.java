@@ -1,8 +1,11 @@
 package ec.com.pablorcruh.goodrecipes.dao;
 
+import ec.com.pablorcruh.goodrecipes.model.User;
+
 public interface FirebaseDao {
 
-    void login(String email, String password);
+    void login(User user);
 
-    void register(String email, String password);
+    void registerNewUser(User user);
+
 }
