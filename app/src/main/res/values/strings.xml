@@ -31,4 +31,10 @@
 
     <string name="action_sign_in_short">Sign in</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello home fragment</string>
+    <string name="home_navigation_label">Home</string>
+    <string name="add_new_navigation_label">Add New</string>
+    <string name="list_my_recipes_navigation_label">List My Recipes</string>
+
 </resources>
