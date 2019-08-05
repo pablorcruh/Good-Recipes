@@ -1,18 +1,42 @@
 package ec.com.pablorcruh.goodrecipes.model;
 
+import java.util.List;
+
 public class User {
+
+    private String userName;
 
     private String email;
 
     private String password;
 
+    private List<String> followingList;
+
     public User(){
 
     }
 
-    public User(String email, String password) {
+    public User(String userName, String email, String password, List<String> followingList) {
+        this.userName = userName;
         this.email = email;
         this.password = password;
+        this.followingList = followingList;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public List<String> getFollowingList() {
+        return followingList;
+    }
+
+    public void setFollowingList(List<String> followingList) {
+        this.followingList = followingList;
     }
 
     public String getEmail() {
