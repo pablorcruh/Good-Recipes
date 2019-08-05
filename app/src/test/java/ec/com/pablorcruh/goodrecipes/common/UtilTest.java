@@ -1,6 +1,5 @@
 package ec.com.pablorcruh.goodrecipes.common;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,14 +22,14 @@ public class UtilTest {
     @Test
     public void util_emptyEmail_returnTrue(){
         email= "";
-        result= SUT.isEmptyEmail(email);
+        result= SUT.isFieldEmpty(email);
         assertThat(result, is(true));
     }
 
     @Test
     public void util_notEmptyEmail_returnFalse(){
         email="pablo";
-        result = SUT.isEmptyEmail(email);
+        result = SUT.isFieldEmpty(email);
         assertThat(result, is(false));
     }
 

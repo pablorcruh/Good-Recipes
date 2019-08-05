@@ -9,7 +9,7 @@ public class Util {
             return false;
     }
 
-    public static boolean isEmptyEmail(String email){
+    public static boolean isFieldEmpty(String email){
         if(email.isEmpty() || email.equals("")){
             return true;
         }else{

@@ -14,6 +14,25 @@
         android:layout_height="wrap_content"
         android:textColorHint="@android:color/white">
 
+        <AutoCompleteTextView
+            android:id="@+id/register_username"
+            android:fontFamily="@font/robotoslab_bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_username"
+            android:imeOptions="actionNext"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textIsSelectable="false"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorHint="@android:color/white">
+
     <AutoCompleteTextView
         android:id="@+id/register_email"
         android:fontFamily="@font/robotoslab_bold"
@@ -75,7 +94,7 @@
 
     <Button
         android:text="@string/register_activity_create_account"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/roundbutton"
         android:layout_marginTop="16dp"
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
@@ -85,6 +104,7 @@
         android:layout_width="match_parent"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         />
 
 

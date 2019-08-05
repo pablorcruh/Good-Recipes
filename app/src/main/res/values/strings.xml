@@ -7,6 +7,8 @@
 
     <string name="register_activity_error_empty_email">Must enter an email</string>
 
+    <string name="register_activity_error_empty_username">Must enter a username</string>
+
     <string name="register_activity_error_invalid_email">Incorrect email format</string>
 
     <string name="register_activity_error_passoword_invalid_length">Password must be greater than 7 characters</string>

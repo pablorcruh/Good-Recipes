@@ -2,6 +2,7 @@ package ec.com.pablorcruh.goodrecipes.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -11,12 +12,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import ec.com.pablorcruh.goodrecipes.R;
 import ec.com.pablorcruh.goodrecipes.common.Util;
 import ec.com.pablorcruh.goodrecipes.model.User;
 import ec.com.pablorcruh.goodrecipes.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private static final String TAG = LoginActivity.class.getName();
 
     private AutoCompleteTextView loginEmail;
 
@@ -29,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
 
-    private boolean loginUserSuccess=false;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // TO DO AGREGAR LOS MENSAJES DE VALIDACIÓN DENTRO DE LOS CAMPOS
-
 
         btnLoginRegister = findViewById(R.id.button_login_register);
         btnLoginRegister.setOnClickListener(new View.OnClickListener() {
@@ -61,11 +65,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String userEmail= loginEmail.getText().toString().trim();
                 String userPassword = loginPassword.getText().toString().trim();
-                User user = new User(userEmail, userPassword);
+                User user = new User(userEmail, userPassword.toString());
                 if(isEmailValid(userEmail)){
                     if(isPasswordValid(userPassword)){
-                        loginUserSuccess = loginViewModel.loginExistingUser(user, LoginActivity.this);
-                        if(loginUserSuccess){
+                        firebaseUser = loginViewModel.loginExistingUser(user, LoginActivity.this);
+                        if(firebaseUser!=null){
+                            Log.d(TAG, "onClick: >>>>>>>>>>>>>>>>"+firebaseUser.getEmail());
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             Toast.makeText(LoginActivity.this, "login successful", Toast.LENGTH_SHORT).show();
                             finish();
@@ -73,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
                         }else{
                             Toast.makeText(LoginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 }
             }
@@ -81,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String email){
-        if(Util.isEmptyEmail(email)){
+        if(Util.isFieldEmpty(email)){
             return false;
         }else if(Util.isValidEmail(email)){
             return true;

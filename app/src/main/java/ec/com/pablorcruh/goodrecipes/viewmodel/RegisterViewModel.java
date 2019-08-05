@@ -21,9 +21,15 @@ public class RegisterViewModel extends AndroidViewModel {
         repository = new FirebaseRepository(application);
     }
 
+    public boolean registerAuthenticationUser(User user, Activity activity){
+        Log.d(TAG, "registerAuthenticationUser: ");
+        return repository.registerAuthenticationUser(user, activity);
+    }
+
     public boolean registerNewUser(User user, Activity activity){
         Log.d(TAG, "registerNewUser: ");
-        return repository.registerNewUser(user, activity);
+        return repository.createNewUser(user, activity);
     }
+
 
 }

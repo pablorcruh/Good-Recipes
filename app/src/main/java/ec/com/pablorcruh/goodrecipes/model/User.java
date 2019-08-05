@@ -16,11 +16,15 @@ public class User {
 
     }
 
-    public User(String userName, String email, String password, List<String> followingList) {
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String userName, String email, String password) {
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.followingList = followingList;
     }
 
     public String getUserName() {

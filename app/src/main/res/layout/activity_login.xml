@@ -58,9 +58,12 @@
         android:textColor="@android:color/white"
         android:id="@+id/button_login"
         android:fontFamily="@font/robotoslab_bold"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/roundbutton"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         />
 
     <Button
@@ -70,9 +73,12 @@
         android:layout_alignParentBottom="true"
         android:fontFamily="@font/robotoslab_bold"
         android:id="@+id/button_login_register"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/roundbutton"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         />
 
 </LinearLayout>

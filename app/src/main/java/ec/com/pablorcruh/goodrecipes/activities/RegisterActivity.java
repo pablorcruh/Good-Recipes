@@ -22,6 +22,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private AutoCompleteTextView registerEmail;
 
+    private AutoCompleteTextView registerUsername;
+
     private TextView registerPassword;
 
     private TextView registerConfirmPassword;
@@ -32,7 +34,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     private User user;
 
+    private boolean createAuthenticationSuccess;
+
     private boolean createUserSuccess;
+
 
     private View focusView;
 
@@ -46,6 +51,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         registerEmail = findViewById(R.id.register_email);
 
+        registerUsername = findViewById(R.id.register_username);
+
         registerPassword = findViewById(R.id.register_password);
 
         registerConfirmPassword = findViewById(R.id.register_password_confirm);
@@ -55,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerEmail.setError(null);
         registerPassword.setError(null);
         registerConfirmPassword.setError(null);
+        registerUsername.setError(null);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,15 +70,19 @@ public class RegisterActivity extends AppCompatActivity {
                 String userEmail=registerEmail.getText().toString().trim();
                 String userPassword= registerPassword.getText().toString().trim();
                 String userConfirmPassword = registerConfirmPassword.getText().toString().trim();
-                if(isEmailValid(userEmail)){
-                    if(isPasswordValid(userPassword, userConfirmPassword)){
-                        user=new User(userEmail, userPassword);
-                        createUserSuccess = registerViewModel.registerNewUser(user, RegisterActivity.this);
-                        if(createUserSuccess){
-                            Log.d(TAG, "onClick:");
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            finish();
-                            startActivity(intent);
+                String username = registerUsername.getText().toString().trim();
+                if(isUsernameValid(username)){
+                    if(isEmailValid(userEmail)){
+                        if(isPasswordValid(userPassword, userConfirmPassword)){
+                            user=new User(username, userEmail, userPassword);
+                            createAuthenticationSuccess = registerViewModel.registerAuthenticationUser(user, RegisterActivity.this);
+                            createUserSuccess = registerViewModel.registerNewUser(user, RegisterActivity.this);
+                            if(createAuthenticationSuccess && createUserSuccess){
+                                Log.d(TAG, "onClick:");
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                finish();
+                                startActivity(intent);
+                            }
                         }
                     }
                 }
@@ -79,10 +91,21 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    private boolean isUsernameValid(String username){
+        if(Util.isFieldEmpty(username)){
+            registerUsername.setError(getString(R.string.register_activity_error_empty_username));
+            focusView=registerUsername;
+            focusView.requestFocus();
+            Log.d(TAG, "isUsernameValid: empty username");
+            return false;
+        }else{
+            return true;
+        }
+    }
 
 
     private boolean isEmailValid(String email){
-        if(Util.isEmptyEmail(email)){
+        if(Util.isFieldEmpty(email)){
             registerEmail.setError(getString(R.string.register_activity_error_empty_email));
             focusView=registerEmail;
             focusView.requestFocus();
