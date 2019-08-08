@@ -5,10 +5,84 @@
     android:layout_height="match_parent"
     tools:context=".fragments.NewRecipeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello new fragment" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <EditText
+                android:id="@+id/edit_text_new_recipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre Receta"
+                android:textColor="@color/colorPrimary"
+                android:inputType="text"
+                android:fontFamily="@font/robotoslab_bold"
+                />
+
+
+            <TextView
+                android:padding="3dp"
+                android:layout_below="@+id/edit_text_new_recipe"
+                android:id="@+id/label_ingredientes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/robotoslab_bold"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:text="Ingredients" />
+
+            <ListView
+                android:layout_below="@+id/label_ingredientes"
+                android:id="@+id/list_view_ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:textColorHint="@android:color/white"
+                android:layout_below="@+id/list_view_ingredients">
+
+                <EditText
+                    android:id="@+id/edit_text_add_ingredient"
+                    android:fontFamily="@font/robotoslab_bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+            <ImageView
+                android:src="@drawable/ic_add_green_24dp"
+                android:id="@+id/image_view_add_ingredient"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+                android:padding="3dp"
+                android:layout_below="@id/text_add_ingredient"
+                android:id="@+id/label_steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/robotoslab_bold"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:text="Steps" />
+
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
 
 </FrameLayout>
