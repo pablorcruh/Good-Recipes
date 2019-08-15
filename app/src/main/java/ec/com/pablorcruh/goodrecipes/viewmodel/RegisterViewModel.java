@@ -7,6 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import ec.com.pablorcruh.goodrecipes.model.User;
 import ec.com.pablorcruh.goodrecipes.repository.FirebaseRepository;
 
@@ -20,6 +22,10 @@ public class RegisterViewModel extends AndroidViewModel {
     public RegisterViewModel(Application application){
         super(application);
         repository = new FirebaseRepository(application);
+    }
+
+    public void createUserOnFirestore(User user, Activity activity){
+        repository.createUserOnFirestore(user);
     }
 
     public LiveData<Task<AuthResult>> registerNewUser(User user, Activity activity){

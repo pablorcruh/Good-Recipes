@@ -11,16 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ddb55ac-ffab-4d6c-873d-cbfe672ba629" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreAuthLiveData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreLoginLiveData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreQueryLiveData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreDatabaseLiveData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/RegisterActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/dao/FirebaseDao.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/FirebaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/FirebaseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/LoginViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/LoginViewModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/RegisterViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/RegisterViewModel.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,67 +35,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/FirebaseRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7">
-              <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+            <state relative-caret-position="308">
+              <caret line="68" column="149" selection-start-line="68" selection-start-column="149" selection-end-line="68" selection-end-column="149" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1410#1411#0" expanded="true" />
-                <element signature="e#1445#1446#0" expanded="true" />
+                <element signature="e#868#869#0" expanded="true" />
+                <element signature="e#914#915#0" expanded="true" />
+                <element signature="e#1075#1076#0" expanded="true" />
+                <element signature="e#1137#1138#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/MainActivity.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/RegisterViewModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-203">
-              <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+            <state relative-caret-position="133">
+              <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreLoginLiveData.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/common/Util.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/model/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1708#1980#0" expanded="true" />
-                <element signature="e#1979#1980#0" expanded="true" />
-                <element signature="e#2680#3304#0" expanded="true" />
-                <element signature="e#3303#3304#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -110,12 +63,44 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/RegisterActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-608">
-              <caret line="41" column="26" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="26" />
+            <state relative-caret-position="389">
+              <caret line="88" column="97" selection-start-line="88" selection-start-column="97" selection-end-line="88" selection-end-column="97" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2964#3491#0" expanded="true" />
-                <element signature="e#3490#3491#0" expanded="true" />
+                <element signature="e#1988#3503#0" expanded="true" />
+                <element signature="e#3502#3503#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreDatabaseLiveData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="332">
+              <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#942#943#0" expanded="true" />
+                <element signature="e#974#975#0" expanded="true" />
+                <element signature="e#1077#1078#0" expanded="true" />
+                <element signature="e#1151#1152#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreQueryLiveData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-83">
+              <caret line="8" column="54" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#702#703#0" expanded="true" />
+                <element signature="e#746#747#0" expanded="true" />
+                <element signature="e#793#794#0" expanded="true" />
+                <element signature="e#866#867#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,32 +109,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreAuthLiveData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/RegisterViewModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="72" selection-start-line="15" selection-start-column="72" selection-end-line="15" selection-end-column="72" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/LoginViewModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="435">
+              <caret line="39" column="76" selection-start-line="39" selection-start-column="76" selection-end-line="39" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -163,8 +124,8 @@
         <option value="valueResourceFile" />
         <option value="resourceFile" />
         <option value="layoutResourceFile_vertical" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -222,11 +183,13 @@
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/FirestoreLoginLiveData.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/FirestoreAuthLiveData.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/LoginViewModel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreQueryLiveData.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/RegisterViewModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/RegisterActivity.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/FirebaseRepository.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/MainActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreDatabaseLiveData.java" />
       </list>
     </option>
   </component>
@@ -242,49 +205,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Good-Recipes" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="Good-Recipes" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="Good-Recipes" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="goodrecipes" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Good-Recipes" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="goodrecipes" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="activities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Good-Recipes" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="goodrecipes" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="repository" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Good-Recipes" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="goodrecipes" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="viewmodel" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane" />
@@ -303,14 +224,14 @@
     <key name="CreateTestDialog.RecentsKey">
       <recent name="ec.com.pablorcruh.goodrecipes.common" />
     </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="ec.com.pablorcruh.goodrecipes.viewmodel" />
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
     </key>
     <key name="android.template.packageName">
       <recent name="ec.com.pablorcruh.goodrecipes.activities" />
     </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ec.com.pablorcruh.goodrecipes.viewmodel" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -536,7 +457,37 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1417" y="114" width="1315" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" weight="0.18124507" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Build Variants" order="4" side_tool="true" />
+      <window_info id="Image Layers" order="5" />
+      <window_info id="Designer" order="6" />
+      <window_info id="Resources Explorer" order="7" />
+      <window_info id="Capture Tool" order="8" />
+      <window_info anchor="bottom" id="Thumbnails" order="0" weight="0.32899022" />
+      <window_info anchor="bottom" id="Run" order="1" weight="0.32899022" />
+      <window_info anchor="bottom" id="TODO" order="2" weight="0.32247558" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.32899022" />
+      <window_info anchor="bottom" id="Terminal" order="4" weight="0.24104235" />
+      <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="6" weight="0.32899022" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.33224756" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" />
+      <window_info anchor="bottom" id="Find" order="9" weight="0.32899022" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="10" visible="true" weight="0.3257329" />
+      <window_info anchor="right" id="Assistant" order="0" weight="0.32939324" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Gradle" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info anchor="right" id="Preview" order="4" weight="0.24428684" />
+      <window_info anchor="right" id="Palette&#9;" order="5" />
+      <window_info anchor="right" id="Device File Explorer" order="6" side_tool="true" weight="0.32939324" />
+    </layout>
+    <layout-to-restore>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.18124507" />
       <window_info id="Structure" order="2" side_tool="true" />
@@ -550,7 +501,7 @@
       <window_info anchor="bottom" id="Run" order="1" weight="0.32899022" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.32247558" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.32899022" />
-      <window_info anchor="bottom" id="Terminal" order="4" weight="0.32247558" />
+      <window_info anchor="bottom" id="Terminal" order="4" weight="0.24104235" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.32899022" />
       <window_info anchor="bottom" id="Build" order="7" weight="0.33224756" />
@@ -564,7 +515,7 @@
       <window_info anchor="right" id="Preview" order="4" weight="0.24428684" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Device File Explorer" order="6" side_tool="true" weight="0.32939324" />
-    </layout>
+    </layout-to-restore>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -575,11 +526,28 @@
           <properties />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/RegisterActivity.java</url>
+          <line>88</line>
+          <properties />
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/RegisterViewModel.java</url>
+          <line>27</line>
+          <properties />
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/FirebaseRepository.java</url>
+          <line>68</line>
+          <properties />
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/androidTest/java/ec/com/pablorcruh/goodrecipes/common/UtilTest.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/ec/com/pablorcruh/goodrecipes/common/UtilTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
@@ -835,37 +803,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/FirebaseLiveData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="61" lean-forward="true" selection-start-line="7" selection-start-column="61" selection-end-line="7" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreQueryLiveData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#774#775#0" expanded="true" />
-            <element signature="e#845#846#0" expanded="true" />
-            <element signature="e#894#895#0" expanded="true" />
-            <element signature="e#965#966#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/dao/FirebaseDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/FirebaseLiveData.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/dao/FirebaseDao.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/adapter/IngredientsAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
@@ -873,13 +812,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreAuthLiveData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -897,35 +829,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/RegisterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-608">
-          <caret line="41" column="26" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2964#3491#0" expanded="true" />
-            <element signature="e#3490#3491#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreLoginLiveData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/RegisterViewModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="72" selection-start-line="15" selection-start-column="72" selection-end-line="15" selection-end-column="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/LoginViewModel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -936,22 +839,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/FirebaseRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1410#1411#0" expanded="true" />
-            <element signature="e#1445#1446#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-203">
-          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+          <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -964,10 +855,84 @@
           <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1708#1980#0" expanded="true" />
-            <element signature="e#1979#1980#0" expanded="true" />
-            <element signature="e#2680#3304#0" expanded="true" />
-            <element signature="e#3303#3304#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreLoginLiveData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-75">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreAuthLiveData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="39" column="76" selection-start-line="39" selection-start-column="76" selection-end-line="39" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/RegisterViewModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreQueryLiveData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-83">
+          <caret line="8" column="54" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#702#703#0" expanded="true" />
+            <element signature="e#746#747#0" expanded="true" />
+            <element signature="e#793#794#0" expanded="true" />
+            <element signature="e#866#867#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/RegisterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="88" column="97" selection-start-line="88" selection-start-column="97" selection-end-line="88" selection-end-column="97" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1988#3503#0" expanded="true" />
+            <element signature="e#3502#3503#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/FirebaseRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="68" column="149" selection-start-line="68" selection-start-column="149" selection-end-line="68" selection-end-column="149" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#868#869#0" expanded="true" />
+            <element signature="e#914#915#0" expanded="true" />
+            <element signature="e#1075#1076#0" expanded="true" />
+            <element signature="e#1137#1138#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreDatabaseLiveData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="41" lean-forward="true" selection-start-line="41" selection-end-line="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#942#943#0" expanded="true" />
+            <element signature="e#974#975#0" expanded="true" />
+            <element signature="e#1077#1078#0" expanded="true" />
+            <element signature="e#1151#1152#0" expanded="true" />
           </folding>
         </state>
       </provider>
