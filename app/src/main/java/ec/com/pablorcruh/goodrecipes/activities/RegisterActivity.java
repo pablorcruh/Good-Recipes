@@ -1,6 +1,8 @@
 package ec.com.pablorcruh.goodrecipes.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -10,6 +12,9 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
 import ec.com.pablorcruh.goodrecipes.R;
 import ec.com.pablorcruh.goodrecipes.common.Util;
@@ -33,11 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
     private RegisterViewModel registerViewModel;
 
     private User user;
-
-    private boolean createAuthenticationSuccess;
-
-    private boolean createUserSuccess;
-
 
     private View focusView;
 
@@ -67,22 +67,24 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userEmail=registerEmail.getText().toString().trim();
-                String userPassword= registerPassword.getText().toString().trim();
+                String userEmail = registerEmail.getText().toString().trim();
+                String userPassword = registerPassword.getText().toString().trim();
                 String userConfirmPassword = registerConfirmPassword.getText().toString().trim();
                 String username = registerUsername.getText().toString().trim();
-                if(isUsernameValid(username)){
-                    if(isEmailValid(userEmail)){
-                        if(isPasswordValid(userPassword, userConfirmPassword)){
-                            user=new User(username, userEmail, userPassword);
-                            createAuthenticationSuccess = registerViewModel.registerAuthenticationUser(user, RegisterActivity.this);
-                            createUserSuccess = registerViewModel.registerNewUser(user, RegisterActivity.this);
-                            if(createAuthenticationSuccess && createUserSuccess){
-                                Log.d(TAG, "onClick:");
-                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                finish();
-                                startActivity(intent);
-                            }
+                if (isUsernameValid(username)) {
+                    if (isEmailValid(userEmail)) {
+                        if (isPasswordValid(userPassword, userConfirmPassword)) {
+                            user = new User(username, userEmail, userPassword);
+                            LiveData<Task<AuthResult>> liveData = registerViewModel.registerNewUser(user, RegisterActivity.this);
+                            liveData.observe(RegisterActivity.this, new Observer<Task<AuthResult>>() {
+                                @Override
+                                public void onChanged(Task<AuthResult> authResultTask) {
+                                    Log.d(TAG, "onChanged: >>>>> creado con exito");
+                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                    finish();
+                                    startActivity(intent);
+                                }
+                            });
                         }
                     }
                 }
@@ -91,62 +93,62 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private boolean isUsernameValid(String username){
-        if(Util.isFieldEmpty(username)){
+    private boolean isUsernameValid(String username) {
+        if (Util.isFieldEmpty(username)) {
             registerUsername.setError(getString(R.string.register_activity_error_empty_username));
-            focusView=registerUsername;
+            focusView = registerUsername;
             focusView.requestFocus();
             Log.d(TAG, "isUsernameValid: empty username");
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
 
-    private boolean isEmailValid(String email){
-        if(Util.isFieldEmpty(email)){
+    private boolean isEmailValid(String email) {
+        if (Util.isFieldEmpty(email)) {
             registerEmail.setError(getString(R.string.register_activity_error_empty_email));
-            focusView=registerEmail;
+            focusView = registerEmail;
             focusView.requestFocus();
             Log.d(TAG, "isEmailValid: empty email");
             return false;
         }
-        if(Util.isValidEmail(email)){
+        if (Util.isValidEmail(email)) {
             Log.d(TAG, "isEmailValid: Email valid");
-            return  true;
-        }else{
+            return true;
+        } else {
             Log.d(TAG, "isEmailValid: Email invalid");
             registerEmail.setError(getString(R.string.register_activity_error_invalid_email));
-            focusView=registerEmail;
+            focusView = registerEmail;
             focusView.requestFocus();
             return false;
         }
     }
 
-    private boolean isPasswordValid(String password, String passwordConfirmation){
-        if(Util.isPasswordEmpty(password)){
+    private boolean isPasswordValid(String password, String passwordConfirmation) {
+        if (Util.isPasswordEmpty(password)) {
             Log.d(TAG, "isPasswordValid: Password empty");
             registerPassword.setError(getString(R.string.register_activity_error_passoword_empty));
             focusView = registerPassword;
             focusView.requestFocus();
             return false;
         }
-        if(Util.isPasswordLengthValid(password)){
+        if (Util.isPasswordLengthValid(password)) {
             Log.d(TAG, "isPasswordValid: Password length valid");
-            if(Util.isConfirmationPasswordSamePassword(password, passwordConfirmation)){
+            if (Util.isConfirmationPasswordSamePassword(password, passwordConfirmation)) {
                 Log.d(TAG, "isPasswordValid: password and confirmation are the same");
                 return true;
-            }else{
+            } else {
                 registerConfirmPassword.setError(getString(R.string.register_activity_error_passoword_not_equal_confirmPassword));
-                focusView=registerConfirmPassword;
+                focusView = registerConfirmPassword;
                 focusView.requestFocus();
                 Log.d(TAG, "isPasswordValid: password and confirmation are not the same");
                 return false;
             }
-        }else{
+        } else {
             registerPassword.setError(getString(R.string.register_activity_error_passoword_invalid_length));
-            focusView=registerPassword;
+            focusView = registerPassword;
             focusView.requestFocus();
             Log.d(TAG, "isPasswordValid: Password length not valid");
             return false;
