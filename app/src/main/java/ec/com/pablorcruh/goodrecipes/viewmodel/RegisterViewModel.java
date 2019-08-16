@@ -25,7 +25,7 @@ public class RegisterViewModel extends AndroidViewModel {
     }
 
     public void createUserOnFirestore(User user, Activity activity){
-        repository.createUserOnFirestore(user);
+        repository.createUserOnFirestore(user, activity);
     }
 
     public LiveData<Task<AuthResult>> registerNewUser(User user, Activity activity){

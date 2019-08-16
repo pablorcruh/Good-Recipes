@@ -84,9 +84,9 @@ public class RegisterActivity extends AppCompatActivity {
                                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     finish();
                                     startActivity(intent);
+                                    registerViewModel.createUserOnFirestore(user, RegisterActivity.this);
                                 }
                             });
-                            registerViewModel.createUserOnFirestore(user, RegisterActivity.this);
                         }
                     }
                 }
