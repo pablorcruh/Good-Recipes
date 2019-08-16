@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -85,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     finish();
                                     startActivity(intent);
                                     registerViewModel.createUserOnFirestore(user, RegisterActivity.this);
+                                    Toast.makeText(RegisterActivity.this, "User successfully created", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
