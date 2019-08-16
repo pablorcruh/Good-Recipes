@@ -7,6 +7,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseUser;
+
 import ec.com.pablorcruh.goodrecipes.model.User;
 import ec.com.pablorcruh.goodrecipes.repository.FirebaseRepository;
 
@@ -24,4 +27,5 @@ public class LoginViewModel extends AndroidViewModel {
     public LiveData<Task<AuthResult>> loginExistingUser(User user, Activity activity){
         return repository.loginExistingUser(user, activity);
     }
+
 }

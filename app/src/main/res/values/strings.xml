@@ -17,7 +17,7 @@
 
     <string name="register_activity_error_passoword_empty">Must enter a password</string>
 
-    <string name="login_activity_register">Register</string>
+    <string name="login_activity_register">If you don\'t have a account please Register</string>
 
     <string name="prompt_email">Email</string>
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
 
-    private Button btnLoginRegister;
+    private TextView tvRegisterLogin;
 
     private Button btnLogin;
 
@@ -51,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         loginEmail.setError(null);
         loginPassword.setError(null);
 
-        btnLoginRegister = findViewById(R.id.button_login_register);
-        btnLoginRegister.setOnClickListener(new View.OnClickListener() {
+        tvRegisterLogin = findViewById(R.id.text_view_login_register);
+        tvRegisterLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -76,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                             public void onChanged(Task<AuthResult> authResultTask) {
                                 if (authResultTask.isSuccessful()) {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+
                                     Toast.makeText(LoginActivity.this, "login successful", Toast.LENGTH_SHORT).show();
                                     finish();
                                     startActivity(intent);
