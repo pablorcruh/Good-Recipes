@@ -63,7 +63,7 @@ public class FirebaseRepository {
         userdb.put("username", user.getUserName());
         userdb.put("email", user.getEmail());
         FirebaseFirestore db= getDatabaseInstance();
-        db.collection("users").document(user.getUserName()).set(userdb)
+        db.collection("users").document(user.getEmail()).set(userdb)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
