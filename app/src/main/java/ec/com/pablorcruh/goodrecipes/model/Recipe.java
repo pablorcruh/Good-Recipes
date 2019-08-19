@@ -1,18 +1,20 @@
 package ec.com.pablorcruh.goodrecipes.model;
 
+import java.util.List;
+
 public class Recipe {
     private String author;
 
-    private String[] ingredientes;
+    private List<String> ingredientes;
 
-    private String[] steps;
+    private List<String> steps;
 
     private String name;
 
     public Recipe() {
     }
 
-    public Recipe(String author, String[] ingredientes, String[] steps, String name) {
+    public Recipe(String author, List<String> ingredientes, List<String> steps, String name) {
         this.author = author;
         this.ingredientes = ingredientes;
         this.steps = steps;
@@ -27,19 +29,19 @@ public class Recipe {
         this.author = author;
     }
 
-    public String[] getIngredientes() {
+    public List<String> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(String[] ingredientes) {
+    public void setIngredientes(List<String> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
-    public String[] getSteps() {
+    public List<String> getSteps() {
         return steps;
     }
 
-    public void setSteps(String[] steps) {
+    public void setSteps(List<String> steps) {
         this.steps = steps;
     }
 
