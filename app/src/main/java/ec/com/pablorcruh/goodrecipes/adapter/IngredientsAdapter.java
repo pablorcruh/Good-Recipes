@@ -32,7 +32,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     @NonNull
     @Override
     public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view =layoutInflater.inflate(R.layout.list_view_item_ingredient, parent, false);
+        View view =layoutInflater.inflate(R.layout.list_item_ingredient, parent, false);
         IngredientViewHolder ingredientViewHolder = new IngredientViewHolder(view);
         return ingredientViewHolder;
     }
