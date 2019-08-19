@@ -8,8 +8,6 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -37,9 +35,9 @@
                 android:textColor="@android:color/white"
                 android:text="Ingredients" />
 
-            <ListView
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@+id/label_ingredientes"
-                android:id="@+id/list_view_ingredients"
+                android:id="@+id/recycler_view_ingredients"
                 android:layout_width="wrap_content"
                 android:layout_height="150dp" />
 
@@ -48,7 +46,7 @@
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
                 android:textColorHint="@android:color/white"
-                android:layout_below="@+id/list_view_ingredients">
+                android:layout_below="@+id/recycler_view_ingredients">
 
                 <EditText
                     android:id="@+id/edit_text_add_ingredient"
@@ -68,21 +66,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-                android:padding="3dp"
-                android:layout_below="@id/text_add_ingredient"
-                android:id="@+id/label_steps"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/robotoslab_bold"
-                android:background="@color/colorPrimary"
-                android:textColor="@android:color/white"
-                android:text="Steps" />
-
-
-
         </RelativeLayout>
     </ScrollView>
-    <Button
+<!--    <Button
         android:id="@+id/button_save"
         android:background="@color/colorPrimary"
         android:text="Save"
@@ -90,6 +76,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        />
+        />-->
 
 </FrameLayout>

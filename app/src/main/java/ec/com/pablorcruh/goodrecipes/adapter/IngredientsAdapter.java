@@ -4,63 +4,77 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
+import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.R;
-import ec.com.pablorcruh.goodrecipes.model.Ingredient;
 
-public class IngredientsAdapter extends BaseAdapter {
+public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientViewHolder> {
 
     private static final String TAG = IngredientsAdapter.class.getName();
 
     private Context context;
 
-    private int layout;
+    private List<String> listIngredients;
 
-    private List<Ingredient> list;
+    private final LayoutInflater layoutInflater;
 
-    public IngredientsAdapter(Context context, int layout, List<Ingredient> list) {
+    public IngredientsAdapter(Context context, List<String> listIngredients) {
         this.context = context;
-        this.layout = layout;
-        this.list = list;
+        this.listIngredients = listIngredients;
+        layoutInflater = LayoutInflater.from(context);
+    }
+
+    @NonNull
+    @Override
+    public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view =layoutInflater.inflate(R.layout.list_view_item_ingredient, parent, false);
+        IngredientViewHolder ingredientViewHolder = new IngredientViewHolder(view);
+        return ingredientViewHolder;
     }
 
     @Override
-    public int getCount() {
-        return list.size();
-    }
-
-    @Override
-    public Ingredient getItem(int position) {
-        return list.get(position);
-    }
-
-    @Override
-    public long getItemId(int id) {
-        return id;
-    }
-
-    @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
-        IngredientViewHolder holder;
-        if(view == null){
-            view = LayoutInflater.from(context).inflate(layout, null);
-            holder = new IngredientViewHolder();
-            holder.ingredient = view.findViewById(R.id.edit_text_item_ingredient);
-            view.setTag(holder);
+    public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position) {
+        if(listIngredients != null){
+            String ingredient = listIngredients.get(position);
+            holder.setData(ingredient, position);
         }else{
-            holder =(IngredientViewHolder) view.getTag();
+            holder.etIngredient.setText("Ingredient no ready");
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        if(listIngredients !=null){
+            return listIngredients.size();
+        }else{
+            return 0;
+        }
+    }
+
+
+    public void setIngredients(List<String> ingredients){
+        listIngredients = ingredients;
+        notifyDataSetChanged();
+    }
+
+    public class IngredientViewHolder extends RecyclerView.ViewHolder {
+
+        private EditText etIngredient;
+        private int mPosition;
+
+        public IngredientViewHolder(@NonNull View itemView) {
+            super(itemView);
+            etIngredient = itemView.findViewById(R.id.edit_text_item_ingredient);
         }
 
-        final Ingredient currentIngredient = getItem(position);
-        holder.ingredient.setText(currentIngredient.getDescription());
-        return view;
-    }
-    static class IngredientViewHolder{
-        private TextView ingredient;
-
+        public void setData(String ingredient, int position) {
+            etIngredient.setText(ingredient);
+            mPosition = position;
+        }
     }
 }

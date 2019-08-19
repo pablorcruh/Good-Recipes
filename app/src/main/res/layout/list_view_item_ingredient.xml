@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <EditText
+        android:hint="Enter new Ingredient"
         android:id="@+id/edit_text_item_ingredient"
         android:fontFamily="@font/robotoslab_bold"
         android:textColor="@color/colorPrimary"
