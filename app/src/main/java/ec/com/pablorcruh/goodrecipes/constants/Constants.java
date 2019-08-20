@@ -10,4 +10,5 @@ public class Constants {
 
     public static final String RECIPE_AUTHOR_COLUMN = "author";
 
+    public static final String PREF_URI = "PREF_URI";
 }

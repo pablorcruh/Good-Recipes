@@ -6,16 +6,13 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0ddb55ac-ffab-4d6c-873d-cbfe672ba629" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/common/SharedPreferencesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/common/SharedPreferencesManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/constants/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/constants/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/fragments/NewRecipeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/fragments/NewRecipeFragment.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,17 +33,30 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/fragments/NewRecipeFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="177" column="104" selection-start-line="177" selection-start-column="104" selection-end-line="177" selection-end-column="104" />
+            <state relative-caret-position="110">
+              <caret line="180" column="21" selection-start-line="180" selection-start-column="21" selection-end-line="180" selection-end-column="21" />
               <folding>
-                <element signature="e#5787#9227#0" expanded="true" />
-                <element signature="e#6954#8320#0" expanded="true" />
-                <element signature="e#7332#7783#0" expanded="true" />
-                <element signature="e#7782#7783#0" expanded="true" />
-                <element signature="e#8319#8320#0" expanded="true" />
-                <element signature="e#9226#9227#0" expanded="true" />
-                <element signature="e#10324#10325#0" expanded="true" />
+                <element signature="e#4433#5154#0" expanded="true" />
+                <element signature="e#5153#5154#0" expanded="true" />
+                <element signature="e#5207#5862#0" expanded="true" />
+                <element signature="e#5861#5862#0" expanded="true" />
+                <element signature="e#5925#9535#0" expanded="true" />
+                <element signature="e#7107#8556#0" expanded="true" />
+                <element signature="e#7525#7993#0" expanded="true" />
+                <element signature="e#7992#7993#0" expanded="true" />
+                <element signature="e#8555#8556#0" expanded="true" />
+                <element signature="e#9534#9535#0" expanded="true" />
+                <element signature="e#10572#10573#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/constants/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="51" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -101,7 +111,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
+              <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
             </state>
           </provider>
           <provider editor-type-id="android-manifest" />
@@ -136,8 +146,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="41">
-              <caret line="74" column="61" selection-start-line="74" selection-start-column="61" selection-end-line="74" selection-end-column="61" />
+            <state relative-caret-position="86">
+              <caret line="77" selection-start-line="77" selection-end-line="77" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2660#3479#0" expanded="true" />
@@ -145,16 +155,6 @@
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/res/layout/fragment_new_recipe.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -189,6 +189,7 @@
       <find>editTextRecipeName</find>
       <find>recipeName</find>
       <find>mupload</find>
+      <find>downloadUrl</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -227,7 +228,6 @@
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/common/MyApp.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/LoginViewModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreQueryLiveData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/constants/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreParameterizedQuerySnapshotLiveData.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreQuerySnapshotLiveData.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/viewmodel/MainViewModel.java" />
@@ -247,6 +247,7 @@
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/common/SharedPreferencesManager.java" />
         <option value="$PROJECT_DIR$/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/constants/Constants.java" />
         <option value="$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/fragments/NewRecipeFragment.java" />
       </list>
     </option>
@@ -591,10 +592,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1417" y="25" width="1315" height="743" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.1607565" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.1607565" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -612,7 +612,7 @@
       <window_info anchor="bottom" id="Build" order="7" weight="0.3306189" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32899022" />
-      <window_info anchor="bottom" id="Logcat" order="10" visible="true" weight="0.3257329" />
+      <window_info active="true" anchor="bottom" id="Logcat" order="10" visible="true" weight="0.3257329" />
       <window_info anchor="right" id="Assistant" order="0" weight="0.32939324" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
@@ -655,12 +655,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java</url>
-          <line>77</line>
-          <properties />
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/RegisterActivity.java</url>
           <line>88</line>
           <properties />
@@ -672,11 +666,16 @@
           <properties />
           <option name="timeStamp" value="30" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/fragments/NewRecipeFragment.java</url>
+          <line>160</line>
+          <properties />
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/di/ApplicationComponent.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/BaseApplication.java" />
     <entry file="file://$PROJECT_DIR$/src/main/res/menu/bottom_navigation.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -765,13 +764,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../settings.gradle">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/constants/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="63" selection-start-line="10" selection-start-column="63" selection-end-line="10" selection-end-column="63" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/repository/firestorelivedata/FirestoreAuthLiveData.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1015,18 +1007,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="74" column="61" selection-start-line="74" selection-start-column="61" selection-end-line="74" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2660#3479#0" expanded="true" />
-            <element signature="e#3478#3479#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/common/SharedPreferencesManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1072,23 +1052,53 @@
     <entry file="file://$PROJECT_DIR$/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
+          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
         </state>
       </provider>
       <provider editor-type-id="android-manifest" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/activities/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="77" selection-start-line="77" selection-end-line="77" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2660#3479#0" expanded="true" />
+            <element signature="e#3478#3479#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/53746c38290d5d43d1ed19820843baa3/jars/classes.jar!/com/google/android/gms/tasks/zzn.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/constants/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="51" selection-start-line="12" selection-start-column="51" selection-end-line="12" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ec/com/pablorcruh/goodrecipes/fragments/NewRecipeFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="177" column="104" selection-start-line="177" selection-start-column="104" selection-end-line="177" selection-end-column="104" />
+        <state relative-caret-position="110">
+          <caret line="180" column="21" selection-start-line="180" selection-start-column="21" selection-end-line="180" selection-end-column="21" />
           <folding>
-            <element signature="e#5787#9227#0" expanded="true" />
-            <element signature="e#6954#8320#0" expanded="true" />
-            <element signature="e#7332#7783#0" expanded="true" />
-            <element signature="e#7782#7783#0" expanded="true" />
-            <element signature="e#8319#8320#0" expanded="true" />
-            <element signature="e#9226#9227#0" expanded="true" />
-            <element signature="e#10324#10325#0" expanded="true" />
+            <element signature="e#4433#5154#0" expanded="true" />
+            <element signature="e#5153#5154#0" expanded="true" />
+            <element signature="e#5207#5862#0" expanded="true" />
+            <element signature="e#5861#5862#0" expanded="true" />
+            <element signature="e#5925#9535#0" expanded="true" />
+            <element signature="e#7107#8556#0" expanded="true" />
+            <element signature="e#7525#7993#0" expanded="true" />
+            <element signature="e#7992#7993#0" expanded="true" />
+            <element signature="e#8555#8556#0" expanded="true" />
+            <element signature="e#9534#9535#0" expanded="true" />
+            <element signature="e#10572#10573#0" expanded="true" />
           </folding>
         </state>
       </provider>
