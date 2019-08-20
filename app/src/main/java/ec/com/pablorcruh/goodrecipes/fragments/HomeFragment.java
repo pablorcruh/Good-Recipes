@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
         liveData.observe(getActivity(), new Observer<QuerySnapshot>() {
             @Override
             public void onChanged(QuerySnapshot queryDocumentSnapshots) {
-                Log.d(TAG, "onChanged: ++++++++++++++++++++++"+queryDocumentSnapshots.size());
+                Log.d(TAG, "onChanged: ++++++++++++++++++++++");
             }
         });
 
