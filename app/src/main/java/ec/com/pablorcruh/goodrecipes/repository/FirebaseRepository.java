@@ -2,7 +2,9 @@ package ec.com.pablorcruh.goodrecipes.repository;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -12,6 +14,7 @@ import androidx.lifecycle.LiveData;
 import com.google.android.gms.stats.GCoreWakefulBroadcastReceiver;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.io.Files;
 import com.google.firebase.auth.AdditionalUserInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -20,10 +23,14 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import ec.com.pablorcruh.goodrecipes.common.Util;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.model.User;
@@ -31,6 +38,9 @@ import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreAuthL
 import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreLoginLiveData;
 import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreParameterizedQuerySnapshotLiveData;
 import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreQuerySnapshotLiveData;
+import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreStorageLiveData;
+
+import static com.google.common.io.Files.getFileExtension;
 
 public class FirebaseRepository {
 
@@ -43,6 +53,8 @@ public class FirebaseRepository {
     private FirebaseFirestore database;
 
     private FirebaseAuth firebaseAuth;
+
+    private StorageReference storeRef;
 
     public FirebaseRepository(Application application) {
         this.application = application;
@@ -117,7 +129,7 @@ public class FirebaseRepository {
     }
 
     public void saveRecipe( Recipe recipe) {
-        DocumentReference docRef = getDatabaseInstance().document("recipe/test");
+        DocumentReference docRef = getDatabaseInstance().document("recipe/" + System.currentTimeMillis());
         docRef.set(recipe)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -136,5 +148,12 @@ public class FirebaseRepository {
     public void logout() {
         Log.d(TAG, "logout: ");
         mAuth.signOut();
+    }
+
+    public LiveData<UploadTask.TaskSnapshot> uploadPhoto(Uri imageUri, Activity activity){
+        storeRef = FirebaseStorage.getInstance().getReference("all");
+        StorageReference fileReference   = storeRef.child(System.currentTimeMillis() + "."+ Util.getFileExtension(imageUri, activity));
+        FirestoreStorageLiveData liveData = new FirestoreStorageLiveData(fileReference, imageUri,  activity);
+        return liveData;
     }
 }

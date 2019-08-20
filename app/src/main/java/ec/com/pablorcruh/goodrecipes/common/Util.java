@@ -1,5 +1,10 @@
 package ec.com.pablorcruh.goodrecipes.common;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+import android.webkit.MimeTypeMap;
+
 public class Util {
 
     public static boolean isValidEmail(String email){
@@ -39,5 +44,11 @@ public class Util {
         }else{
             return false;
         }
+    }
+
+    public static String getFileExtension(Uri uri, Context context) {
+        ContentResolver cR = context.getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 }
