@@ -26,6 +26,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
@@ -62,6 +65,11 @@ public class NewRecipeFragment extends Fragment {
 
     private Recipe recipe;
 
+    private String downloadUrl;
+    private String recipeName;
+    private EditText etDescription;
+    private String recipeDescription;
+
     private static final int PICK_IMAGE_REQUEST =1;
 
     public NewRecipeFragment() {
@@ -83,6 +91,7 @@ public class NewRecipeFragment extends Fragment {
         this.buttonSaveRecipe = view.findViewById(R.id.button_save_recipe);
         this.ivAddImage = view.findViewById(R.id.image_view_add_image);
         this.ivShowRecipeImage =  view.findViewById(R.id.image_view_recipe_image);
+        this.etDescription = view.findViewById(R.id.edit_text_recipe_description);
 
 
         RecyclerView recyclerViewIngredients = view.findViewById(R.id.recycler_view_ingredients);
@@ -133,24 +142,43 @@ public class NewRecipeFragment extends Fragment {
                     Toast.makeText(getActivity(), "Must enter recipe name", Toast.LENGTH_SHORT).show();
                 }else if(stepsArray.isEmpty()){
                     Toast.makeText(getActivity(), "Must enter one step", Toast.LENGTH_SHORT).show();
-                }else if(ingredientsArray.isEmpty()){
+                }else if(ingredientsArray.isEmpty()) {
                     Toast.makeText(getActivity(), "Must enter one ingredient", Toast.LENGTH_SHORT).show();
+                }else if(TextUtils.isEmpty(etDescription.getText().toString())){
+                    Toast.makeText(getActivity(), "Must enter Description", Toast.LENGTH_SHORT).show();
                 }else{
-                    String recipeName = editTextRecipeName.getText().toString();
-                    recipe = new Recipe("", ingredientsArray, stepsArray,recipeName );
+                    recipeDescription = etDescription.getText().toString();
+                    recipeName = editTextRecipeName.getText().toString();
                     if(uriImage !=null){
-                        viewModel.saveRecipe(recipe);
                         LiveData<UploadTask.TaskSnapshot> liveData = viewModel.saveRecipeImage(uriImage, getActivity());
                         liveData.observe(getActivity(), new Observer<UploadTask.TaskSnapshot>() {
                             @Override
-                            public void onChanged(UploadTask.TaskSnapshot taskSnapshot) {
+                            public void onChanged(final UploadTask.TaskSnapshot taskSnapshot) {
                                 Toast.makeText(getActivity(), "Foto subida", Toast.LENGTH_SHORT).show();
+
+                                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        Uri downloadResource = uri;
+                                        if(uri!=null){
+                                            downloadUrl = downloadResource.toString();
+                                            recipe = new Recipe("", ingredientsArray, stepsArray,recipeName, downloadUrl, recipeDescription);
+                                            viewModel.saveRecipe(recipe);
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getActivity(), "An Error ocurred on getting url", Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG, "onFailure:>>>>>>> Error on getting url: "+e);
+                                    }
+                                });
                             }
+
                         });
                     }else{
                         Toast.makeText(getActivity(), "No image was loaded", Toast.LENGTH_SHORT).show();
                     }
-
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_container, new HomeFragment());

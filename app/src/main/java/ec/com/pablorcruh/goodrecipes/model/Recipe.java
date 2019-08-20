@@ -11,14 +11,20 @@ public class Recipe {
 
     private String name;
 
+    private String recipeImageUrl;
+
+    private String description;
+
     public Recipe() {
     }
 
-    public Recipe(String author, List<String> ingredientes, List<String> steps, String name) {
+    public Recipe(String author, List<String> ingredientes, List<String> steps, String name, String recipeImageUrl, String description) {
         this.author = author;
         this.ingredientes = ingredientes;
         this.steps = steps;
         this.name = name;
+        this.recipeImageUrl = recipeImageUrl;
+        this.description = description;
     }
 
     public String getAuthor() {
@@ -51,5 +57,21 @@ public class Recipe {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRecipeImageUrl() {
+        return recipeImageUrl;
+    }
+
+    public void setRecipeImageUrl(String recipeImageUrl) {
+        this.recipeImageUrl = recipeImageUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

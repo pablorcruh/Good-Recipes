@@ -18,7 +18,8 @@
                 android:id="@+id/edit_text_new_recipe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre Receta"
+                android:hint="Recipe name"
+                android:maxLines="1"
                 android:textColor="@color/colorPrimary"
                 android:inputType="text"
                 android:fontFamily="@font/robotoslab_bold"
@@ -132,12 +133,38 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"/>
 
+
+            <TextView
+                android:id="@+id/label_recipe_description"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view_steps"
+                android:padding="3dp"
+                android:fontFamily="@font/robotoslab_bold"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:text="Recipe Description" />
+
+            <EditText
+                android:id="@+id/edit_text_recipe_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Description"
+                android:maxLines="3"
+                android:textColor="@color/colorPrimary"
+                android:inputType="text"
+                android:fontFamily="@font/robotoslab_bold"
+                app:layout_constraintTop_toBottomOf="@+id/label_recipe_description"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
             <TextView
                 android:id="@+id/label_recipe_image"
                 android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/recycler_view_steps"
+                app:layout_constraintTop_toBottomOf="@+id/edit_text_recipe_description"
                 android:padding="3dp"
                 android:fontFamily="@font/robotoslab_bold"
                 android:background="@color/colorPrimary"
