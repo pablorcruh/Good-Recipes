@@ -37,6 +37,8 @@ import java.util.List;
 import ec.com.pablorcruh.goodrecipes.R;
 import ec.com.pablorcruh.goodrecipes.adapter.IngredientsAdapter;
 import ec.com.pablorcruh.goodrecipes.adapter.StepAdapter;
+import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
+import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreStorageLiveData;
 import ec.com.pablorcruh.goodrecipes.viewmodel.NewRecipeViewModel;
@@ -173,7 +175,7 @@ public class NewRecipeFragment extends Fragment {
                     }else{
                         Toast.makeText(getActivity(), "No image was loaded", Toast.LENGTH_SHORT).show();
                     }
-                    recipe = new Recipe("", ingredientsArray, stepsArray,recipeName, downloadUrl, recipeDescription);
+                    recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray,recipeName, downloadUrl, recipeDescription);
                     viewModel.saveRecipe(recipe);
                     FragmentManager fragmentManager = getFragmentManager();
                     for(int i=0; i<fragmentManager.getBackStackEntryCount(); i++){

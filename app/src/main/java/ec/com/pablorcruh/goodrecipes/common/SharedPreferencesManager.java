@@ -7,6 +7,10 @@ public class SharedPreferencesManager {
 
     private static final String APP_SETTINGS_FILE = "APP_SETTINGS";
 
+    private SharedPreferencesManager(){
+
+    }
+
     private static SharedPreferences getSharedPreferences(){
         return MyApp.getContext().getSharedPreferences(APP_SETTINGS_FILE, Context.MODE_PRIVATE);
     }
