@@ -155,16 +155,11 @@ public class NewRecipeFragment extends Fragment {
                             @Override
                             public void onChanged(final UploadTask.TaskSnapshot taskSnapshot) {
                                 Toast.makeText(getActivity(), "Foto subida", Toast.LENGTH_SHORT).show();
-
                                 taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {
                                         Uri downloadResource = uri;
-                                        if(uri!=null){
-                                            downloadUrl = downloadResource.toString();
-                                            recipe = new Recipe("", ingredientsArray, stepsArray,recipeName, downloadUrl, recipeDescription);
-                                            viewModel.saveRecipe(recipe);
-                                        }
+                                        downloadUrl = downloadResource.toString();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -174,12 +169,16 @@ public class NewRecipeFragment extends Fragment {
                                     }
                                 });
                             }
-
                         });
                     }else{
                         Toast.makeText(getActivity(), "No image was loaded", Toast.LENGTH_SHORT).show();
                     }
+                    recipe = new Recipe("", ingredientsArray, stepsArray,recipeName, downloadUrl, recipeDescription);
+                    viewModel.saveRecipe(recipe);
                     FragmentManager fragmentManager = getFragmentManager();
+                    for(int i=0; i<fragmentManager.getBackStackEntryCount(); i++){
+                        fragmentManager.popBackStack();
+                    }
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_container, new HomeFragment());
                     fragmentTransaction.addToBackStack(null);
