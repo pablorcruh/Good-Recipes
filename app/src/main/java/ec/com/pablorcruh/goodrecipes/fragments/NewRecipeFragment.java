@@ -223,8 +223,9 @@ public class NewRecipeFragment extends Fragment {
         }
     }
 
+
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
