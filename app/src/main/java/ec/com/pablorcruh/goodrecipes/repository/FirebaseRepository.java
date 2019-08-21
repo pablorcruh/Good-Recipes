@@ -1,9 +1,5 @@
 package ec.com.pablorcruh.goodrecipes.repository;
 
-import android.app.Activity;
-import android.app.Application;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
@@ -11,11 +7,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import com.google.android.gms.stats.GCoreWakefulBroadcastReceiver;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.common.io.Files;
-import com.google.firebase.auth.AdditionalUserInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +23,8 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 import java.util.Map;
 
+import ec.com.pablorcruh.goodrecipes.common.MyApp;
+import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
 import ec.com.pablorcruh.goodrecipes.common.Util;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
@@ -40,15 +35,12 @@ import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreParam
 import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreQuerySnapshotLiveData;
 import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreStorageLiveData;
 
-import static com.google.common.io.Files.getFileExtension;
 
 public class FirebaseRepository {
 
     private static final String TAG = FirebaseRepository.class.getName();
 
-    private static FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-    private Application application;
+    private static FirebaseAuth  mAuth;
 
     private FirebaseFirestore database;
 
@@ -56,56 +48,48 @@ public class FirebaseRepository {
 
     private StorageReference storeRef;
 
-    public FirebaseRepository(Application application) {
-        this.application = application;
-    }
-
-    public FirebaseFirestore getDatabaseInstance() {
-        return database = FirebaseFirestore.getInstance();
-    }
-
-    public FirebaseAuth getAuthInstance() {
-        return firebaseAuth = FirebaseAuth.getInstance();
+    public FirebaseRepository() {
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
 
-    public FirestoreAuthLiveData registerNewUser(User user, Activity activity) {
-        FirebaseAuth firebaseAuth = getAuthInstance();
-        FirestoreAuthLiveData authLiveData = new FirestoreAuthLiveData(firebaseAuth, activity, user);
+    public FirestoreAuthLiveData registerNewUser(User user) {
+        FirestoreAuthLiveData authLiveData = new FirestoreAuthLiveData(firebaseAuth, user);
         return authLiveData;
     }
 
 
-    public FirestoreLoginLiveData loginExistingUser(User user, Activity activity) {
-        FirebaseAuth firebaseAuth = getAuthInstance();
-        FirestoreLoginLiveData loginLiveData = new FirestoreLoginLiveData(firebaseAuth, activity, user);
+    public FirestoreLoginLiveData loginExistingUser(User user) {
+        FirestoreLoginLiveData loginLiveData = new FirestoreLoginLiveData(firebaseAuth, user);
         return loginLiveData;
     }
 
-    public void createUserOnFirestore(User user, final Activity activity) {
+    public void createUserOnFirestore(User user) {
         Map<String, Object> userdb = new HashMap<>();
         userdb.put("username", user.getUserName());
         userdb.put("email", user.getEmail());
-        FirebaseFirestore db = getDatabaseInstance();
+        FirebaseFirestore db = database;
         db.collection(Constants.USER_COLLECTION).document(user.getEmail()).set(userdb)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "onSuccess: user saved");
-                        Toast.makeText(activity, "User Saved", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MyApp.getContext(), "User Saved", Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "onFailure: ", e.getCause());
-                        Toast.makeText(activity, "Error!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MyApp.getContext(), "Error!", Toast.LENGTH_LONG).show();
                     }
                 });
     }
 
     public FirebaseUser getCurrentUser() throws FirebaseAuthException {
-        FirebaseUser currentUser = getAuthInstance().getCurrentUser();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser == null) {
             throw new FirebaseAuthException("User not found", "User not found");
         } else {
@@ -114,33 +98,35 @@ public class FirebaseRepository {
     }
 
     public LiveData<QuerySnapshot> getUserRecipe(String email) {
-        FirebaseFirestore db = getDatabaseInstance();
+        FirebaseFirestore db = database;
         CollectionReference colRef = db.collection(Constants.RECIPE_COLLECTION);
         FirestoreParameterizedQuerySnapshotLiveData livedata = new FirestoreParameterizedQuerySnapshotLiveData(colRef, Constants.RECIPE_AUTHOR_COLUMN, email);
         return livedata;
     }
 
 
-    public LiveData<QuerySnapshot> getAllRecipes(Activity activity) {
-        FirebaseFirestore db = getDatabaseInstance();
+    public LiveData<QuerySnapshot> getAllRecipes() {
+        FirebaseFirestore db = database;
         CollectionReference colRef = db.collection(Constants.RECIPE_COLLECTION);
-        FirestoreQuerySnapshotLiveData liveData = new FirestoreQuerySnapshotLiveData(colRef, activity);
+        FirestoreQuerySnapshotLiveData liveData = new FirestoreQuerySnapshotLiveData(colRef);
         return liveData;
     }
 
     public void saveRecipe( Recipe recipe) {
-        DocumentReference docRef = getDatabaseInstance().document("recipe/" + System.currentTimeMillis());
+        Long recipeId = System.currentTimeMillis();
+        SharedPreferencesManager.setSomeLongValue(Constants.PREF_ID_RECIPE, recipeId);
+        DocumentReference docRef = database.document("recipe/" + recipeId);
         docRef.set(recipe)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(application, "Guardado con exito", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyApp.getContext(), "Guardado con exito", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(application, "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyApp.getContext(), "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -150,10 +136,23 @@ public class FirebaseRepository {
         mAuth.signOut();
     }
 
-    public LiveData<UploadTask.TaskSnapshot> uploadPhoto(Uri imageUri, Activity activity){
+    public LiveData<UploadTask.TaskSnapshot> uploadPhoto(Uri imageUri){
         storeRef = FirebaseStorage.getInstance().getReference("all");
-        StorageReference fileReference   = storeRef.child(System.currentTimeMillis() + "."+ Util.getFileExtension(imageUri, activity));
-        FirestoreStorageLiveData liveData = new FirestoreStorageLiveData(fileReference, imageUri,  activity);
+        StorageReference fileReference   = storeRef.child(System.currentTimeMillis() + "."+ Util.getFileExtension(imageUri));
+        FirestoreStorageLiveData liveData = new FirestoreStorageLiveData(fileReference, imageUri);
         return liveData;
     }
+
+    public void updateRecipe(String imageUri){
+        Long idRecipe = SharedPreferencesManager.getSomeLongValue(Constants.PREF_ID_RECIPE);
+        DocumentReference recipe = database.collection("recipe").document(""+idRecipe);
+        recipe.update(Constants.URL_IMAGE,imageUri)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MyApp.getContext(), "Image Updated", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 }

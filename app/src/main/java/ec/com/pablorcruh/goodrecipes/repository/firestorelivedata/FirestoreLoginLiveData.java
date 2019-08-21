@@ -17,23 +17,21 @@ public class FirestoreLoginLiveData extends LiveData<Task<AuthResult>> {
     private static final String TAG = FirestoreLoginLiveData.class.getName();
     private final MyValueEventListener listener = new MyValueEventListener();
     private final FirebaseAuth mAuth;
-    private Activity activity;
     private User user;
 
 
-    public FirestoreLoginLiveData(FirebaseAuth mAuth, Activity activity, User user) {
+    public FirestoreLoginLiveData(FirebaseAuth mAuth, User user) {
         this.mAuth = mAuth;
-        this.activity = activity;
         this.user=user;    }
 
     @Override
     protected void onActive() {
-        mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(activity, listener);
+        mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(listener);
     }
 
     @Override
     protected void onInactive() {
-        mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(activity, listener);
+        mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(listener);
     }
 
     private class MyValueEventListener implements OnCompleteListener<AuthResult>{

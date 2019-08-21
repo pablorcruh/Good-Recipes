@@ -1,6 +1,5 @@
 package ec.com.pablorcruh.goodrecipes.viewmodel;
 
-import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
@@ -22,7 +21,7 @@ public class MainViewModel extends AndroidViewModel {
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        repository = new FirebaseRepository(application);
+        repository = new FirebaseRepository();
     }
 
     public FirebaseUser getCurrentUser() throws FirebaseAuthException {
@@ -39,7 +38,7 @@ public class MainViewModel extends AndroidViewModel {
         return repository.getUserRecipe(email);
     }
 
-    public LiveData<QuerySnapshot> getAllRecipes(Activity activity){
-        return repository.getAllRecipes(activity);
+    public LiveData<QuerySnapshot> getAllRecipes(){
+        return repository.getAllRecipes();
     }
 }

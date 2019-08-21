@@ -1,7 +1,5 @@
 package ec.com.pablorcruh.goodrecipes.repository.firestorelivedata;
 
-import android.app.Activity;
-
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.firestore.CollectionReference;
@@ -14,24 +12,22 @@ import javax.annotation.Nullable;
 public class FirestoreQuerySnapshotLiveData extends LiveData<QuerySnapshot> {
 
     private final CollectionReference colRef;
-    private final Activity activity;
 
-    public FirestoreQuerySnapshotLiveData(CollectionReference colRef, Activity activity){
+    public FirestoreQuerySnapshotLiveData(CollectionReference colRef){
         this.colRef = colRef;
-        this.activity = activity;
     }
 
     private final MyValueEventListener listener = new MyValueEventListener();
 
     @Override
     protected void onActive() {
-        colRef.addSnapshotListener(activity, listener);
+        colRef.addSnapshotListener(listener);
     }
 
 
     @Override
     protected void onInactive() {
-        colRef.addSnapshotListener(activity, listener);
+        colRef.addSnapshotListener(listener);
     }
 
     private class MyValueEventListener implements EventListener<QuerySnapshot> {

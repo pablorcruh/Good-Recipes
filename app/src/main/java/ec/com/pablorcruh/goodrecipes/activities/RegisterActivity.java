@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if (isEmailValid(userEmail)) {
                         if (isPasswordValid(userPassword, userConfirmPassword)) {
                             user = new User(username, userEmail, userPassword);
-                            LiveData<Task<AuthResult>> liveData = registerViewModel.registerNewUser(user, RegisterActivity.this);
+                            LiveData<Task<AuthResult>> liveData = registerViewModel.registerNewUser(user);
                             liveData.observe(RegisterActivity.this, new Observer<Task<AuthResult>>() {
                                 @Override
                                 public void onChanged(Task<AuthResult> authResultTask) {
@@ -85,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     finish();
                                     startActivity(intent);
-                                    registerViewModel.createUserOnFirestore(user, RegisterActivity.this);
+                                    registerViewModel.createUserOnFirestore(user);
                                     Toast.makeText(RegisterActivity.this, "User successfully created", Toast.LENGTH_SHORT).show();
                                 }
                             });

@@ -24,4 +24,14 @@ public class SharedPreferencesManager {
     public static String getSomeStringValue(String dataLabel){
         return getSharedPreferences().getString(dataLabel, null);
     }
+
+    public static void setSomeLongValue(String dataLabel, Long dataValue){
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        editor.putLong(dataLabel, dataValue);
+        editor.commit();
+    }
+
+    public static Long getSomeLongValue(String dataLabel){
+        return getSharedPreferences().getLong(dataLabel, 0L);
+    }
 }

@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                 User user = new User(userEmail, userPassword.toString());
                 if (isEmailValid(userEmail)) {
                     if (isPasswordValid(userPassword)) {
-                        LiveData<Task<AuthResult>> liveData = loginViewModel.loginExistingUser(user, LoginActivity.this);
+                        LiveData<Task<AuthResult>> liveData = loginViewModel.loginExistingUser(user);
                         liveData.observe(LoginActivity.this, new Observer<Task<AuthResult>>() {
                             @Override
                             public void onChanged(Task<AuthResult> authResultTask) {

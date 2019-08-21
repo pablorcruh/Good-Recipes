@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -38,13 +39,17 @@ public class HomeFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        liveData = mainViewModel.getAllRecipes(getActivity());
+        liveData = mainViewModel.getAllRecipes();
         liveData.observe(getActivity(), new Observer<QuerySnapshot>() {
             @Override
             public void onChanged(QuerySnapshot documentSnapshots) {

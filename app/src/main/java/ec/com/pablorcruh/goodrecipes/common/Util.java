@@ -1,7 +1,6 @@
 package ec.com.pablorcruh.goodrecipes.common;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
@@ -46,8 +45,8 @@ public class Util {
         }
     }
 
-    public static String getFileExtension(Uri uri, Context context) {
-        ContentResolver cR = context.getContentResolver();
+    public static String getFileExtension(Uri uri) {
+        ContentResolver cR = MyApp.getContext().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }

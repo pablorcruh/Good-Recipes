@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ import ec.com.pablorcruh.goodrecipes.adapter.StepAdapter;
 import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
-import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreStorageLiveData;
 import ec.com.pablorcruh.goodrecipes.viewmodel.NewRecipeViewModel;
 
 import static android.app.Activity.RESULT_OK;
@@ -75,12 +73,17 @@ public class NewRecipeFragment extends Fragment {
     public NewRecipeFragment() {
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(getActivity()).get(NewRecipeViewModel.class);
+
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_recipe, container, false);
-        viewModel = ViewModelProviders.of(getActivity()).get(NewRecipeViewModel.class);
 
         this.editTextNewIngredient = view.findViewById(R.id.edit_text_add_ingredient);
         this.editTextRecipeName = view.findViewById(R.id.edit_text_new_recipe);
@@ -148,8 +151,12 @@ public class NewRecipeFragment extends Fragment {
                 } else {
                     recipeDescription = etDescription.getText().toString();
                     recipeName = editTextRecipeName.getText().toString();
+
+                    recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray, recipeName,"", recipeDescription);
+                    viewModel.saveRecipe(recipe);
+
                     if (uriImage != null) {
-                        LiveData<UploadTask.TaskSnapshot> liveData = viewModel.saveRecipeImage(uriImage, getActivity());
+                        LiveData<UploadTask.TaskSnapshot> liveData = viewModel.saveRecipeImage(uriImage);
                         liveData.observe(getActivity(), new Observer<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onChanged(final UploadTask.TaskSnapshot taskSnapshot) {
@@ -158,7 +165,8 @@ public class NewRecipeFragment extends Fragment {
                                             @Override
                                             public void onSuccess(Uri uri) {
                                                 Uri downloadResource = uri;
-                                                SharedPreferencesManager.setSomeStringValue(Constants.PREF_URI, downloadResource.toString());;
+                                                viewModel.updateRecipe(uri.toString());
+
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
@@ -172,8 +180,6 @@ public class NewRecipeFragment extends Fragment {
                     } else {
                         Toast.makeText(getActivity(), "No image was loaded", Toast.LENGTH_SHORT).show();
                     }
-                    recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray, recipeName, SharedPreferencesManager.getSomeStringValue(Constants.PREF_URI), recipeDescription);
-                    viewModel.saveRecipe(recipe);
                     FragmentManager fragmentManager = getFragmentManager();
                     for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
                         fragmentManager.popBackStack();
