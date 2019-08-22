@@ -38,9 +38,10 @@ public class FirestoreStorageLiveData extends LiveData<UploadTask.TaskSnapshot> 
 
     @Override
     protected void onInactive() {
-        storageReference.putFile(imageUri)
-                .addOnSuccessListener(listener)
-                .addOnFailureListener(listener);    }
+        super.onInactive();
+        Toast.makeText(MyApp.getContext(), ">>>>>>>>>>>>>>> onInactive", Toast.LENGTH_SHORT).show();
+
+    }
 
     private class MyValueEventListener implements OnSuccessListener<UploadTask.TaskSnapshot>, OnFailureListener {
         @Override

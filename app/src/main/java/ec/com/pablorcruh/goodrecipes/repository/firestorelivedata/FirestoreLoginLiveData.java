@@ -31,7 +31,7 @@ public class FirestoreLoginLiveData extends LiveData<Task<AuthResult>> {
 
     @Override
     protected void onInactive() {
-        mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(listener);
+        super.onInactive();
     }
 
     private class MyValueEventListener implements OnCompleteListener<AuthResult>{

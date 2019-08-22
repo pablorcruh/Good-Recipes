@@ -27,7 +27,7 @@ public class FirestoreQuerySnapshotLiveData extends LiveData<QuerySnapshot> {
 
     @Override
     protected void onInactive() {
-        colRef.addSnapshotListener(listener);
+        super.onInactive();
     }
 
     private class MyValueEventListener implements EventListener<QuerySnapshot> {

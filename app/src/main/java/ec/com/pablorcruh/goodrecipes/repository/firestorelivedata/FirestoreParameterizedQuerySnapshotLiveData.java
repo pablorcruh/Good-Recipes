@@ -28,7 +28,7 @@ public class FirestoreParameterizedQuerySnapshotLiveData extends LiveData<QueryS
 
     @Override
     protected void onInactive() {
-        colRef.whereEqualTo(parameter,criteria).get().addOnSuccessListener(listener);
+        super.onInactive();
     }
 
     private class MyValueEventListener implements OnSuccessListener<QuerySnapshot> {

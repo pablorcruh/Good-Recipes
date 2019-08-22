@@ -188,6 +188,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                     fragmentTransaction.replace(R.id.fragment_container, new HomeFragment());
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
+
                 }
             }
         });
@@ -223,11 +224,6 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
         }
     }
 
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void onDeleteIngredientClickListener(String ingredient) {
