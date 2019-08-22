@@ -14,4 +14,5 @@ public class Constants {
 
     public static final String URL_IMAGE = "recipeImageUrl";
 
+    public static final String ARG_RECIPE_ID = "ARG_RECIPE_ID";
 }

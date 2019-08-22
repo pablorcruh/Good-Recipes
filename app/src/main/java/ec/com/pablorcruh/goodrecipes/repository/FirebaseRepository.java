@@ -115,7 +115,7 @@ public class FirebaseRepository {
     public void saveRecipe( Recipe recipe) {
         Long recipeId = System.currentTimeMillis();
         SharedPreferencesManager.setSomeLongValue(Constants.PREF_ID_RECIPE, recipeId);
-        DocumentReference docRef = database.document("recipe/" + recipeId);
+        DocumentReference docRef = database.document(Constants.RECIPE_COLLECTION +"/" + recipeId);
         docRef.set(recipe)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -145,7 +145,7 @@ public class FirebaseRepository {
 
     public void updateRecipe(String imageUri){
         Long idRecipe = SharedPreferencesManager.getSomeLongValue(Constants.PREF_ID_RECIPE);
-        DocumentReference recipe = database.collection("recipe").document(""+idRecipe);
+        DocumentReference recipe = database.collection(Constants.RECIPE_COLLECTION +"/" ).document(""+idRecipe);
         recipe.update(Constants.URL_IMAGE,imageUri)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

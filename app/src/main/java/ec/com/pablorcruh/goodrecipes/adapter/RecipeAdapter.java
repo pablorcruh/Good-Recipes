@@ -1,6 +1,7 @@
 package ec.com.pablorcruh.goodrecipes.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,19 +19,26 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.R;
-import ec.com.pablorcruh.goodrecipes.common.MyApp;
+import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
+import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
+import ec.com.pablorcruh.goodrecipes.viewmodel.MainViewModel;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
+    private static final String TAG  =  RecipeAdapter.class.getName();
     private Context context;
     private List<Recipe> recipeList;
     private final LayoutInflater layoutInflater;
+    private String user;
+    private MainViewModel mainViewModel;
 
     public RecipeAdapter(Context context, List<Recipe> recipeList) {
         this.context = context;
         this.recipeList = recipeList;
         layoutInflater = LayoutInflater.from(context);
+        user = SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL);
+        mainViewModel = ViewModelProviders.of((FragmentActivity) context).get(MainViewModel.class);
     }
 
     @NonNull
@@ -40,10 +50,24 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final RecipeViewHolder holder, int position) {
         if(recipeList != null){
             Recipe recipe = recipeList.get(position);
+            holder.mRecipe = recipe;
             holder.setData(recipe, position);
+            holder.ivRecipeAction.setVisibility(View.GONE);
+            if(holder.mRecipe.getAuthor().equals(user)){
+                holder.ivRecipeAction.setVisibility(View.VISIBLE);
+            }
+
+            holder.ivRecipeAction.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, "onClick: >>>>>>>>>>>>>>>"+holder.mRecipe.getId());
+                    mainViewModel.openDialogRecipeMenu(context,holder.mRecipe.getId());
+                }
+            });
+
         }else{
             Toast.makeText(context, "No data available", Toast.LENGTH_SHORT).show();
         }
@@ -67,12 +91,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         private TextView tvRecipeName;
         private TextView tvRecipeDescription;
         private ImageView ivRecipeImage;
+        private ImageView ivRecipeAction;
+        private Recipe mRecipe;
+
         private int mPosition;
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
             tvRecipeName = itemView.findViewById(R.id.label_item_recipe_name);
             tvRecipeDescription = itemView.findViewById(R.id.label_item_recipe_description);
             ivRecipeImage = itemView.findViewById(R.id.image_view_item_recipe_image);
+            ivRecipeAction = itemView.findViewById(R.id.image_view_recipe_action);
         }
 
         public void setData(Recipe recipe, int position) {

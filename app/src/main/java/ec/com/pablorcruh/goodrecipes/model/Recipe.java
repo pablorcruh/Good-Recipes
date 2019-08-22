@@ -3,6 +3,9 @@ package ec.com.pablorcruh.goodrecipes.model;
 import java.util.List;
 
 public class Recipe {
+
+    private String id;
+
     private String author;
 
     private List<String> ingredientes;
@@ -73,5 +76,13 @@ public class Recipe {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
                 recipeList = new ArrayList<>();
                 for(QueryDocumentSnapshot recipeSnapshot:documentSnapshots){
                     Recipe recipe = recipeSnapshot.toObject(Recipe.class);
+                    recipe.setId(recipeSnapshot.getId().toString());
                     recipeList.add(recipe);
                 }
                 adapterRecipe.setRecipes(recipeList);

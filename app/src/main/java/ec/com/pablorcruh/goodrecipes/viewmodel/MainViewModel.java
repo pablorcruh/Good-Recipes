@@ -1,9 +1,11 @@
 package ec.com.pablorcruh.goodrecipes.viewmodel;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -11,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import ec.com.pablorcruh.goodrecipes.fragments.BottomModalRecipeFragment;
 import ec.com.pablorcruh.goodrecipes.repository.FirebaseRepository;
 
 public class MainViewModel extends AndroidViewModel {
@@ -40,5 +43,11 @@ public class MainViewModel extends AndroidViewModel {
 
     public LiveData<QuerySnapshot> getAllRecipes(){
         return repository.getAllRecipes();
+    }
+
+
+    public void openDialogRecipeMenu(Context context, String recipeId){
+        BottomModalRecipeFragment dialogFragment = BottomModalRecipeFragment.newInstance(recipeId);
+        dialogFragment.show(((AppCompatActivity)context).getSupportFragmentManager(), "BottomModalRecipeFragment");
     }
 }
