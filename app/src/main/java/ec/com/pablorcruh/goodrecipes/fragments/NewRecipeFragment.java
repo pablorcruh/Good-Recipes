@@ -67,6 +67,7 @@ public class NewRecipeFragment extends Fragment {
     private String recipeName;
     private EditText etDescription;
     private String recipeDescription;
+    private LiveData<UploadTask.TaskSnapshot> liveData;
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -139,7 +140,7 @@ public class NewRecipeFragment extends Fragment {
 
         this.buttonSaveRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 if (TextUtils.isEmpty(editTextRecipeName.getText().toString())) {
                     Toast.makeText(getActivity(), "Must enter recipe name", Toast.LENGTH_SHORT).show();
                 } else if (stepsArray.isEmpty()) {
@@ -156,7 +157,7 @@ public class NewRecipeFragment extends Fragment {
                     viewModel.saveRecipe(recipe);
 
                     if (uriImage != null) {
-                        LiveData<UploadTask.TaskSnapshot> liveData = viewModel.saveRecipeImage(uriImage);
+                        liveData = viewModel.saveRecipeImage(uriImage);
                         liveData.observe(getActivity(), new Observer<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onChanged(final UploadTask.TaskSnapshot taskSnapshot) {
@@ -166,7 +167,6 @@ public class NewRecipeFragment extends Fragment {
                                             public void onSuccess(Uri uri) {
                                                 Uri downloadResource = uri;
                                                 viewModel.updateRecipe(uri.toString());
-
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
@@ -175,6 +175,7 @@ public class NewRecipeFragment extends Fragment {
                                             Log.d(TAG, "onFailure:>>>>>>> Error on getting url: " + e);
                                     }
                                 });
+
                             }
                         });
                     } else {
