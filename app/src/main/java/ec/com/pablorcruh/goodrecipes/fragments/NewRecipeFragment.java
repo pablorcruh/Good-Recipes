@@ -43,7 +43,7 @@ import ec.com.pablorcruh.goodrecipes.viewmodel.NewRecipeViewModel;
 
 import static android.app.Activity.RESULT_OK;
 
-public class NewRecipeFragment extends Fragment {
+public class NewRecipeFragment extends Fragment implements IngredientsAdapter.OnDeleteClickListener {
 
     private static final String TAG = NewRecipeFragment.class.getName();
 
@@ -98,7 +98,7 @@ public class NewRecipeFragment extends Fragment {
 
 
         RecyclerView recyclerViewIngredients = view.findViewById(R.id.recycler_view_ingredients);
-        adapterIngredients = new IngredientsAdapter(getActivity(), ingredientsArray);
+        adapterIngredients = new IngredientsAdapter(getActivity(), ingredientsArray, this);
         recyclerViewIngredients.setAdapter(adapterIngredients);
         recyclerViewIngredients.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -228,5 +228,11 @@ public class NewRecipeFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onDeleteClickListener(String ingredient) {
+        ingredientsArray.remove(ingredient);
+        adapterIngredients.notifyDataSetChanged();
     }
 }

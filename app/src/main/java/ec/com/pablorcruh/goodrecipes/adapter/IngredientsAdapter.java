@@ -4,7 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,10 +24,13 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
     private final LayoutInflater layoutInflater;
 
-    public IngredientsAdapter(Context context, List<String> listIngredients) {
+    private OnDeleteClickListener onDeleteClickListener;
+
+    public IngredientsAdapter(Context context, List<String> listIngredients, OnDeleteClickListener listener) {
         this.context = context;
         this.listIngredients = listIngredients;
         layoutInflater = LayoutInflater.from(context);
+        this.onDeleteClickListener = listener;
     }
 
     @NonNull
@@ -42,8 +46,9 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         if(listIngredients != null){
             String ingredient = listIngredients.get(position);
             holder.setData(ingredient, position);
+            holder.setListener();
         }else{
-            holder.etIngredient.setText("Ingredient no ready");
+            holder.tvIngredient.setText("Ingredient no ready");
         }
     }
 
@@ -64,17 +69,36 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
     public class IngredientViewHolder extends RecyclerView.ViewHolder {
 
-        private EditText etIngredient;
+        private TextView tvIngredient;
+        private ImageView ivDeleteIngredient;
         private int mPosition;
 
         public IngredientViewHolder(@NonNull View itemView) {
             super(itemView);
-            etIngredient = itemView.findViewById(R.id.edit_text_item_ingredient);
+            tvIngredient = itemView.findViewById(R.id.text_view_item_ingredient);
+            ivDeleteIngredient = itemView.findViewById(R.id.image_view_remove_item);
         }
 
         public void setData(String ingredient, int position) {
-            etIngredient.setText(ingredient);
+            tvIngredient.setText(ingredient);
             mPosition = position;
         }
+
+        public void setListener() {
+            ivDeleteIngredient.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(onDeleteClickListener !=null){
+                        onDeleteClickListener.onDeleteClickListener(listIngredients.get(mPosition));
+                    }
+                }
+            });
+        }
+
+
+    }
+
+    public interface OnDeleteClickListener{
+        void onDeleteClickListener(String ingredient);
     }
 }
