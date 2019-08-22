@@ -1,6 +1,5 @@
 package ec.com.pablorcruh.goodrecipes.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,7 +42,7 @@ import ec.com.pablorcruh.goodrecipes.viewmodel.NewRecipeViewModel;
 
 import static android.app.Activity.RESULT_OK;
 
-public class NewRecipeFragment extends Fragment implements IngredientsAdapter.OnDeleteClickListener, StepAdapter.OnDeleteStepClickListener {
+public class NewRecipeFragment extends Fragment implements IngredientsAdapter.OnDeleteIngredientClickListener, StepAdapter.OnDeleteStepClickListener {
 
     private static final String TAG = NewRecipeFragment.class.getName();
 
@@ -231,7 +230,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
     }
 
     @Override
-    public void onDeleteClickListener(String ingredient) {
+    public void onDeleteIngredientClickListener(String ingredient) {
         ingredientsArray.remove(ingredient);
         adapterIngredients.notifyDataSetChanged();
     }

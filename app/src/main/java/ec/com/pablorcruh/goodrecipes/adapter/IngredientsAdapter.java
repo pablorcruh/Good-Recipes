@@ -24,13 +24,13 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
     private final LayoutInflater layoutInflater;
 
-    private OnDeleteClickListener onDeleteClickListener;
+    private OnDeleteIngredientClickListener onDeleteIngredientClickListener;
 
-    public IngredientsAdapter(Context context, List<String> listIngredients, OnDeleteClickListener listener) {
+    public IngredientsAdapter(Context context, List<String> listIngredients, OnDeleteIngredientClickListener listener) {
         this.context = context;
         this.listIngredients = listIngredients;
         layoutInflater = LayoutInflater.from(context);
-        this.onDeleteClickListener = listener;
+        this.onDeleteIngredientClickListener = listener;
     }
 
     @NonNull
@@ -88,8 +88,8 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
             ivDeleteIngredient.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(onDeleteClickListener !=null){
-                        onDeleteClickListener.onDeleteClickListener(listIngredients.get(mPosition));
+                    if(onDeleteIngredientClickListener !=null){
+                        onDeleteIngredientClickListener.onDeleteIngredientClickListener(listIngredients.get(mPosition));
                     }
                 }
             });
@@ -98,7 +98,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
     }
 
-    public interface OnDeleteClickListener{
-        void onDeleteClickListener(String ingredient);
+    public interface OnDeleteIngredientClickListener {
+        void onDeleteIngredientClickListener(String ingredient);
     }
 }
