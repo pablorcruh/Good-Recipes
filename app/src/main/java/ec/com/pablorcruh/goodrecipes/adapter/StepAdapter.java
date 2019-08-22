@@ -4,7 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,10 +19,12 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     private Context context;
     private List<String> stepList;
     private final LayoutInflater layoutInflater;
+    private OnDeleteStepClickListener onDeleteStepClickListener;
 
-    public StepAdapter(Context context, List<String> stepList){
+    public StepAdapter(Context context, List<String> stepList, OnDeleteStepClickListener listener){
         this.context = context;
         this.stepList = stepList;
+        this.onDeleteStepClickListener = listener;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -38,6 +41,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         if(stepList != null){
             String step = stepList.get(position);
             holder.setData(step, position);
+            holder.setListeners();
         }
     }
 
@@ -56,17 +60,33 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     }
 
     public class StepViewHolder extends RecyclerView.ViewHolder {
-        private EditText etStep;
+        private TextView tvStep;
         private int mPosition;
+        private ImageView ivDeleteStep;
 
         public StepViewHolder(@NonNull View itemView) {
             super(itemView);
-            etStep = itemView.findViewById(R.id.edit_text_item_step);
+            tvStep = itemView.findViewById(R.id.text_view_item_step);
+            ivDeleteStep = itemView.findViewById(R.id.image_view_remove_step);
         }
 
         public void setData(String step, int position) {
             mPosition = position;
-            etStep.setText(step);
+            tvStep.setText(step);
         }
+
+
+        public void setListeners() {
+            ivDeleteStep.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onDeleteStepClickListener.onDeleteClickStepListener(stepList.get(mPosition));
+                }
+            });
+        }
+    }
+
+    public interface OnDeleteStepClickListener{
+        void onDeleteClickStepListener(String step);
     }
 }
