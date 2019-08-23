@@ -63,7 +63,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             holder.ivRecipeAction.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(TAG, "onClick: >>>>>>>>>>>>>>>"+holder.mRecipe.getId());
                     mainViewModel.openDialogRecipeMenu(context,holder.mRecipe.getId());
                 }
             });

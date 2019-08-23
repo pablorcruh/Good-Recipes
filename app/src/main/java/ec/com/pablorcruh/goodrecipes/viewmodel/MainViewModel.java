@@ -50,4 +50,8 @@ public class MainViewModel extends AndroidViewModel {
         BottomModalRecipeFragment dialogFragment = BottomModalRecipeFragment.newInstance(recipeId);
         dialogFragment.show(((AppCompatActivity)context).getSupportFragmentManager(), "BottomModalRecipeFragment");
     }
+
+    public void deleteRecipe(String recipeId){
+        repository.deleteRecipe(recipeId);
+    }
 }

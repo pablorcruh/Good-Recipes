@@ -1,6 +1,7 @@
 package ec.com.pablorcruh.goodrecipes.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
 
     private MainViewModel mainViewModel;
     private String recipeIdDelete;
+    private static final String TAG= BottomModalRecipeFragment.class.getName();
 
     public static BottomModalRecipeFragment newInstance(String recipeId) {
         BottomModalRecipeFragment fragment = new BottomModalRecipeFragment();
@@ -48,7 +50,9 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 switch(id){
-                    case R.id.image_view_recipe_action:
+                    case R.id.menu_action_delete_recipe:
+                        Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+recipeIdDelete);
+                        mainViewModel.deleteRecipe(recipeIdDelete);
                         getDialog().dismiss();
                         return true;
                 }

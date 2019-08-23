@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.api.LogDescriptor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
@@ -127,6 +128,22 @@ public class FirebaseRepository {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(MyApp.getContext(), "Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void deleteRecipe(String recipeId){
+        database.collection(Constants.RECIPE_COLLECTION).document(recipeId).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Document Deleted");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
                     }
                 });
     }
