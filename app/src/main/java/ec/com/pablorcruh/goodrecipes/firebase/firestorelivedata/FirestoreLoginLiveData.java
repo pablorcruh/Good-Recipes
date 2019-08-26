@@ -1,6 +1,4 @@
-package ec.com.pablorcruh.goodrecipes.repository.firestorelivedata;
-
-import android.app.Activity;
+package ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;

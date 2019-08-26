@@ -1,35 +1,32 @@
 package ec.com.pablorcruh.goodrecipes.viewmodel;
 
-import android.app.Application;
 import android.net.Uri;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.storage.UploadTask;
 
+import ec.com.pablorcruh.goodrecipes.firebase.FirebaseService;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
-import ec.com.pablorcruh.goodrecipes.repository.FirebaseRepository;
+import ec.com.pablorcruh.goodrecipes.firebase.FirebaseServiceImpl;
 
-public class NewRecipeViewModel extends AndroidViewModel {
+public class NewRecipeViewModel extends ViewModel {
 
-    private FirebaseRepository repository;
+    private FirebaseService firebaseService;
 
-    public NewRecipeViewModel(@NonNull Application application) {
-        super(application);
-        repository = new FirebaseRepository();
+    public NewRecipeViewModel() {
+        firebaseService = new FirebaseServiceImpl();
     }
 
     public void saveRecipe(Recipe recipe){
-        repository.saveRecipe(recipe);
+        firebaseService.saveRecipe(recipe);
     }
 
     public LiveData<UploadTask.TaskSnapshot> saveRecipeImage(Uri imageUri){
-     return repository.uploadPhoto(imageUri);
+     return firebaseService.uploadPhoto(imageUri);
     }
 
     public void updateRecipe(String imageUrl){
-        repository.updateRecipe(imageUrl);
+        firebaseService.updateRecipe(imageUrl);
     }
 }

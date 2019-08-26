@@ -8,35 +8,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.R;
+import ec.com.pablorcruh.goodrecipes.viewmodel.NewRecipeViewModel;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientViewHolder> {
 
     private static final String TAG = IngredientsAdapter.class.getName();
 
-    private Context context;
 
     private List<String> listIngredients;
 
-    private final LayoutInflater layoutInflater;
-
     private OnDeleteIngredientClickListener onDeleteIngredientClickListener;
 
-    public IngredientsAdapter(Context context, List<String> listIngredients, OnDeleteIngredientClickListener listener) {
-        this.context = context;
+    public IngredientsAdapter(List<String> listIngredients, OnDeleteIngredientClickListener listener) {
         this.listIngredients = listIngredients;
-        layoutInflater = LayoutInflater.from(context);
         this.onDeleteIngredientClickListener = listener;
     }
 
     @NonNull
     @Override
     public IngredientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view =layoutInflater.inflate(R.layout.list_item_ingredient, parent, false);
+        View view =LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_ingredient, parent, false);
         IngredientViewHolder ingredientViewHolder = new IngredientViewHolder(view);
         return ingredientViewHolder;
     }

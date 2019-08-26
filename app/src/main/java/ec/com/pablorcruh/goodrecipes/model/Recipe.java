@@ -18,16 +18,19 @@ public class Recipe {
 
     private String description;
 
+    private boolean uploadImage=false;
+
     public Recipe() {
     }
 
-    public Recipe(String author, List<String> ingredientes, List<String> steps, String name, String recipeImageUrl, String description) {
+    public Recipe(String author, List<String> ingredientes, List<String> steps, String name, String recipeImageUrl, String description, boolean uploadImage) {
         this.author = author;
         this.ingredientes = ingredientes;
         this.steps = steps;
         this.name = name;
         this.recipeImageUrl = recipeImageUrl;
         this.description = description;
+        this.uploadImage =uploadImage;
     }
 
     public String getAuthor() {
@@ -84,5 +87,13 @@ public class Recipe {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public boolean isUploadImage() {
+        return uploadImage;
+    }
+
+    public void setUploadImage(boolean uploadImage) {
+        this.uploadImage = uploadImage;
     }
 }

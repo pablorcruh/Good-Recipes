@@ -1,4 +1,4 @@
-package ec.com.pablorcruh.goodrecipes.repository.firestorelivedata;
+package ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata;
 
 import androidx.lifecycle.LiveData;
 

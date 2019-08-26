@@ -77,7 +77,6 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(NewRecipeViewModel.class);
-
     }
 
     @Nullable
@@ -97,7 +96,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
 
 
         RecyclerView recyclerViewIngredients = view.findViewById(R.id.recycler_view_ingredients);
-        adapterIngredients = new IngredientsAdapter(getActivity(), ingredientsArray, this);
+        adapterIngredients = new IngredientsAdapter(ingredientsArray, this);
         recyclerViewIngredients.setAdapter(adapterIngredients);
         recyclerViewIngredients.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -151,10 +150,8 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                 } else {
                     recipeDescription = etDescription.getText().toString();
                     recipeName = editTextRecipeName.getText().toString();
-
-                    recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray, recipeName,"", recipeDescription);
+                    recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray, recipeName,"", recipeDescription, false);
                     viewModel.saveRecipe(recipe);
-
                     if (uriImage != null) {
                         liveData = viewModel.saveRecipeImage(uriImage);
                         liveData.observe(getActivity(), new Observer<UploadTask.TaskSnapshot>() {
@@ -168,10 +165,10 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                                                 viewModel.updateRecipe(uri.toString());
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(getActivity(), "An Error ocurred on getting url", Toast.LENGTH_SHORT).show();
-                                            Log.d(TAG, "onFailure:>>>>>>> Error on getting url: " + e);
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getActivity(), "An Error ocurred on getting url", Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG, "onFailure:>>>>>>> Error on getting url: " + e);
                                     }
                                 });
 
@@ -199,7 +196,6 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                 openFileChooser();
             }
         });
-
         return view;
     }
 

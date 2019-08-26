@@ -1,48 +1,45 @@
 package ec.com.pablorcruh.goodrecipes.viewmodel;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import ec.com.pablorcruh.goodrecipes.firebase.FirebaseService;
 import ec.com.pablorcruh.goodrecipes.fragments.BottomModalRecipeFragment;
-import ec.com.pablorcruh.goodrecipes.repository.FirebaseRepository;
+import ec.com.pablorcruh.goodrecipes.firebase.FirebaseServiceImpl;
 
-public class MainViewModel extends AndroidViewModel {
+public class MainViewModel extends ViewModel {
 
     private static final String TAG = MainViewModel.class.getName();
 
-    private FirebaseRepository repository;
+    private FirebaseService firebaseService;
 
-    public MainViewModel(@NonNull Application application) {
-        super(application);
-        repository = new FirebaseRepository();
+    public MainViewModel() {
+        firebaseService = new FirebaseServiceImpl();
     }
 
     public FirebaseUser getCurrentUser() throws FirebaseAuthException {
-        return repository.getCurrentUser();
+        return firebaseService.getCurrentUser();
     }
 
 
     public void logout(){
         Log.d(TAG, "logout: ");
-        repository.logout();
+        firebaseService.logout();
     }
 
     public LiveData<QuerySnapshot> getUserInformation(String email){
-        return repository.getUserRecipe(email);
+        return firebaseService.getUserRecipe(email);
     }
 
     public LiveData<QuerySnapshot> getAllRecipes(){
-        return repository.getAllRecipes();
+        return firebaseService.getAllRecipes();
     }
 
 
@@ -52,6 +49,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     public void deleteRecipe(String recipeId){
-        repository.deleteRecipe(recipeId);
+        firebaseService.deleteRecipe(recipeId);
     }
+
 }

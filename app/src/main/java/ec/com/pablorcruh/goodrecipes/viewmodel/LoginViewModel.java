@@ -1,28 +1,28 @@
 package ec.com.pablorcruh.goodrecipes.viewmodel;
 
 
-import android.app.Application;
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import ec.com.pablorcruh.goodrecipes.model.User;
-import ec.com.pablorcruh.goodrecipes.repository.FirebaseRepository;
 
-public class LoginViewModel extends AndroidViewModel {
+import ec.com.pablorcruh.goodrecipes.firebase.FirebaseService;
+import ec.com.pablorcruh.goodrecipes.model.User;
+import ec.com.pablorcruh.goodrecipes.firebase.FirebaseServiceImpl;
+
+public class LoginViewModel extends ViewModel {
 
     private static final String TAG = LoginViewModel.class.getName();
 
-    private FirebaseRepository repository;
+    private FirebaseService firebaseService ;
 
-    public LoginViewModel(@NonNull Application application) {
-        super(application);
-        repository = new FirebaseRepository();
+    public LoginViewModel() {
+        firebaseService = new FirebaseServiceImpl();
     }
 
     public LiveData<Task<AuthResult>> loginExistingUser(User user){
-        return repository.loginExistingUser(user);
+        return firebaseService.loginExistingUser(user);
     }
 
 }

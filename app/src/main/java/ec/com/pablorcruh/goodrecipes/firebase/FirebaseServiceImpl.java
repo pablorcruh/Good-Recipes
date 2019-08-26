@@ -1,4 +1,4 @@
-package ec.com.pablorcruh.goodrecipes.repository;
+package ec.com.pablorcruh.goodrecipes.firebase;
 
 import android.net.Uri;
 import android.util.Log;
@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.api.LogDescriptor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,16 +29,16 @@ import ec.com.pablorcruh.goodrecipes.common.Util;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.model.User;
-import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreAuthLiveData;
-import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreLoginLiveData;
-import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreParameterizedQuerySnapshotLiveData;
-import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreQuerySnapshotLiveData;
-import ec.com.pablorcruh.goodrecipes.repository.firestorelivedata.FirestoreStorageLiveData;
+import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreAuthLiveData;
+import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreLoginLiveData;
+import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreParameterizedQuerySnapshotLiveData;
+import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreQuerySnapshotLiveData;
+import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreStorageLiveData;
 
 
-public class FirebaseRepository {
+public class FirebaseServiceImpl implements FirebaseService {
 
-    private static final String TAG = FirebaseRepository.class.getName();
+    private static final String TAG = FirebaseServiceImpl.class.getName();
 
     private static FirebaseAuth  mAuth;
 
@@ -49,7 +48,7 @@ public class FirebaseRepository {
 
     private StorageReference storeRef;
 
-    public FirebaseRepository() {
+    public FirebaseServiceImpl() {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -160,6 +159,8 @@ public class FirebaseRepository {
         return liveData;
     }
 
+
+
     public void updateRecipe(String imageUri){
         Long idRecipe = SharedPreferencesManager.getSomeLongValue(Constants.PREF_ID_RECIPE);
         DocumentReference recipe = database.collection(Constants.RECIPE_COLLECTION +"/" ).document(""+idRecipe);
@@ -170,6 +171,19 @@ public class FirebaseRepository {
                         Toast.makeText(MyApp.getContext(), "Image Updated", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @Override
+    public void removeRecipeImage(Recipe recipe) {
+        FirebaseStorage mStorage;
+        mStorage = FirebaseStorage.getInstance();
+        StorageReference imageRef =mStorage.getReferenceFromUrl(recipe.getRecipeImageUrl());
+        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        });
     }
 
 }

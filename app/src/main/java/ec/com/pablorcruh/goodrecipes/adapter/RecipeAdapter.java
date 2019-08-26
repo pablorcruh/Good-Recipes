@@ -10,7 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +21,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.R;
+import ec.com.pablorcruh.goodrecipes.common.MyApp;
 import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
@@ -27,24 +30,22 @@ import ec.com.pablorcruh.goodrecipes.viewmodel.MainViewModel;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
     private static final String TAG  =  RecipeAdapter.class.getName();
-    private Context context;
     private List<Recipe> recipeList;
-    private final LayoutInflater layoutInflater;
     private String user;
     private MainViewModel mainViewModel;
+    private Context context;
 
-    public RecipeAdapter(Context context, List<Recipe> recipeList) {
+    public RecipeAdapter(Context context, LifecycleOwner lifecycleOwner, List<Recipe> recipeList) {
         this.context = context;
         this.recipeList = recipeList;
-        layoutInflater = LayoutInflater.from(context);
         user = SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL);
-        mainViewModel = ViewModelProviders.of((FragmentActivity) context).get(MainViewModel.class);
+        mainViewModel = ViewModelProviders.of((Fragment) lifecycleOwner).get(MainViewModel.class);
     }
 
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.item_recipe, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe, parent,false);
         RecipeViewHolder recipeViewHolder = new RecipeViewHolder(view);
         return recipeViewHolder;
     }
@@ -68,7 +69,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             });
 
         }else{
-            Toast.makeText(context, "No data available", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyApp.getContext(), "No data available", Toast.LENGTH_SHORT).show();
         }
     }
 
