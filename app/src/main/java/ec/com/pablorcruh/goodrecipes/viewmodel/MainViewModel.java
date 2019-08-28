@@ -10,6 +10,9 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.List;
+
+import ec.com.pablorcruh.goodrecipes.firebase.Callback;
 import ec.com.pablorcruh.goodrecipes.firebase.FirebaseService;
 import ec.com.pablorcruh.goodrecipes.fragments.BottomModalRecipeFragment;
 import ec.com.pablorcruh.goodrecipes.firebase.FirebaseServiceImpl;
@@ -51,5 +54,14 @@ public class MainViewModel extends ViewModel {
     public void deleteRecipe(String recipeId){
         firebaseService.deleteRecipe(recipeId);
     }
+
+    public void getFollowers(String author, Callback callback){
+        firebaseService.getFollowers(author, callback);
+    }
+
+    public void addFollower(List<String> followers, String author){
+        firebaseService.addFollower(followers, author);
+    }
+
 
 }

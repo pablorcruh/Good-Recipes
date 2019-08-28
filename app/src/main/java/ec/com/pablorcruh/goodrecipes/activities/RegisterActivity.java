@@ -18,6 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ec.com.pablorcruh.goodrecipes.R;
 import ec.com.pablorcruh.goodrecipes.common.Util;
 import ec.com.pablorcruh.goodrecipes.model.User;
@@ -76,7 +79,9 @@ public class RegisterActivity extends AppCompatActivity {
                 if (isUsernameValid(username)) {
                     if (isEmailValid(userEmail)) {
                         if (isPasswordValid(userPassword, userConfirmPassword)) {
-                            user = new User(username, userEmail, userPassword);
+                            List<String> followers = new ArrayList<String>();
+                            followers.add("start");
+                            user = new User(username, userEmail, userPassword, followers);
                             LiveData<Task<AuthResult>> liveData = registerViewModel.registerNewUser(user);
                             liveData.observe(RegisterActivity.this, new Observer<Task<AuthResult>>() {
                                 @Override

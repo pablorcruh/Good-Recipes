@@ -9,6 +9,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.List;
+
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreAuthLiveData;
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreLoginLiveData;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
@@ -43,5 +45,9 @@ public interface FirebaseService {
     void updateRecipe(String imageUri);
 
     void removeRecipeImage(Recipe repice);
+
+    void getFollowers(String author, Callback callback);
+
+    void addFollower(List<String> followers, String author);
 
 }

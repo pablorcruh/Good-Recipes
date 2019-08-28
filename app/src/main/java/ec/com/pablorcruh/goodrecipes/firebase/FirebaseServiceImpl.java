@@ -7,20 +7,26 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.api.LogDescriptor;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ec.com.pablorcruh.goodrecipes.common.MyApp;
@@ -70,6 +76,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         Map<String, Object> userdb = new HashMap<>();
         userdb.put("username", user.getUserName());
         userdb.put("email", user.getEmail());
+        userdb.put("followers", user.getFollowers());
         FirebaseFirestore db = database;
         db.collection(Constants.USER_COLLECTION).document(user.getEmail()).set(userdb)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -186,4 +193,38 @@ public class FirebaseServiceImpl implements FirebaseService {
         });
     }
 
+    @Override
+    public void getFollowers(String author, final Callback callback) {
+        DocumentReference documentReference = database.collection("users").document(author);
+                documentReference.get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            User user = documentSnapshot.toObject(User.class);
+                            List<String> followers = user.getFollowers();
+                            callback.passStringList(followers);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: +++++++++++"+e);
+                    }
+                });
+    }
+
+    @Override
+    public void addFollower(List<String> followers, String author) {
+        DocumentReference recipe = database.collection(Constants.USER_COLLECTION +"/" ).document(""+author);
+        recipe.update(Constants.USERS_FOLLOWERS_COLUMN,followers)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MyApp.getContext(), "Add follower", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }

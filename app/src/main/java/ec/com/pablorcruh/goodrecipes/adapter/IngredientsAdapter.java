@@ -1,6 +1,5 @@
 package ec.com.pablorcruh.goodrecipes.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +7,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.R;
-import ec.com.pablorcruh.goodrecipes.viewmodel.NewRecipeViewModel;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientViewHolder> {
 

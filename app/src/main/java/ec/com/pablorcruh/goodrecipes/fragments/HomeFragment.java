@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
         });
 
         RecyclerView recyclerViewRecipes = view.findViewById(R.id.recycler_view_recipes);
-        adapterRecipe = new RecipeAdapter(getActivity(),this,recipeList);
+        adapterRecipe = new RecipeAdapter(getActivity(),getActivity(),recipeList);
         recyclerViewRecipes.setAdapter(adapterRecipe);
         recyclerViewRecipes.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;

@@ -10,7 +10,7 @@ public class User {
 
     private String password;
 
-    private List<String> followingList;
+    private List<String> followers;
 
     public User(){
 
@@ -21,10 +21,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String userName, String email, String password) {
+    public User(String userName, String email, String password, List<String> followers) {
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.followers = followers;
     }
 
     public String getUserName() {
@@ -33,14 +34,6 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public List<String> getFollowingList() {
-        return followingList;
-    }
-
-    public void setFollowingList(List<String> followingList) {
-        this.followingList = followingList;
     }
 
     public String getEmail() {
@@ -57,5 +50,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<String> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<String> followers) {
+        this.followers = followers;
     }
 }
