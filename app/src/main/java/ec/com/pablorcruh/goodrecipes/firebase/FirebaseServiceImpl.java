@@ -11,16 +11,19 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.api.LogDescriptor;
+
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -28,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import ec.com.pablorcruh.goodrecipes.common.MyApp;
 import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
@@ -39,8 +43,6 @@ import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreAuthLiv
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreLoginLiveData;
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreParameterizedQuerySnapshotLiveData;
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreQuerySnapshotLiveData;
-import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreStorageLiveData;
-
 
 public class FirebaseServiceImpl implements FirebaseService {
 
@@ -159,28 +161,47 @@ public class FirebaseServiceImpl implements FirebaseService {
         mAuth.signOut();
     }
 
-    public LiveData<UploadTask.TaskSnapshot> uploadPhoto(Uri imageUri){
+    public void uploadPhotoStorage(final Uri imageUri){
         storeRef = FirebaseStorage.getInstance().getReference("all");
         StorageReference fileReference   = storeRef.child(System.currentTimeMillis() + "."+ Util.getFileExtension(imageUri));
-        FirestoreStorageLiveData liveData = new FirestoreStorageLiveData(fileReference, imageUri);
-        return liveData;
+        fileReference.putFile(imageUri)
+                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if(task.isSuccessful()){
+                            task.getResult().getMetadata().getReference().getDownloadUrl()
+                                    .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Uri> task) {
+                                                 if(task.isSuccessful()){
+                                                     updatePhotoRecipe(task.getResult());
+                                                 }
+                                        }
+                                    });
+                        }
+                    }
+                });
+
     }
 
-
-
-    public void updateRecipe(String imageUri){
+    private void updatePhotoRecipe(Uri imageUri){
         Long idRecipe = SharedPreferencesManager.getSomeLongValue(Constants.PREF_ID_RECIPE);
         DocumentReference recipe = database.collection(Constants.RECIPE_COLLECTION +"/" ).document(""+idRecipe);
-        recipe.update(Constants.URL_IMAGE,imageUri)
+        recipe.update(Constants.URL_IMAGE,imageUri.toString())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(MyApp.getContext(), "Image Updated", Toast.LENGTH_SHORT).show();
                     }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: >>>>>>>>>>>>>>>>>>>>>>>>>"+e);
+                    }
                 });
     }
 
-    @Override
     public void removeRecipeImage(Recipe recipe) {
         FirebaseStorage mStorage;
         mStorage = FirebaseStorage.getInstance();
@@ -188,7 +209,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-
+                Toast.makeText(MyApp.getContext(), "Recipe removed", Toast.LENGTH_SHORT).show();
             }
         });
     }

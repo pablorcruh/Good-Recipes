@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +18,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
@@ -150,30 +146,10 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                 } else {
                     recipeDescription = etDescription.getText().toString();
                     recipeName = editTextRecipeName.getText().toString();
-                    recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray, recipeName,"", recipeDescription, false);
+                    recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray, recipeName, "", recipeDescription, false);
                     viewModel.saveRecipe(recipe);
                     if (uriImage != null) {
-                        liveData = viewModel.saveRecipeImage(uriImage);
-                        liveData.observe(getActivity(), new Observer<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onChanged(final UploadTask.TaskSnapshot taskSnapshot) {
-                                taskSnapshot.getStorage().getDownloadUrl()
-                                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                            @Override
-                                            public void onSuccess(Uri uri) {
-                                                Uri downloadResource = uri;
-                                                viewModel.updateRecipe(uri.toString());
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getActivity(), "An Error ocurred on getting url", Toast.LENGTH_SHORT).show();
-                                        Log.d(TAG, "onFailure:>>>>>>> Error on getting url: " + e);
-                                    }
-                                });
-
-                            }
-                        });
+                        viewModel.uploadPhotoStorage(uriImage);
                     } else {
                         Toast.makeText(getActivity(), "No image was loaded", Toast.LENGTH_SHORT).show();
                     }

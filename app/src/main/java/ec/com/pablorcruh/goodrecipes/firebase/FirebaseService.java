@@ -35,16 +35,9 @@ public interface FirebaseService {
 
     void deleteRecipe(String recipeId);
 
-
-
     void logout();
 
-    LiveData<UploadTask.TaskSnapshot> uploadPhoto(Uri imageUri);
-
-
-    void updateRecipe(String imageUri);
-
-    void removeRecipeImage(Recipe repice);
+    void uploadPhotoStorage(Uri imageUri);
 
     void getFollowers(String author, Callback callback);
 
