@@ -43,4 +43,6 @@ public interface FirebaseService {
 
     void addFollower(List<String> followers, String author);
 
+    void updateFCMToken(String token, String user);
+
 }

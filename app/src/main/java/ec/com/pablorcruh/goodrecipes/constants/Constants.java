@@ -18,4 +18,8 @@ public class Constants {
 
     public static final String USERS_FOLLOWERS_COLUMN = "followers";
 
+    public static final String USER_TOKEN_COLUMN = "token";
+
+    public static final String PREF_TOKEN = "PREF_TOKEN";
+
 }

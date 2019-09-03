@@ -79,6 +79,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         userdb.put("username", user.getUserName());
         userdb.put("email", user.getEmail());
         userdb.put("followers", user.getFollowers());
+        userdb.put("token", user.getToken());
         FirebaseFirestore db = database;
         db.collection(Constants.USER_COLLECTION).document(user.getEmail()).set(userdb)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -245,6 +246,30 @@ public class FirebaseServiceImpl implements FirebaseService {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(MyApp.getContext(), "Add follower", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: " + e);
+                    }
+                });
+    }
+
+    @Override
+    public void updateFCMToken(String token, String updatedUser) {
+        DocumentReference user = database.collection(Constants.USER_COLLECTION + "/").document(""+updatedUser);
+        user.update(Constants.USER_TOKEN_COLUMN, token)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(MyApp.getContext(), "Token Stored", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "onFailure: " + e);
                     }
                 });
     }

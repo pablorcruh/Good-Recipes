@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.R;
+import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
 import ec.com.pablorcruh.goodrecipes.common.Util;
+import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.User;
 import ec.com.pablorcruh.goodrecipes.viewmodel.RegisterViewModel;
 
@@ -81,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (isPasswordValid(userPassword, userConfirmPassword)) {
                             List<String> followers = new ArrayList<String>();
                             followers.add("start");
-                            user = new User(username, userEmail, userPassword, followers);
+                            user = new User(username, userEmail, userPassword, followers, SharedPreferencesManager.getSomeStringValue(Constants.PREF_TOKEN));
                             LiveData<Task<AuthResult>> liveData = registerViewModel.registerNewUser(user);
                             liveData.observe(RegisterActivity.this, new Observer<Task<AuthResult>>() {
                                 @Override

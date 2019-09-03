@@ -10,6 +10,8 @@ public class User {
 
     private String password;
 
+    private String token;
+
     private List<String> followers;
 
     public User(){
@@ -21,11 +23,12 @@ public class User {
         this.password = password;
     }
 
-    public User(String userName, String email, String password, List<String> followers) {
+    public User(String userName, String email, String password, List<String> followers, String token) {
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.followers = followers;
+        this.token = token;
     }
 
     public String getUserName() {
@@ -58,5 +61,13 @@ public class User {
 
     public void setFollowers(List<String> followers) {
         this.followers = followers;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

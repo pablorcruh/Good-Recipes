@@ -8,23 +8,25 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
+import ec.com.pablorcruh.goodrecipes.constants.Constants;
+import ec.com.pablorcruh.goodrecipes.firebase.FirebaseService;
+import ec.com.pablorcruh.goodrecipes.firebase.FirebaseServiceImpl;
+
 public class FirebaseRecipeService extends FirebaseMessagingService {
 
     public static final String TAG = FirebaseRecipeService.class.getName();
+    private FirebaseService firebaseService;
+
 
     public FirebaseRecipeService() {
+        firebaseService = new FirebaseServiceImpl();
     }
 
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // ...
-
-        // TODO(developer): Handle FCM messages here.
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: " + remoteMessage.getFrom());
-
-        // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
 
@@ -41,7 +43,9 @@ public class FirebaseRecipeService extends FirebaseMessagingService {
 
     @Override
     public void onNewToken(String token) {
-        Log.d(TAG, "Refreshed token: " + token);
+        Log.d(TAG, "Refreshed token:>>>>>>>>>>>>>>>>>>>>>>>>>> " + token);
+        SharedPreferencesManager.setSomeStringValue(Constants.PREF_TOKEN,token);
+
 
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
