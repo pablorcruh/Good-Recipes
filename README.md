@@ -3,3 +3,72 @@
 ## GOOD RECIPES
 
 ### Descripción
+
+
+### Agregar Fastlane dentro del Proyecto
+
+Para poder automatizar los despliegues dentro de Google Play Console es necesario el uso de una 
+herramienta, esta herramienta permite que por medio de la ejecución de un comando se desplieguen 
+las diferentes versiones de nuestra aplicación.
+
+Para ello es necesario haber creado todo lo necesario dentro de Google Play Console como son la
+ficha de descripción, la clasificación de contenido, el precio y la distribución.
+
+Dentro de nuestro ambiente de desarrrollo es necesario la instalación de las diferentes dependecias
+que la herramienta requiera. Fastlane es desarrollado en Ruby por lo que es necesario tener instalado
+ruby y su administrador de gemas.
+
+Para instalar Fastlane ejecutamos:
+ ```
+    sudo gem install fastlane -NV
+ ```
+ 
+ Para poder incorporar fastlane dentro del proyecto en particular es necesario ubicarnos en la raíz
+ del proyecto android y ejecutar:
+ 
+ ``` 
+    fastlane init
+ ```
+ Este comando creará una estructura de carpetas necesarias para la gestión de la herramienta.
+ 
+ Para que fastlane pueda interactucar con Google Play Console es necesario la generación de una llave,
+ para lo que adjuntamos una guia en el siguiente [enlace](https://www.yudiz.com/fastlane-an-automated-app-deployment-tool-part-1/)
+ 
+ Los archivos dentro de la carpeta fastlane son:
+ 
+ ...Appfile.- Contiene la ubicación de la llave y el nombre del paquete.
+ ...Fastfile.- Contiene la definición de las tareas a realizar cuando se hace un despliegue.
+ 
+ Una vez generada la llave en formato json, modificamos el archivo Appfile y especificamos la ruta
+ en donde almacenamos la llave descargada desde la consola de google
+ 
+ Se recomienda establecer dos variables de entorno para poder construir y subir el ensamble del artefacto
+ 
+ ```
+    export LC_ALL=en_US.UTF-8
+    export LANG=en_US.UTF-8
+ ```
+ 
+ Se debe configurar las llaves usadas para la generación de la aplicación firmada para que pueda
+ generar nuevas aplicaciones en cada despliegue realizado.
+ 
+ Luego ejecutamos el comando supply para que se pueda descargar toda la metadata desde Google Play
+ Console
+ 
+ ```
+    fastlane supply init
+ ```
+  
+ Ejecutamos  el siguiente comando para poder incrementar el número de versión del apk 
+ 
+ ```
+    fastlane add_plugin increment_version_code
+ ```
+ 
+ Por último podemos invocar a las diferentes etapas de despliegue que consideremos necesarias y que se
+ encuentran descritas dentro del archivo Fastfile
+ 
+ ### Referencia
+ 
+ ...[Automatización de Despliegues Usando Fastlane](https://www.yudiz.com/fastlane-an-automated-app-deployment-tool-part-2/). Shubham Sejpal
+ ...[Documentaci'on Fastlane](https://fastlane.tools/)
