@@ -1,0 +1,2 @@
+json_key_file("fastlane/release_manager_android.json")
+package_name("ec.com.pablorcruh.goodrecipes")

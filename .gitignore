@@ -12,3 +12,6 @@
 /captures
 .externalNativeBuild
 google-services.json
+keystore.properties
+fastlane/release_manager_android.json
+app/release/
