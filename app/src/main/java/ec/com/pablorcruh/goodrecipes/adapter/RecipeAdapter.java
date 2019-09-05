@@ -120,7 +120,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                             followerList = new ArrayList<>();
                             followerList = followers;
                             for (String s : followerList){
-                                if(s==SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL)){
+                                if(s.equals(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL))){
                                     followerCounter ++;
                                 }
                             }
