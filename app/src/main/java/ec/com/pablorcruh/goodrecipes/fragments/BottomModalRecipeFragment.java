@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.navigation.NavigationView;
 
@@ -35,32 +36,41 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments()!=null){
-            recipeIdDelete = getArguments().getString(Constants.ARG_RECIPE_ID);
+        try {
+            if(getArguments()!=null){
+                recipeIdDelete = getArguments().getString(Constants.ARG_RECIPE_ID);
+            }
+        }catch (Exception e){
+            Crashlytics.log(e.getMessage());
+            Log.e(TAG, "onCreate: ", e);
         }
      }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_bottom_modal_recipe, container, false);
-        final NavigationView nav = view.findViewById(R.id.navigation_view_bottom_recipe);
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                switch(id){
-                    case R.id.menu_action_delete_recipe:
-                        Log.d(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+recipeIdDelete);
-                        mainViewModel.deleteRecipe(recipeIdDelete);
-                        getDialog().dismiss();
-                        return true;
+        try{
+            View view = inflater.inflate(R.layout.fragment_bottom_modal_recipe, container, false);
+            final NavigationView nav = view.findViewById(R.id.navigation_view_bottom_recipe);
+            nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    int id = menuItem.getItemId();
+                    switch(id){
+                        case R.id.menu_action_delete_recipe:
+                            mainViewModel.deleteRecipe(recipeIdDelete);
+                            getDialog().dismiss();
+                            return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
-
-        return view;
+            });
+            return view;
+        }catch(Exception e){
+            Crashlytics.log(e.getMessage());
+            Log.e(TAG, "onCreateView: ", e);
+            return null;
+        }
     }
 
 

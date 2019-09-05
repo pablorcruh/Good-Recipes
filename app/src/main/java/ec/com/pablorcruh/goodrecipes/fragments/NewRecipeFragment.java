@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
@@ -78,101 +80,106 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_new_recipe, container, false);
+       try{
+           View view = inflater.inflate(R.layout.fragment_new_recipe, container, false);
 
-        this.editTextNewIngredient = view.findViewById(R.id.edit_text_add_ingredient);
-        this.editTextRecipeName = view.findViewById(R.id.edit_text_new_recipe);
-        this.imageViewAddIngredient = view.findViewById(R.id.image_view_add_ingredient);
-        this.editTextNewStep = view.findViewById(R.id.edit_text_add_step);
-        this.imageViewAddStep = view.findViewById(R.id.image_view_add_step);
-        this.buttonSaveRecipe = view.findViewById(R.id.button_save_recipe);
-        this.ivAddImage = view.findViewById(R.id.image_view_add_image);
-        this.ivShowRecipeImage = view.findViewById(R.id.image_view_recipe_image);
-        this.etDescription = view.findViewById(R.id.edit_text_recipe_description);
-
-
-        RecyclerView recyclerViewIngredients = view.findViewById(R.id.recycler_view_ingredients);
-        adapterIngredients = new IngredientsAdapter(ingredientsArray, this);
-        recyclerViewIngredients.setAdapter(adapterIngredients);
-        recyclerViewIngredients.setLayoutManager(new LinearLayoutManager(getActivity()));
+           this.editTextNewIngredient = view.findViewById(R.id.edit_text_add_ingredient);
+           this.editTextRecipeName = view.findViewById(R.id.edit_text_new_recipe);
+           this.imageViewAddIngredient = view.findViewById(R.id.image_view_add_ingredient);
+           this.editTextNewStep = view.findViewById(R.id.edit_text_add_step);
+           this.imageViewAddStep = view.findViewById(R.id.image_view_add_step);
+           this.buttonSaveRecipe = view.findViewById(R.id.button_save_recipe);
+           this.ivAddImage = view.findViewById(R.id.image_view_add_image);
+           this.ivShowRecipeImage = view.findViewById(R.id.image_view_recipe_image);
+           this.etDescription = view.findViewById(R.id.edit_text_recipe_description);
 
 
-        RecyclerView recyclerViewSteps = view.findViewById(R.id.recycler_view_steps);
-        adapterSteps = new StepAdapter(getActivity(), stepsArray, this);
-        recyclerViewSteps.setAdapter(adapterSteps);
-        recyclerViewSteps.setLayoutManager(new LinearLayoutManager(getActivity()));
+           RecyclerView recyclerViewIngredients = view.findViewById(R.id.recycler_view_ingredients);
+           adapterIngredients = new IngredientsAdapter(ingredientsArray, this);
+           recyclerViewIngredients.setAdapter(adapterIngredients);
+           recyclerViewIngredients.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        this.imageViewAddIngredient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (TextUtils.isEmpty(editTextNewIngredient.getText().toString())) {
-                    Toast.makeText(getActivity(), "Need to add ingredient", Toast.LENGTH_SHORT).show();
-                } else {
-                    String ingredientAdded = editTextNewIngredient.getText().toString();
-                    ingredientsArray.add(ingredientAdded);
-                    adapterIngredients.setIngredients(ingredientsArray);
-                    editTextNewIngredient.setText("");
-                    Toast.makeText(getActivity(), "Ingredient added", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
-        this.imageViewAddStep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (TextUtils.isEmpty(editTextNewStep.getText().toString())) {
-                    Toast.makeText(getActivity(), "Need to add step", Toast.LENGTH_SHORT).show();
-                } else {
-                    String stepAdded = editTextNewStep.getText().toString();
-                    stepsArray.add(stepAdded);
-                    adapterSteps.setSteps(stepsArray);
-                    editTextNewStep.setText("");
-                    Toast.makeText(getActivity(), "Step Added", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+           RecyclerView recyclerViewSteps = view.findViewById(R.id.recycler_view_steps);
+           adapterSteps = new StepAdapter(getActivity(), stepsArray, this);
+           recyclerViewSteps.setAdapter(adapterSteps);
+           recyclerViewSteps.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        this.buttonSaveRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                if (TextUtils.isEmpty(editTextRecipeName.getText().toString())) {
-                    Toast.makeText(getActivity(), "Must enter recipe name", Toast.LENGTH_SHORT).show();
-                } else if (stepsArray.isEmpty()) {
-                    Toast.makeText(getActivity(), "Must enter one step", Toast.LENGTH_SHORT).show();
-                } else if (ingredientsArray.isEmpty()) {
-                    Toast.makeText(getActivity(), "Must enter one ingredient", Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(etDescription.getText().toString())) {
-                    Toast.makeText(getActivity(), "Must enter Description", Toast.LENGTH_SHORT).show();
-                } else {
-                    recipeDescription = etDescription.getText().toString();
-                    recipeName = editTextRecipeName.getText().toString();
-                    recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray, recipeName, "", recipeDescription, false);
-                    viewModel.saveRecipe(recipe);
-                    if (uriImage != null) {
-                        viewModel.uploadPhotoStorage(uriImage);
-                    } else {
-                        Toast.makeText(getActivity(), "No image was loaded", Toast.LENGTH_SHORT).show();
-                    }
-                    FragmentManager fragmentManager = getFragmentManager();
-                    for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
-                        fragmentManager.popBackStack();
-                    }
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, new HomeFragment());
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+           this.imageViewAddIngredient.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   if (TextUtils.isEmpty(editTextNewIngredient.getText().toString())) {
+                       Toast.makeText(getActivity(), "Need to add ingredient", Toast.LENGTH_SHORT).show();
+                   } else {
+                       String ingredientAdded = editTextNewIngredient.getText().toString();
+                       ingredientsArray.add(ingredientAdded);
+                       adapterIngredients.setIngredients(ingredientsArray);
+                       editTextNewIngredient.setText("");
+                       Toast.makeText(getActivity(), "Ingredient added", Toast.LENGTH_SHORT).show();
+                   }
+               }
+           });
 
-                }
-            }
-        });
+           this.imageViewAddStep.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   if (TextUtils.isEmpty(editTextNewStep.getText().toString())) {
+                       Toast.makeText(getActivity(), "Need to add step", Toast.LENGTH_SHORT).show();
+                   } else {
+                       String stepAdded = editTextNewStep.getText().toString();
+                       stepsArray.add(stepAdded);
+                       adapterSteps.setSteps(stepsArray);
+                       editTextNewStep.setText("");
+                       Toast.makeText(getActivity(), "Step Added", Toast.LENGTH_SHORT).show();
+                   }
+               }
+           });
 
-        this.ivAddImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openFileChooser();
-            }
-        });
-        return view;
+           this.buttonSaveRecipe.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(final View view) {
+                   if (TextUtils.isEmpty(editTextRecipeName.getText().toString())) {
+                       Toast.makeText(getActivity(), "Must enter recipe name", Toast.LENGTH_SHORT).show();
+                   } else if (stepsArray.isEmpty()) {
+                       Toast.makeText(getActivity(), "Must enter one step", Toast.LENGTH_SHORT).show();
+                   } else if (ingredientsArray.isEmpty()) {
+                       Toast.makeText(getActivity(), "Must enter one ingredient", Toast.LENGTH_SHORT).show();
+                   } else if (TextUtils.isEmpty(etDescription.getText().toString())) {
+                       Toast.makeText(getActivity(), "Must enter Description", Toast.LENGTH_SHORT).show();
+                   } else {
+                       recipeDescription = etDescription.getText().toString();
+                       recipeName = editTextRecipeName.getText().toString();
+                       recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray, recipeName, "", recipeDescription, false);
+                       viewModel.saveRecipe(recipe);
+                       if (uriImage != null) {
+                           viewModel.uploadPhotoStorage(uriImage);
+                       } else {
+                           Toast.makeText(getActivity(), "No image was loaded", Toast.LENGTH_SHORT).show();
+                       }
+                       FragmentManager fragmentManager = getFragmentManager();
+                       for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+                           fragmentManager.popBackStack();
+                       }
+                       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                       fragmentTransaction.replace(R.id.fragment_container, new HomeFragment());
+                       fragmentTransaction.addToBackStack(null);
+                       fragmentTransaction.commit();
+
+                   }
+               }
+           });
+           this.ivAddImage.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   openFileChooser();
+               }
+           });
+           return view;
+       }catch(Exception e){
+           Crashlytics.log(e.getMessage());
+           Log.e(TAG, "onCreateView: ", e);
+           return null;
+       }
     }
 
 

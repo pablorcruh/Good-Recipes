@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -51,56 +52,61 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try{
+            setContentView(R.layout.activity_register);
 
-        setContentView(R.layout.activity_register);
+            registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
 
-        registerViewModel = ViewModelProviders.of(this).get(RegisterViewModel.class);
+            registerEmail = findViewById(R.id.register_email);
 
-        registerEmail = findViewById(R.id.register_email);
+            registerUsername = findViewById(R.id.register_username);
 
-        registerUsername = findViewById(R.id.register_username);
+            registerPassword = findViewById(R.id.register_password);
 
-        registerPassword = findViewById(R.id.register_password);
+            registerConfirmPassword = findViewById(R.id.register_password_confirm);
 
-        registerConfirmPassword = findViewById(R.id.register_password_confirm);
+            buttonRegister = findViewById(R.id.button_register);
 
-        buttonRegister = findViewById(R.id.button_register);
+            registerEmail.setError(null);
+            registerPassword.setError(null);
+            registerConfirmPassword.setError(null);
+            registerUsername.setError(null);
 
-        registerEmail.setError(null);
-        registerPassword.setError(null);
-        registerConfirmPassword.setError(null);
-        registerUsername.setError(null);
-
-        buttonRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String userEmail = registerEmail.getText().toString().trim();
-                String userPassword = registerPassword.getText().toString().trim();
-                String userConfirmPassword = registerConfirmPassword.getText().toString().trim();
-                String username = registerUsername.getText().toString().trim();
-                if (isUsernameValid(username)) {
-                    if (isEmailValid(userEmail)) {
-                        if (isPasswordValid(userPassword, userConfirmPassword)) {
-                            List<String> followers = new ArrayList<String>();
-                            followers.add("start");
-                            user = new User(username, userEmail, userPassword, followers, SharedPreferencesManager.getSomeStringValue(Constants.PREF_TOKEN));
-                            LiveData<Task<AuthResult>> liveData = registerViewModel.registerNewUser(user);
-                            liveData.observe(RegisterActivity.this, new Observer<Task<AuthResult>>() {
-                                @Override
-                                public void onChanged(Task<AuthResult> authResultTask) {
-                                    Log.d(TAG, "onChanged: >>>>> creado con exito");
-                                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                    finish();
-                                    startActivity(intent);
-                                    registerViewModel.createUserOnFirestore(user);
-                                    Toast.makeText(RegisterActivity.this, "User successfully created", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+            buttonRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String userEmail = registerEmail.getText().toString().trim();
+                    String userPassword = registerPassword.getText().toString().trim();
+                    String userConfirmPassword = registerConfirmPassword.getText().toString().trim();
+                    String username = registerUsername.getText().toString().trim();
+                    if (isUsernameValid(username)) {
+                        if (isEmailValid(userEmail)) {
+                            if (isPasswordValid(userPassword, userConfirmPassword)) {
+                                List<String> followers = new ArrayList<String>();
+                                followers.add("start");
+                                user = new User(username, userEmail, userPassword, followers, SharedPreferencesManager.getSomeStringValue(Constants.PREF_TOKEN));
+                                LiveData<Task<AuthResult>> liveData = registerViewModel.registerNewUser(user);
+                                liveData.observe(RegisterActivity.this, new Observer<Task<AuthResult>>() {
+                                    @Override
+                                    public void onChanged(Task<AuthResult> authResultTask) {
+                                        Log.d(TAG, "onChanged: >>>>> creado con exito");
+                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        finish();
+                                        startActivity(intent);
+                                        registerViewModel.createUserOnFirestore(user);
+                                        Toast.makeText(RegisterActivity.this, "User successfully created", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }catch(Exception e){
+            Crashlytics.log(e.getMessage());
+            Log.e(TAG, "onCreate: ", e);
+        }
+
 
     }
 

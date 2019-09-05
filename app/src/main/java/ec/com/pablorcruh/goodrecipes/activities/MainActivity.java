@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,14 +37,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        SharedPreferencesManager.setSomeStringValue(Constants.PREF_EMAIL, firebaseUser.getEmail());
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
-        bottomNavigation.setOnNavigationItemSelectedListener(navListener);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        try{
+            setContentView(R.layout.activity_main);
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            SharedPreferencesManager.setSomeStringValue(Constants.PREF_EMAIL, firebaseUser.getEmail());
+            mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+            BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+            bottomNavigation.setOnNavigationItemSelectedListener(navListener);
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            }
+
+        }catch(Exception e){
+            Crashlytics.log(e.getMessage());
+            Log.e(TAG, "onCreate: ", e);
         }
     }
 

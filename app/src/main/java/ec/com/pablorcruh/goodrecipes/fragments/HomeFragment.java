@@ -2,6 +2,7 @@ package ec.com.pablorcruh.goodrecipes.fragments;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -42,32 +44,44 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+        try{
+            mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+        }catch(Exception e){
+            Crashlytics.log(e.getMessage());
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        liveData = mainViewModel.getAllRecipes();
-        liveData.observe(getActivity(), new Observer<QuerySnapshot>() {
-            @Override
-            public void onChanged(QuerySnapshot documentSnapshots) {
-                recipeList = new ArrayList<>();
-                for(QueryDocumentSnapshot recipeSnapshot:documentSnapshots){
-                    Recipe recipe = recipeSnapshot.toObject(Recipe.class);
-                    recipe.setId(recipeSnapshot.getId().toString());
-                    recipeList.add(recipe);
+        try{
+            View view = inflater.inflate(R.layout.fragment_home, container, false);
+            liveData = mainViewModel.getAllRecipes();
+            liveData.observe(getActivity(), new Observer<QuerySnapshot>() {
+                @Override
+                public void onChanged(QuerySnapshot documentSnapshots) {
+                    recipeList = new ArrayList<>();
+                    for(QueryDocumentSnapshot recipeSnapshot:documentSnapshots){
+                        Recipe recipe = recipeSnapshot.toObject(Recipe.class);
+                        recipe.setId(recipeSnapshot.getId().toString());
+                        recipeList.add(recipe);
+                    }
+                    adapterRecipe.setRecipes(recipeList);
                 }
-                adapterRecipe.setRecipes(recipeList);
-            }
-        });
+            });
 
-        RecyclerView recyclerViewRecipes = view.findViewById(R.id.recycler_view_recipes);
-        adapterRecipe = new RecipeAdapter(getActivity(),getActivity(),recipeList);
-        recyclerViewRecipes.setAdapter(adapterRecipe);
-        recyclerViewRecipes.setLayoutManager(new LinearLayoutManager(getActivity()));
-        return view;
+            RecyclerView recyclerViewRecipes = view.findViewById(R.id.recycler_view_recipes);
+            adapterRecipe = new RecipeAdapter(getActivity(),getActivity(),recipeList);
+            recyclerViewRecipes.setAdapter(adapterRecipe);
+            recyclerViewRecipes.setLayoutManager(new LinearLayoutManager(getActivity()));
+            return view;
+        }catch (Exception e){
+            Crashlytics.log(e.getMessage());
+            Log.e(TAG, "onCreateView: ", e);
+            return null;
+        }
+
+
     }
 
 }
