@@ -4,6 +4,12 @@
 
 ### Descripción
 
+El siguiente proyecto tiene como objetivo compartir información sobre recetas de comida saludable.
+De esta manera puedes subir información sobre los ingredientes y el proceso de preparación de la receta,
+adjuntar una imagen con la receta y compartirla dentro de la comunidad de usuarios.
+
+Para poder acceder a la aplicación es necesario que crees una cuenta con una dirección de correo electrónico,
+para de esta manera poder indetificar a los usuarios dentro de la aplicación de manera única
 
 ### Agregar Fastlane dentro del Proyecto
 
@@ -36,8 +42,8 @@ Para instalar Fastlane ejecutamos:
  
  Los archivos dentro de la carpeta fastlane son:
  
- ...Appfile.- Contiene la ubicación de la llave y el nombre del paquete.
- ...Fastfile.- Contiene la definición de las tareas a realizar cuando se hace un despliegue.
+ * Appfile.- Contiene la ubicación de la llave y el nombre del paquete.
+ * Fastfile.- Contiene la definición de las tareas a realizar cuando se hace un despliegue.
  
  Una vez generada la llave en formato json, modificamos el archivo Appfile y especificamos la ruta
  en donde almacenamos la llave descargada desde la consola de google
@@ -70,5 +76,5 @@ Para instalar Fastlane ejecutamos:
  
  ### Referencia
  
- ...[Automatización de Despliegues Usando Fastlane](https://www.yudiz.com/fastlane-an-automated-app-deployment-tool-part-2/). Shubham Sejpal
- ...[Documentaci'on Fastlane](https://fastlane.tools/)
+ * [Automatización de Despliegues Usando Fastlane](https://www.yudiz.com/fastlane-an-automated-app-deployment-tool-part-2/). Shubham Sejpal
+ * [Documentaci'on Fastlane](https://fastlane.tools/)
