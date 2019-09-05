@@ -26,6 +26,11 @@ Submit a new debug Build
 fastlane android beta
 ```
 Submit a new Beta Build to Crashlytics Beta
+### android betaCerrado
+```
+fastlane android betaCerrado
+```
+Submit a new Beta Build to Crashlytics Beta
 ### android deploy
 ```
 fastlane android deploy

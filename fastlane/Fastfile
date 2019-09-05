@@ -17,6 +17,12 @@ before_all do
     supply(track: 'beta')
   end
 
+   desc "Submit a new Beta Build to Crashlytics Beta"
+    lane :betaCerrado do
+      gradle(task: "clean assembleRelease")
+      supply(track: 'tester-good-recipe')
+    end
+
   desc "Create a new version to the Google Play"
   lane :deploy do
     gradle(
