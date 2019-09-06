@@ -13,8 +13,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.firebase.Callback;
+import ec.com.pablorcruh.goodrecipes.firebase.CallbackGetRecipe;
 import ec.com.pablorcruh.goodrecipes.firebase.FirebaseService;
-import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirebaseDocumentSnapshotLiveData;
 import ec.com.pablorcruh.goodrecipes.fragments.BottomModalRecipeFragment;
 import ec.com.pablorcruh.goodrecipes.firebase.FirebaseServiceImpl;
 
@@ -64,8 +64,8 @@ public class MainViewModel extends ViewModel {
         firebaseService.addFollower(followers, author);
     }
 
-    public FirebaseDocumentSnapshotLiveData getRecipeById(String recipeId){
-        return firebaseService.getRecipeById(recipeId);
+    public void getRecipeById(String recipeId, CallbackGetRecipe callbackGetRecipe){
+        firebaseService.getRecipeById(recipeId, callbackGetRecipe );
     }
 
 

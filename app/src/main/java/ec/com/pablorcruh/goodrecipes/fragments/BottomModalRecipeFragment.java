@@ -9,18 +9,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import ec.com.pablorcruh.goodrecipes.R;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
+import ec.com.pablorcruh.goodrecipes.firebase.CallbackGetRecipe;
+import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.viewmodel.MainViewModel;
 
 public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
@@ -66,7 +64,7 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
                             getDialog().dismiss();
                             return true;
                         case R.id.menu_action_edit_recipe:
-                            Log.d(TAG, "onNavigationItemSelected: >>>>>>> llamar edicion");
+                            Log.d(TAG, "onNavigationItemSelected: >>>>>>>>>>"+recipeIdSelected);
                             editRecipe(recipeIdSelected);
                             getDialog().dismiss();
                             return true;
@@ -89,17 +87,12 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
         mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
     }
 
-    private void editRecipe(String recipeIdSelected){
-        LiveData<Task<DocumentSnapshot>> liveData = mainViewModel.getRecipeById(recipeIdSelected);
-        liveData.observe(getActivity(), new Observer<Task<DocumentSnapshot>>() {
+    private void editRecipe(final String recipeIdSelected){
+        mainViewModel.getRecipeById(recipeIdSelected, new CallbackGetRecipe() {
             @Override
-            public void onChanged(Task<DocumentSnapshot> documentSnapshotTask) {
-                if(documentSnapshotTask.isSuccessful()){
-                    DocumentSnapshot documentSnapshot = documentSnapshotTask.getResult();
-                    if(documentSnapshot.exists()){
-                        Log.d(TAG, "onChanged: >>>>>>>>>>>>>>>>>"+documentSnapshot);
-                    }
-                }
+            public void getRecipeById(Recipe recipe) {
+                Recipe actualRecipe = recipe;
+                Log.d(TAG, "getRecipeById: >>>>>>>>>>>>>>>>>"+actualRecipe.getId());
             }
         });
     }

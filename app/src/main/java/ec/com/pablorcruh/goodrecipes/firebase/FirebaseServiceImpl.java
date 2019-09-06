@@ -32,7 +32,6 @@ import ec.com.pablorcruh.goodrecipes.common.MyApp;
 import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
 import ec.com.pablorcruh.goodrecipes.common.Util;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
-import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirebaseDocumentSnapshotLiveData;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.model.User;
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreAuthLiveData;
@@ -270,10 +269,22 @@ public class FirebaseServiceImpl implements FirebaseService {
     }
 
     @Override
-    public FirebaseDocumentSnapshotLiveData getRecipeById(String idRecipe) {
-        DocumentReference docRef = database.document(Constants.RECIPE_COLLECTION +"/" + idRecipe);
-        FirebaseDocumentSnapshotLiveData liveData = new FirebaseDocumentSnapshotLiveData(firebaseAuth, docRef);
-        return liveData;
+    public void getRecipeById(final String idRecipe, final CallbackGetRecipe callbackGetRecipe) {
+        final DocumentReference docRef = database.document(Constants.RECIPE_COLLECTION +"/" + idRecipe);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    if(documentSnapshot.exists()){
+                        Recipe recipe = documentSnapshot.toObject(Recipe.class);
+                        Log.d(TAG, "onComplete: >>>>>>>>>>>>>>>>>>>"+recipe.getId());
+                        callbackGetRecipe.getRecipeById(recipe);
+                    }
+                }
+            }
+        });
+
     }
 
 
