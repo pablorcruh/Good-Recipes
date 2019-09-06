@@ -4,6 +4,16 @@ import android.content.ContentResolver;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import com.google.firebase.Timestamp;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+
+import ec.com.pablorcruh.goodrecipes.constants.Constants;
+
 public class Util {
 
     public static boolean isValidEmail(String email){
@@ -49,5 +59,9 @@ public class Util {
         ContentResolver cR = MyApp.getContext().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    public static Timestamp getCurrentDate(){
+        return new Timestamp(new Date());
     }
 }

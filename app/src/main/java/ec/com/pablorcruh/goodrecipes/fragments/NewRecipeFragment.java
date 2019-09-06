@@ -28,12 +28,14 @@ import com.crashlytics.android.Crashlytics;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.R;
 import ec.com.pablorcruh.goodrecipes.adapter.IngredientsAdapter;
 import ec.com.pablorcruh.goodrecipes.adapter.StepAdapter;
 import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
+import ec.com.pablorcruh.goodrecipes.common.Util;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.viewmodel.NewRecipeViewModel;
@@ -65,6 +67,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
     private EditText etDescription;
     private String recipeDescription;
     private LiveData<UploadTask.TaskSnapshot> liveData;
+    private Date date;
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -149,7 +152,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                    } else {
                        recipeDescription = etDescription.getText().toString();
                        recipeName = editTextRecipeName.getText().toString();
-                       recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray, recipeName, "", recipeDescription, false);
+                       recipe = new Recipe(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL), ingredientsArray, stepsArray, recipeName, "", recipeDescription, Util.getCurrentDate());
                        viewModel.saveRecipe(recipe);
                        if (uriImage != null) {
                            viewModel.uploadPhotoStorage(uriImage);

@@ -1,5 +1,7 @@
 package ec.com.pablorcruh.goodrecipes.model;
 
+import com.google.firebase.Timestamp;
+
 import java.util.List;
 
 public class Recipe {
@@ -18,19 +20,20 @@ public class Recipe {
 
     private String description;
 
-    private boolean uploadImage=false;
+    private Timestamp creationDate;
 
     public Recipe() {
     }
 
-    public Recipe(String author, List<String> ingredientes, List<String> steps, String name, String recipeImageUrl, String description, boolean uploadImage) {
+    public Recipe(String author, List<String> ingredientes, List<String> steps, String name,
+                  String recipeImageUrl, String description, Timestamp creationDate) {
         this.author = author;
         this.ingredientes = ingredientes;
         this.steps = steps;
         this.name = name;
         this.recipeImageUrl = recipeImageUrl;
         this.description = description;
-        this.uploadImage =uploadImage;
+        this.creationDate = creationDate;
     }
 
     public String getAuthor() {
@@ -89,11 +92,11 @@ public class Recipe {
         this.id = id;
     }
 
-    public boolean isUploadImage() {
-        return uploadImage;
+    public Timestamp getCreationDate() {
+        return creationDate;
     }
 
-    public void setUploadImage(boolean uploadImage) {
-        this.uploadImage = uploadImage;
+    public void setCreationDate(Timestamp creationDate) {
+        this.creationDate = creationDate;
     }
 }

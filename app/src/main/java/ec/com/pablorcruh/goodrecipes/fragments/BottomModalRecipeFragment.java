@@ -61,6 +61,11 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
                             mainViewModel.deleteRecipe(recipeIdDelete);
                             getDialog().dismiss();
                             return true;
+                        case R.id.menu_action_edit_recipe:
+                            Log.d(TAG, "onNavigationItemSelected: >>>>>>> llamar edicion");
+
+                            getDialog().dismiss();
+                            return true;
                     }
                     return false;
                 }
