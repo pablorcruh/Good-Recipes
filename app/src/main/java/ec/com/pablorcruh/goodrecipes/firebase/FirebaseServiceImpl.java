@@ -32,6 +32,7 @@ import ec.com.pablorcruh.goodrecipes.common.MyApp;
 import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
 import ec.com.pablorcruh.goodrecipes.common.Util;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
+import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirebaseDocumentSnapshotLiveData;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.model.User;
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreAuthLiveData;
@@ -43,7 +44,6 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     private static final String TAG = FirebaseServiceImpl.class.getName();
 
-    private static FirebaseAuth  mAuth;
 
     private FirebaseFirestore database;
 
@@ -52,7 +52,7 @@ public class FirebaseServiceImpl implements FirebaseService {
     private StorageReference storeRef;
 
     public FirebaseServiceImpl() {
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
     }
@@ -154,7 +154,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     public void logout() {
         Log.d(TAG, "logout: ");
-        mAuth.signOut();
+        firebaseAuth.signOut();
     }
 
     public void uploadPhotoStorage(final Uri imageUri){
@@ -268,4 +268,13 @@ public class FirebaseServiceImpl implements FirebaseService {
                     }
                 });
     }
+
+    @Override
+    public FirebaseDocumentSnapshotLiveData getRecipeById(String idRecipe) {
+        DocumentReference docRef = database.document(Constants.RECIPE_COLLECTION +"/" + idRecipe);
+        FirebaseDocumentSnapshotLiveData liveData = new FirebaseDocumentSnapshotLiveData(firebaseAuth, docRef);
+        return liveData;
+    }
+
+
 }

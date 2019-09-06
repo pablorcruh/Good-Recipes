@@ -9,11 +9,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import ec.com.pablorcruh.goodrecipes.R;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
@@ -22,7 +26,7 @@ import ec.com.pablorcruh.goodrecipes.viewmodel.MainViewModel;
 public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
 
     private MainViewModel mainViewModel;
-    private String recipeIdDelete;
+    private String recipeIdSelected;
     private static final String TAG= BottomModalRecipeFragment.class.getName();
 
     public static BottomModalRecipeFragment newInstance(String recipeId) {
@@ -38,7 +42,7 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
         super.onCreate(savedInstanceState);
         try {
             if(getArguments()!=null){
-                recipeIdDelete = getArguments().getString(Constants.ARG_RECIPE_ID);
+                recipeIdSelected = getArguments().getString(Constants.ARG_RECIPE_ID);
             }
         }catch (Exception e){
             Crashlytics.log(e.getMessage());
@@ -58,12 +62,12 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
                     int id = menuItem.getItemId();
                     switch(id){
                         case R.id.menu_action_delete_recipe:
-                            mainViewModel.deleteRecipe(recipeIdDelete);
+                            mainViewModel.deleteRecipe(recipeIdSelected);
                             getDialog().dismiss();
                             return true;
                         case R.id.menu_action_edit_recipe:
                             Log.d(TAG, "onNavigationItemSelected: >>>>>>> llamar edicion");
-
+                            editRecipe(recipeIdSelected);
                             getDialog().dismiss();
                             return true;
                     }
@@ -83,5 +87,20 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+    }
+
+    private void editRecipe(String recipeIdSelected){
+        LiveData<Task<DocumentSnapshot>> liveData = mainViewModel.getRecipeById(recipeIdSelected);
+        liveData.observe(getActivity(), new Observer<Task<DocumentSnapshot>>() {
+            @Override
+            public void onChanged(Task<DocumentSnapshot> documentSnapshotTask) {
+                if(documentSnapshotTask.isSuccessful()){
+                    DocumentSnapshot documentSnapshot = documentSnapshotTask.getResult();
+                    if(documentSnapshot.exists()){
+                        Log.d(TAG, "onChanged: >>>>>>>>>>>>>>>>>"+documentSnapshot);
+                    }
+                }
+            }
+        });
     }
 }

@@ -6,11 +6,13 @@ import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.List;
 
+import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirebaseDocumentSnapshotLiveData;
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreAuthLiveData;
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreLoginLiveData;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
@@ -44,5 +46,7 @@ public interface FirebaseService {
     void addFollower(List<String> followers, String author);
 
     void updateFCMToken(String token, String user);
+
+    FirebaseDocumentSnapshotLiveData getRecipeById(String idRecipe);
 
 }
