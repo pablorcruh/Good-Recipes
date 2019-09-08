@@ -1,5 +1,6 @@
 package ec.com.pablorcruh.goodrecipes.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import ec.com.pablorcruh.goodrecipes.R;
+import ec.com.pablorcruh.goodrecipes.activities.EditRecipe;
+import ec.com.pablorcruh.goodrecipes.common.MyApp;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.firebase.CallbackGetRecipe;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
@@ -52,7 +55,7 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         try{
-            View view = inflater.inflate(R.layout.fragment_bottom_modal_recipe, container, false);
+            final View view = inflater.inflate(R.layout.fragment_bottom_modal_recipe, container, false);
             final NavigationView nav = view.findViewById(R.id.navigation_view_bottom_recipe);
             nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -61,11 +64,6 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
                     switch(id){
                         case R.id.menu_action_delete_recipe:
                             mainViewModel.deleteRecipe(recipeIdSelected);
-                            getDialog().dismiss();
-                            return true;
-                        case R.id.menu_action_edit_recipe:
-                            Log.d(TAG, "onNavigationItemSelected: >>>>>>>>>>"+recipeIdSelected);
-                            editRecipe(recipeIdSelected);
                             getDialog().dismiss();
                             return true;
                     }
@@ -87,13 +85,4 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
         mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
     }
 
-    private void editRecipe(final String recipeIdSelected){
-        mainViewModel.getRecipeById(recipeIdSelected, new CallbackGetRecipe() {
-            @Override
-            public void getRecipeById(Recipe recipe) {
-                Recipe actualRecipe = recipe;
-                Log.d(TAG, "getRecipeById: >>>>>>>>>>>>>>>>>"+actualRecipe.getId());
-            }
-        });
-    }
 }

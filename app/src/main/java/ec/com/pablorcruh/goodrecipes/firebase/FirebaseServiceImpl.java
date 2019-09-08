@@ -119,7 +119,7 @@ public class FirebaseServiceImpl implements FirebaseService {
     public void saveRecipe( Recipe recipe) {
         Long recipeId = System.currentTimeMillis();
         SharedPreferencesManager.setSomeLongValue(Constants.PREF_ID_RECIPE, recipeId);
-        DocumentReference docRef = database.document(Constants.RECIPE_COLLECTION +"/" + recipeId);
+        DocumentReference docRef = database.document(Constants.RECIPE_COLLECTION + "/" + recipeId);
         docRef.set(recipe)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -181,7 +181,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     private void updatePhotoRecipe(Uri imageUri){
         Long idRecipe = SharedPreferencesManager.getSomeLongValue(Constants.PREF_ID_RECIPE);
-        DocumentReference recipe = database.collection(Constants.RECIPE_COLLECTION +"/" ).document(""+idRecipe);
+        DocumentReference recipe = database.collection(Constants.RECIPE_COLLECTION + "/").document(""+idRecipe);
         recipe.update(Constants.URL_IMAGE,imageUri.toString())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -211,7 +211,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     @Override
     public void getFollowers(String author, final Callback callback) {
-        DocumentReference documentReference = database.collection("users").document(author);
+        DocumentReference documentReference = database.collection(Constants.USER_COLLECTION).document(author);
                 documentReference.get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -234,7 +234,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     @Override
     public void addFollower(List<String> followers, String author) {
-        DocumentReference recipe = database.collection(Constants.USER_COLLECTION +"/" ).document(""+author);
+        DocumentReference recipe = database.collection(Constants.USER_COLLECTION + "/" ).document(""+author);
         recipe.update(Constants.USERS_FOLLOWERS_COLUMN,followers)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -270,17 +270,14 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     @Override
     public void getRecipeById(final String idRecipe, final CallbackGetRecipe callbackGetRecipe) {
-        final DocumentReference docRef = database.document(Constants.RECIPE_COLLECTION +"/" + idRecipe);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        DocumentReference documentReference = database.collection(Constants.RECIPE_COLLECTION + "/").document(idRecipe);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    if(documentSnapshot.exists()){
-                        Recipe recipe = documentSnapshot.toObject(Recipe.class);
-                        Log.d(TAG, "onComplete: >>>>>>>>>>>>>>>>>>>"+recipe.getId());
-                        callbackGetRecipe.getRecipeById(recipe);
-                    }
+                    Recipe recipe = documentSnapshot.toObject(Recipe.class);
+                    callbackGetRecipe.getRecipeById(recipe);
                 }
             }
         });

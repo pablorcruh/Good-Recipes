@@ -1,7 +1,7 @@
 default_platform(:android)
 platform :android do
-before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+  before_all do
+    ENV["SLACK_URL"] = #{ENV['SLACK_WEB_HOOK']}
     increment_version_code
   end
 
@@ -17,11 +17,11 @@ before_all do
     supply(track: 'beta')
   end
 
-   desc "Submit a new Beta Build to Crashlytics Beta"
-    lane :betaCerrado do
-      gradle(task: "clean assembleRelease")
-      supply(track: 'tester-good-recipe')
-    end
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :betaCerrado do
+    gradle(task: "clean assembleRelease")
+    supply(track: 'tester-good-recipe')
+  end
 
   desc "Create a new version to the Google Play"
   lane :deploy do
@@ -35,11 +35,15 @@ before_all do
   # You can define as many lanes as you want
 
   after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+    slack(
+      message: "Successfully deployed new App Update."
+    )
   end
 
+  error do |lane,exception|
+    slack(
+        message: exception.message,
+        success: false
+    )
+  end
 end

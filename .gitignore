@@ -15,10 +15,11 @@ google-services.json
 keystore.properties
 fastlane/release_manager_android.json
 app/release/
-app/.idea
+app/.idea/
 
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
+fastlane/.env

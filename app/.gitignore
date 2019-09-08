@@ -2,3 +2,12 @@
 google-services.json
 .idea
 .attach_*
+
+app/.idea/
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/readme.md
+fastlane/.env

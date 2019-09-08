@@ -16,6 +16,11 @@ or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## Android
+### android test
+```
+fastlane android test
+```
+
 ### android debug
 ```
 fastlane android debug

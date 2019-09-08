@@ -1,10 +1,13 @@
 package ec.com.pablorcruh.goodrecipes.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.Timestamp;
 
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Parcelable {
 
     private String id;
 
@@ -35,6 +38,29 @@ public class Recipe {
         this.description = description;
         this.creationDate = creationDate;
     }
+
+    protected Recipe(Parcel in) {
+        id = in.readString();
+        author = in.readString();
+        ingredientes = in.createStringArrayList();
+        steps = in.createStringArrayList();
+        name = in.readString();
+        recipeImageUrl = in.readString();
+        description = in.readString();
+        creationDate = in.readParcelable(Timestamp.class.getClassLoader());
+    }
+
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
+        @Override
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
 
     public String getAuthor() {
         return author;
@@ -98,5 +124,22 @@ public class Recipe {
 
     public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(author);
+        parcel.writeStringList(ingredientes);
+        parcel.writeStringList(steps);
+        parcel.writeString(name);
+        parcel.writeString(recipeImageUrl);
+        parcel.writeString(description);
+        parcel.writeParcelable(creationDate, i);
     }
 }
