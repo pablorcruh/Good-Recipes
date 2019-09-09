@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProviders;
@@ -30,6 +31,15 @@ import ec.com.pablorcruh.goodrecipes.viewmodel.MainViewModel;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
 
+
+    public interface OnRecipeClickListener {
+        void onRecipeClick(int position);
+    }
+
+    public void setOnRecipeClickListener(OnRecipeClickListener listener){
+        recipeListener = listener;
+    }
+
     private static final String TAG  =  RecipeAdapter.class.getName();
     private List<Recipe> recipeList;
     private String user;
@@ -39,6 +49,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private String author;
     private List<String> followerList;
     private int followerCounter;
+    private OnRecipeClickListener recipeListener;
+
 
     public RecipeAdapter(Context context, LifecycleOwner lifecycleOwner, List<Recipe> recipeList) {
         this.context = context;
@@ -53,7 +65,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe, parent,false);
-        RecipeViewHolder recipeViewHolder = new RecipeViewHolder(view);
+        RecipeViewHolder recipeViewHolder = new RecipeViewHolder(view, recipeListener);
         return recipeViewHolder;
     }
 
@@ -103,8 +115,21 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         private TextView tvFollowers;
         private TextView tvAuthor;
         private int mPosition;
-        public RecipeViewHolder(@NonNull View itemView) {
+        public RecipeViewHolder(@NonNull View itemView, final OnRecipeClickListener listener) {
             super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener !=null){
+                        int position= getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onRecipeClick(position);
+                        }
+                    }
+                }
+            });
+
             tvRecipeName = itemView.findViewById(R.id.label_item_recipe_name);
             tvRecipeDescription = itemView.findViewById(R.id.label_item_recipe_description);
             ivRecipeImage = itemView.findViewById(R.id.image_view_item_recipe_image);

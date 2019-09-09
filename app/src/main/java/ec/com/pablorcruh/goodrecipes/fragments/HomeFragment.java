@@ -1,6 +1,7 @@
 package ec.com.pablorcruh.goodrecipes.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.R;
+import ec.com.pablorcruh.goodrecipes.activities.EditRecipe;
 import ec.com.pablorcruh.goodrecipes.adapter.RecipeAdapter;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.viewmodel.MainViewModel;
@@ -70,10 +74,18 @@ public class HomeFragment extends Fragment {
                 }
             });
 
-            RecyclerView recyclerViewRecipes = view.findViewById(R.id.recycler_view_recipes);
+            final RecyclerView recyclerViewRecipes = view.findViewById(R.id.recycler_view_recipes);
             adapterRecipe = new RecipeAdapter(getActivity(),getActivity(),recipeList);
             recyclerViewRecipes.setAdapter(adapterRecipe);
             recyclerViewRecipes.setLayoutManager(new LinearLayoutManager(getActivity()));
+            adapterRecipe.setOnRecipeClickListener(new RecipeAdapter.OnRecipeClickListener() {
+                @Override
+                public void onRecipeClick(int position) {
+                    Intent intent = new Intent(getActivity(), EditRecipe.class);
+                    intent.putExtra("recipe", recipeList.get(position));
+                    startActivity(intent);
+                }
+            });
             return view;
         }catch (Exception e){
             Crashlytics.log(e.getMessage());
