@@ -39,4 +39,8 @@
     <string name="add_new_navigation_label">Add New</string>
     <string name="list_my_recipes_navigation_label">List My Recipes</string>
 
+    <string name="default_notification_channel_id">New Recipes</string>
+    <string name="data_title">title</string>
+    <string name="data_description">description</string>
+    <string name="data_message_id">message_id</string>
 </resources>
