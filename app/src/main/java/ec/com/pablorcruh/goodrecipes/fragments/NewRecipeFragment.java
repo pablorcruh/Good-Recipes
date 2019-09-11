@@ -1,13 +1,11 @@
 package ec.com.pablorcruh.goodrecipes.fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -165,6 +163,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                            fragmentManager.popBackStack();
                        }
                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                       fragmentTransaction.replace(R.id.fragment_container, new HomeFragment());
                        fragmentTransaction.addToBackStack(null);
                        fragmentTransaction.commit();
 
