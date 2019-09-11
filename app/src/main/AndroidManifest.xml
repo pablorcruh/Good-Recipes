@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.EditRecipe"></activity>
+        <activity android:name=".activities.EditRecipe" android:theme="@style/AppThemeBar" android:parentActivityName=".activities.MainActivity"></activity>
         <activity android:name=".activities.RegisterActivity" />
         <activity
             android:name=".activities.MainActivity"
