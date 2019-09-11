@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import javax.annotation.Nullable;
@@ -21,7 +22,7 @@ public class FirestoreQuerySnapshotLiveData extends LiveData<QuerySnapshot> {
 
     @Override
     protected void onActive() {
-        colRef.addSnapshotListener(listener);
+        colRef.orderBy("creationDate", Query.Direction.DESCENDING).addSnapshotListener(listener);
     }
 
 
