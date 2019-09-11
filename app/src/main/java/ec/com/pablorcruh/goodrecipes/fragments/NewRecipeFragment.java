@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,11 +26,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.R;
+import ec.com.pablorcruh.goodrecipes.activities.MainActivity;
 import ec.com.pablorcruh.goodrecipes.adapter.IngredientsAdapter;
 import ec.com.pablorcruh.goodrecipes.adapter.StepAdapter;
 import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
@@ -162,7 +165,6 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                            fragmentManager.popBackStack();
                        }
                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                       fragmentTransaction.replace(R.id.fragment_container, new HomeFragment());
                        fragmentTransaction.addToBackStack(null);
                        fragmentTransaction.commit();
 
