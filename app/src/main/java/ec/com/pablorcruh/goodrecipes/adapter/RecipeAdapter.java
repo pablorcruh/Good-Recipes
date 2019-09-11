@@ -169,6 +169,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             author = tvAuthor.getText().toString();
             Glide.with(context)
                     .load(recipe.getRecipeImageUrl())
+                    .error(Glide.with(ivRecipeImage).load(R.drawable.empty_recipe))
                     .into(ivRecipeImage);
         }
     }
