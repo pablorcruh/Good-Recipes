@@ -68,5 +68,8 @@ public class MainViewModel extends ViewModel {
         firebaseService.getRecipeById(recipeId, callbackGetRecipe );
     }
 
+    public LiveData<QuerySnapshot> getUserRecipe(String email){
+        return firebaseService.getUserRecipe(email);
+    }
 
 }

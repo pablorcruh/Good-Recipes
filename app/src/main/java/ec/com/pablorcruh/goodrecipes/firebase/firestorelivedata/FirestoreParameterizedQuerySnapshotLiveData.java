@@ -1,5 +1,7 @@
 package ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.tasks.OnSuccessListener;
