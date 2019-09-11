@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import ec.com.pablorcruh.goodrecipes.constants.Constants;
 
 public class FirestoreParameterizedQuerySnapshotLiveData extends LiveData<QuerySnapshot> {
 
@@ -23,7 +26,7 @@ public class FirestoreParameterizedQuerySnapshotLiveData extends LiveData<QueryS
 
     @Override
     protected void onActive() {
-        colRef.whereEqualTo(parameter,criteria).get().addOnSuccessListener(listener);
+        colRef.orderBy(Constants.SORTING_CRITERIA, Query.Direction.DESCENDING).whereEqualTo(parameter,criteria).get().addOnSuccessListener(listener);
     }
 
     @Override

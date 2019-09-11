@@ -92,8 +92,6 @@ public class HomeFragment extends Fragment {
             Log.e(TAG, "onCreateView: ", e);
             return null;
         }
-
-
     }
 
 }

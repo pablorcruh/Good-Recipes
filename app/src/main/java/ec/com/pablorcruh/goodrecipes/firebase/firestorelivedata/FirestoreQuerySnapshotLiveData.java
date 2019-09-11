@@ -10,6 +10,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import javax.annotation.Nullable;
 
+import ec.com.pablorcruh.goodrecipes.constants.Constants;
+
 public class FirestoreQuerySnapshotLiveData extends LiveData<QuerySnapshot> {
 
     private final CollectionReference colRef;
@@ -22,7 +24,7 @@ public class FirestoreQuerySnapshotLiveData extends LiveData<QuerySnapshot> {
 
     @Override
     protected void onActive() {
-        colRef.orderBy("creationDate", Query.Direction.DESCENDING).addSnapshotListener(listener);
+        colRef.orderBy(Constants.SORTING_CRITERIA, Query.Direction.DESCENDING).addSnapshotListener(listener);
     }
 
 
