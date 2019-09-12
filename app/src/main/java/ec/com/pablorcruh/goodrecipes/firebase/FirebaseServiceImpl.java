@@ -92,7 +92,7 @@ public class FirebaseServiceImpl implements FirebaseService {
                 });
     }
 
-    public FirebaseUser getCurrentUser() throws FirebaseAuthException {
+    private FirebaseUser getCurrentUser() throws FirebaseAuthException {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser == null) {
             throw new FirebaseAuthException("User not found", "User not found");
@@ -116,7 +116,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         return liveData;
     }
 
-    public void saveRecipe( Recipe recipe) {
+    public void saveRecipe(Recipe recipe) {
         Long recipeId = System.currentTimeMillis();
         SharedPreferencesManager.setSomeLongValue(Constants.PREF_ID_RECIPE, recipeId);
         DocumentReference docRef = database.document(Constants.RECIPE_COLLECTION + "/" + recipeId);
@@ -135,7 +135,7 @@ public class FirebaseServiceImpl implements FirebaseService {
                 });
     }
 
-    public void deleteRecipe(String recipeId){
+    public void deleteRecipe(String recipeId) {
         database.collection(Constants.RECIPE_COLLECTION).document(recipeId).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -156,21 +156,21 @@ public class FirebaseServiceImpl implements FirebaseService {
         firebaseAuth.signOut();
     }
 
-    public void uploadPhotoStorage(final Uri imageUri){
+    public void uploadPhotoStorage(final Uri imageUri) {
         storeRef = FirebaseStorage.getInstance().getReference("all");
-        StorageReference fileReference   = storeRef.child(System.currentTimeMillis() + "."+ Util.getFileExtension(imageUri));
+        StorageReference fileReference = storeRef.child(System.currentTimeMillis() + "." + Util.getFileExtension(imageUri));
         fileReference.putFile(imageUri)
                 .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             task.getResult().getMetadata().getReference().getDownloadUrl()
                                     .addOnCompleteListener(new OnCompleteListener<Uri>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Uri> task) {
-                                                 if(task.isSuccessful()){
-                                                     updatePhotoRecipe(task.getResult());
-                                                 }
+                                            if (task.isSuccessful()) {
+                                                updatePhotoRecipe(task.getResult());
+                                            }
                                         }
                                     });
                         }
@@ -179,10 +179,10 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     }
 
-    private void updatePhotoRecipe(Uri imageUri){
+    private void updatePhotoRecipe(Uri imageUri) {
         Long idRecipe = SharedPreferencesManager.getSomeLongValue(Constants.PREF_ID_RECIPE);
-        DocumentReference recipe = database.collection(Constants.RECIPE_COLLECTION + "/").document(""+idRecipe);
-        recipe.update(Constants.URL_IMAGE,imageUri.toString())
+        DocumentReference recipe = database.collection(Constants.RECIPE_COLLECTION + "/").document("" + idRecipe);
+        recipe.update(Constants.URL_IMAGE, imageUri.toString())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -192,7 +192,7 @@ public class FirebaseServiceImpl implements FirebaseService {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "onFailure: >>>>>>>>>>>>>>>>>>>>>>>>>"+e);
+                        Log.d(TAG, "onFailure: >>>>>>>>>>>>>>>>>>>>>>>>>" + e);
                     }
                 });
     }
@@ -200,7 +200,7 @@ public class FirebaseServiceImpl implements FirebaseService {
     public void removeRecipeImage(Recipe recipe) {
         FirebaseStorage mStorage;
         mStorage = FirebaseStorage.getInstance();
-        StorageReference imageRef =mStorage.getReferenceFromUrl(recipe.getRecipeImageUrl());
+        StorageReference imageRef = mStorage.getReferenceFromUrl(recipe.getRecipeImageUrl());
         imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -212,11 +212,11 @@ public class FirebaseServiceImpl implements FirebaseService {
     @Override
     public void getFollowers(String author, final Callback callback) {
         DocumentReference documentReference = database.collection(Constants.USER_COLLECTION).document(author);
-                documentReference.get()
+        documentReference.get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             DocumentSnapshot documentSnapshot = task.getResult();
                             User user = documentSnapshot.toObject(User.class);
                             List<String> followers = user.getFollowers();
@@ -227,15 +227,15 @@ public class FirebaseServiceImpl implements FirebaseService {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "onFailure: +++++++++++"+e);
+                        Log.d(TAG, "onFailure: +++++++++++" + e);
                     }
                 });
     }
 
     @Override
     public void addFollower(List<String> followers, String author) {
-        DocumentReference recipe = database.collection(Constants.USER_COLLECTION + "/" ).document(""+author);
-        recipe.update(Constants.USERS_FOLLOWERS_COLUMN,followers)
+        DocumentReference recipe = database.collection(Constants.USER_COLLECTION + "/").document("" + author);
+        recipe.update(Constants.USERS_FOLLOWERS_COLUMN, followers)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -252,7 +252,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     @Override
     public void updateFCMToken(String token, String updatedUser) {
-        DocumentReference user = database.collection(Constants.USER_COLLECTION + "/").document(""+updatedUser);
+        DocumentReference user = database.collection(Constants.USER_COLLECTION + "/").document("" + updatedUser);
         user.update(Constants.USER_TOKEN_COLUMN, token)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -274,7 +274,7 @@ public class FirebaseServiceImpl implements FirebaseService {
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     Recipe recipe = documentSnapshot.toObject(Recipe.class);
                     callbackGetRecipe.getRecipeById(recipe);

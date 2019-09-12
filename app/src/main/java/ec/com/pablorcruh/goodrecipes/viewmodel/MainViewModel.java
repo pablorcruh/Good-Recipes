@@ -28,11 +28,6 @@ public class MainViewModel extends ViewModel {
         firebaseService = new FirebaseServiceImpl();
     }
 
-    public FirebaseUser getCurrentUser() throws FirebaseAuthException {
-        return firebaseService.getCurrentUser();
-    }
-
-
     public void logout(){
         Log.d(TAG, "logout: ");
         firebaseService.logout();

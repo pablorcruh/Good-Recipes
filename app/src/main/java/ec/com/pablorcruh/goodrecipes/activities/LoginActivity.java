@@ -80,9 +80,13 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onChanged(Task<AuthResult> authResultTask) {
                                     if (authResultTask.isSuccessful()) {
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        finish();
-                                        startActivity(intent);
+                                        if(authResultTask.getResult().getUser().isEmailVerified()){
+                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                            finish();
+                                            startActivity(intent);
+                                        }else{
+                                            Toast.makeText(LoginActivity.this, "Email not verified", Toast.LENGTH_SHORT).show();
+                                        }
                                     } else {
                                         Toast.makeText(LoginActivity.this, "Please check yor credentials", Toast.LENGTH_SHORT).show();
                                     }

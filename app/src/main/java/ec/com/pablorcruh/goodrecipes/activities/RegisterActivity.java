@@ -1,5 +1,6 @@
 package ec.com.pablorcruh.goodrecipes.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -90,10 +92,17 @@ public class RegisterActivity extends AppCompatActivity {
                                     @Override
                                     public void onChanged(Task<AuthResult> authResultTask) {
                                         Log.d(TAG, "onChanged: >>>>> creado con exito");
+                                        authResultTask.getResult().getUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Toast.makeText(RegisterActivity.this, "Email send", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                         finish();
                                         startActivity(intent);
                                         registerViewModel.createUserOnFirestore(user);
+
                                         Toast.makeText(RegisterActivity.this, "User successfully created", Toast.LENGTH_SHORT).show();
                                     }
                                 });

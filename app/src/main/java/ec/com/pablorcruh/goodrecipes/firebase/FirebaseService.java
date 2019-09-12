@@ -22,8 +22,6 @@ public interface FirebaseService {
 
     void createUserOnFirestore(User user);
 
-    FirebaseUser getCurrentUser() throws FirebaseAuthException;
-
     LiveData<QuerySnapshot> getUserRecipe(String email);
 
 
@@ -44,5 +42,6 @@ public interface FirebaseService {
     void updateFCMToken(String token, String user);
 
     void getRecipeById(String idRecipe, CallbackGetRecipe callbackGetRecipe);
+
 
 }
