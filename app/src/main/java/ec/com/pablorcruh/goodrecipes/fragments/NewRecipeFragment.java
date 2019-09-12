@@ -1,6 +1,10 @@
 package ec.com.pablorcruh.goodrecipes.fragments;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -67,6 +73,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
     private String recipeDescription;
 
     private static final int PICK_IMAGE_REQUEST = 1;
+    private int STORAGE_PERMISSION_CODE = 1;
 
     public NewRecipeFragment() {
     }
@@ -156,6 +163,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                        if (uriImage != null) {
                            viewModel.uploadPhotoStorage(uriImage);
                        } else {
+                           viewModel.uploadPhotoStorage(Uri.parse(Constants.EMPTY_RECIPE_URL));
                            Toast.makeText(getActivity(), "No image was loaded", Toast.LENGTH_SHORT).show();
                        }
                        FragmentManager fragmentManager = getFragmentManager();
@@ -173,7 +181,11 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
            this.ivAddImage.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   openFileChooser();
+                   if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
+                       openFileChooser();
+                   }else{
+                       requestStoragePermission();
+                   }
                }
            });
            return view;
@@ -184,6 +196,39 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
        }
     }
 
+    private void requestStoragePermission() {
+        if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Permission needed")
+                    .setMessage("this permission is needed to upload image")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .create().show();
+        }else{
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == STORAGE_PERMISSION_CODE){
+            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Toast.makeText(getActivity(), "Permission GRANTED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getActivity(), "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     private void openFileChooser() {
         Intent intent = new Intent();
