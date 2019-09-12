@@ -30,13 +30,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ec.com.pablorcruh.goodrecipes.R;
-import ec.com.pablorcruh.goodrecipes.activities.MainActivity;
 import ec.com.pablorcruh.goodrecipes.adapter.IngredientsAdapter;
 import ec.com.pablorcruh.goodrecipes.adapter.StepAdapter;
 import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
@@ -59,7 +57,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
     private EditText editTextRecipeName;
     private EditText editTextNewStep;
     private Button buttonSaveRecipe;
-    private ImageView ivAddImage;
+    private Button buttonAddImage;
     private ImageView ivShowRecipeImage;
     private NewRecipeViewModel viewModel;
     private Uri uriImage;
@@ -98,7 +96,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
            this.editTextNewStep = view.findViewById(R.id.edit_text_add_step);
            this.imageViewAddStep = view.findViewById(R.id.image_view_add_step);
            this.buttonSaveRecipe = view.findViewById(R.id.button_save_recipe);
-           this.ivAddImage = view.findViewById(R.id.image_view_add_image);
+           this.buttonAddImage = view.findViewById(R.id.button_add_image);
            this.ivShowRecipeImage = view.findViewById(R.id.image_view_recipe_image);
            this.etDescription = view.findViewById(R.id.edit_text_recipe_description);
 
@@ -178,7 +176,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                    }
                }
            });
-           this.ivAddImage.setOnClickListener(new View.OnClickListener() {
+           this.buttonAddImage.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
                    if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){

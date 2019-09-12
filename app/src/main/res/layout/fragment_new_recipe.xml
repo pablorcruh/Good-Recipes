@@ -175,13 +175,17 @@
                 android:text="Recipe Image"
                 />
 
-            <ImageView
-                android:id="@+id/image_view_add_image"
+            <Button
+                android:id="@+id/button_add_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_image_green_24dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintRight_toLeftOf="parent"
+                android:fontFamily="@font/robotoslab_bold"
+                android:background="@drawable/roundbutton"
+                android:textColor="@android:color/white"
+                android:text="Add Image"
                 android:layout_marginTop="20dp"
                 app:layout_constraintTop_toBottomOf="@id/label_recipe_image" />
 
@@ -189,10 +193,10 @@
                 android:id="@+id/image_view_recipe_image"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_view_add_image"
+                app:layout_constraintTop_toBottomOf="@+id/button_add_image"
                 />
 
             <Button
