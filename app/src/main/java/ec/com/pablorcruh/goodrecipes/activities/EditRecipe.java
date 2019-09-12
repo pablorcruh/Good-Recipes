@@ -49,7 +49,9 @@ public class EditRecipe extends AppCompatActivity {
         tvRecipeDescription.setText(recipe.getDescription());
         Glide.with(EditRecipe.this)
                 .load(recipe.getRecipeImageUrl())
+                .error(Glide.with(ivRecipePicture).load(R.drawable.empty_recipe))
                 .into(ivRecipePicture);
+
 
 
         RecyclerView recyclerViewIngredients = findViewById(R.id.view_recycler_view_ingredients);

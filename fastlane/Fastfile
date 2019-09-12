@@ -20,7 +20,7 @@ platform :android do
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :alfa do
     gradle(task: "clean assembleRelease")
-    supply(track: 'alfa')
+    supply(track: 'alpha')
   end
 
   desc "Create a new version to the Google Play"
