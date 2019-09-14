@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,7 +58,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
     private EditText editTextRecipeName;
     private EditText editTextNewStep;
     private Button buttonSaveRecipe;
-    private Button buttonAddImage;
+    private TextView tvAddImage;
     private ImageView ivShowRecipeImage;
     private NewRecipeViewModel viewModel;
     private Uri uriImage;
@@ -96,7 +97,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
            this.editTextNewStep = view.findViewById(R.id.edit_text_add_step);
            this.imageViewAddStep = view.findViewById(R.id.image_view_add_step);
            this.buttonSaveRecipe = view.findViewById(R.id.button_save_recipe);
-           this.buttonAddImage = view.findViewById(R.id.button_add_image);
+           this.tvAddImage = view.findViewById(R.id.text_view_add_image);
            this.ivShowRecipeImage = view.findViewById(R.id.image_view_recipe_image);
            this.etDescription = view.findViewById(R.id.edit_text_recipe_description);
 
@@ -176,7 +177,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                    }
                }
            });
-           this.buttonAddImage.setOnClickListener(new View.OnClickListener() {
+           this.tvAddImage.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
                    if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){

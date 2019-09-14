@@ -46,9 +46,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     private MainViewModel mainViewModel;
     private Context context;
     private LifecycleOwner lifecycleOwner;
-    private String author;
-    private List<String> followerList;
-    private int followerCounter;
     private OnRecipeClickListener recipeListener;
 
 
@@ -58,7 +55,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         this.recipeList = recipeList;
         user = SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL);
         mainViewModel = ViewModelProviders.of((FragmentActivity) lifecycleOwner).get(MainViewModel.class);
-        followerCounter =0;
     }
 
     @NonNull
@@ -76,10 +72,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             holder.mRecipe = recipe;
             holder.setData(recipe, position);
             holder.ivRecipeAction.setVisibility(View.GONE);
-            holder.tvFollowers.setVisibility(View.VISIBLE);
             if(holder.mRecipe.getAuthor().equals(user)){
                 holder.ivRecipeAction.setVisibility(View.VISIBLE);
-                holder.tvFollowers.setVisibility(View.GONE);
             }
             holder.ivRecipeAction.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,7 +106,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         private ImageView ivRecipeImage;
         private ImageView ivRecipeAction;
         private Recipe mRecipe;
-        private TextView tvFollowers;
         private TextView tvAuthor;
         private int mPosition;
         public RecipeViewHolder(@NonNull View itemView, final OnRecipeClickListener listener) {
@@ -134,31 +127,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             tvRecipeDescription = itemView.findViewById(R.id.label_item_recipe_description);
             ivRecipeImage = itemView.findViewById(R.id.image_view_item_recipe_image);
             ivRecipeAction = itemView.findViewById(R.id.image_view_recipe_action);
-            tvFollowers = itemView.findViewById(R.id.text_view_follow);
             tvAuthor = itemView.findViewById(R.id.label_recipe_author);
-            tvFollowers.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mainViewModel.getFollowers(author, new Callback() {
-                        @Override
-                        public void passStringList(List<String> followers) {
-                            followerList = new ArrayList<>();
-                            followerList = followers;
-                            for (String s : followerList){
-                                if(s.equals(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL))){
-                                    followerCounter ++;
-                                }
-                            }
-                            if(followerCounter==0){
-                                followers.add(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL));
-                                mainViewModel.addFollower(followers, author);
-                            }else{
-                                Toast.makeText(MyApp.getContext(), "User already follower", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-            });
+
         }
 
         public void setData(Recipe recipe, int position) {
@@ -166,7 +136,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             tvRecipeName.setText(recipe.getName());
             tvRecipeDescription.setText(recipe.getDescription());
             tvAuthor.setText(recipe.getAuthor());
-            author = tvAuthor.getText().toString();
             Glide.with(context)
                     .load(recipe.getRecipeImageUrl())
                     .error(Glide.with(ivRecipeImage).load(R.drawable.empty_recipe))

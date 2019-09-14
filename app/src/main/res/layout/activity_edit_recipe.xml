@@ -104,14 +104,30 @@
                 android:id="@+id/text_view_view_recipe_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
                 android:fontFamily="@font/robotoslab_bold"
                 android:textColor="@color/colorPrimary"
                 android:padding="6dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_recipe_description"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/text_view_recipe_description" />
+
+            <TextView
+                android:id="@+id/text_view_follow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundbutton"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:padding="7dp"
+                android:text="Follow"
+                android:textAlignment="center"
+                android:fontFamily="@font/robotoslab_bold"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintTop_toBottomOf="@id/text_view_view_recipe_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
