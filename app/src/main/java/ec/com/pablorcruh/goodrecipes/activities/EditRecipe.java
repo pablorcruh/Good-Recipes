@@ -112,7 +112,7 @@ public class EditRecipe extends AppCompatActivity {
                             followers.add(SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL));
                             mainViewModel.addFollower(followers, author);
                         }else{
-                            Toast.makeText(MyApp.getContext(), "User already follower", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MyApp.getContext(), "Already following", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
