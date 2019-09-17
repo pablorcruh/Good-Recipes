@@ -59,7 +59,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         this.context = context;
         this.lifecycleOwner = lifecycleOwner;
         this.recipeList = recipeList;
-        recipeListSearch = new ArrayList<>(recipeList);
+        this.recipeListSearch = new ArrayList<>(recipeList);
         user = SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL);
         mainViewModel = ViewModelProviders.of((FragmentActivity) lifecycleOwner).get(MainViewModel.class);
     }
@@ -69,12 +69,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe, parent,false);
         RecipeViewHolder recipeViewHolder = new RecipeViewHolder(view, recipeListener);
+        this.recipeListSearch = new ArrayList<>(recipeList);
         return recipeViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final RecipeViewHolder holder, int position) {
         if(recipeList != null){
+            recipeListSearch = new ArrayList<>(this.recipeList);
             Recipe recipe = recipeList.get(position);
             holder.mRecipe = recipe;
             holder.setData(recipe, position);
@@ -176,9 +178,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            recipeList.clear();
-            recipeList.addAll((List)filterResults);
-            notifyDataSetChanged();
+            if(filterResults!=null){
+                recipeList.clear();
+                recipeList.addAll((List)filterResults.values);
+                notifyDataSetChanged();
+            }
         }
     };
 
