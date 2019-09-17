@@ -178,11 +178,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            if(filterResults!=null){
-                recipeList.clear();
-                recipeList.addAll((List)filterResults.values);
-                notifyDataSetChanged();
-            }
+            recipeList.clear();
+            recipeList.addAll((List)filterResults.values);
+            notifyDataSetChanged();
         }
     };
 

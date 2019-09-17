@@ -17,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -44,7 +45,7 @@ public class HomeFragment extends Fragment{
     private LiveData<QuerySnapshot> liveData;
     private MainViewModel mainViewModel;
     private RecipeAdapter adapterRecipe;
-    private List<Recipe> recipeList;
+    private List<Recipe> recipeList = new ArrayList<>();
 
 
     public HomeFragment() {
@@ -66,7 +67,6 @@ public class HomeFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         try{
-            recipeList = new ArrayList<>();
             View view = inflater.inflate(R.layout.fragment_home, container, false);
             liveData = mainViewModel.getAllRecipes();
             liveData.observe(getActivity(), new Observer<QuerySnapshot>() {
@@ -110,13 +110,26 @@ public class HomeFragment extends Fragment{
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                adapterRecipe.getFilter().filter(s);
-                return false;
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
                 adapterRecipe.getFilter().filter(s);
+                return true;
+            }
+        });
+
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                adapterRecipe.getFilter().filter("");
+                adapterRecipe.notifyDataSetChanged();
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
                 return true;
             }
         });
