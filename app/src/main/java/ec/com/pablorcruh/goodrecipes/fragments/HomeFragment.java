@@ -5,9 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
@@ -31,7 +36,7 @@ import ec.com.pablorcruh.goodrecipes.adapter.RecipeAdapter;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.viewmodel.MainViewModel;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener, MenuItem.OnActionExpandListener {
 
     private static final String TAG = HomeFragment.class.getName();
 
@@ -50,6 +55,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         try{
             mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+            recipeList = new ArrayList<>();
         }catch(Exception e){
             Crashlytics.log(e.getMessage());
         }
@@ -94,4 +100,33 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem menuItem) {
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+        adapterRecipe.getFilter();
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String text) {
+        adapterRecipe.getFilter().filter(text);
+        return true;
+    }
 }

@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +31,9 @@ import ec.com.pablorcruh.goodrecipes.firebase.Callback;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.viewmodel.MainViewModel;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> implements Filterable {
+
+
 
 
     public interface OnRecipeClickListener {
@@ -42,6 +46,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     private static final String TAG  =  RecipeAdapter.class.getName();
     private List<Recipe> recipeList;
+    private List<Recipe> recipeListSearch;
+
     private String user;
     private MainViewModel mainViewModel;
     private Context context;
@@ -53,6 +59,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         this.context = context;
         this.lifecycleOwner = lifecycleOwner;
         this.recipeList = recipeList;
+        recipeListSearch = new ArrayList<>(recipeList);
         user = SharedPreferencesManager.getSomeStringValue(Constants.PREF_EMAIL);
         mainViewModel = ViewModelProviders.of((FragmentActivity) lifecycleOwner).get(MainViewModel.class);
     }
@@ -142,5 +149,37 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     .into(ivRecipeImage);
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return recipeFilter;
+    }
+
+    private Filter recipeFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<Recipe> filteredList = new ArrayList<>();
+            if(charSequence == null || charSequence.length()==0){
+                filteredList.addAll(recipeListSearch);
+            }else{
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+                for(Recipe item : recipeListSearch){
+                    if(item.getName().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            recipeList.clear();
+            recipeList.addAll((List)filterResults);
+            notifyDataSetChanged();
+        }
+    };
 
 }

@@ -50,6 +50,7 @@ public class MyRecipesFragment extends Fragment {
         super.onCreate(savedInstanceState);
         try{
             mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+            recipeList = new ArrayList<>();
         }catch(Exception e){
             Crashlytics.log(e.getMessage());
             Log.e(TAG, "onCreate: ", e);
