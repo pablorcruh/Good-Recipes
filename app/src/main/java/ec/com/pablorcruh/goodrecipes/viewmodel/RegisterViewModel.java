@@ -22,11 +22,7 @@ public class RegisterViewModel extends ViewModel {
         firebaseService = new FirebaseServiceImpl();
     }
 
-    public void createUserOnFirestore(User user){
-        firebaseService.createUserOnFirestore(user);
-    }
-
-    public LiveData<Task<AuthResult>> registerNewUser(User user){
+    public Task<AuthResult> registerNewUser(User user){
         Log.d(TAG, "registerNewUser: >>> registrar usuario");
         return firebaseService.registerNewUser(user);
     }
