@@ -87,11 +87,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 List<String> followers = new ArrayList<String>();
                                 followers.add("start");
                                 user = new User(username, userEmail, userPassword, followers, SharedPreferencesManager.getSomeStringValue(Constants.PREF_TOKEN));
+
                                 LiveData<Task<AuthResult>> liveData = registerViewModel.registerNewUser(user);
                                 liveData.observe(RegisterActivity.this, new Observer<Task<AuthResult>>() {
                                     @Override
                                     public void onChanged(Task<AuthResult> authResultTask) {
-                                        Log.d(TAG, "onChanged: >>>>> creado con exito");
                                         authResultTask.getResult().getUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
