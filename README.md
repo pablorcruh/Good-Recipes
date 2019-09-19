@@ -2,9 +2,9 @@
 
 ## GOOD RECIPES
 
-<div style="width:50%"> 
-<img src="https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png"/>
-</div>
+ 
+![login](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png)
+
 
 ### Descripción
 
