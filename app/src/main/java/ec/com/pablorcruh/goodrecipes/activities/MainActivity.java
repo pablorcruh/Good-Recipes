@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseUser firebaseUser;
 
+    private boolean isUserLoggedIn;
+
     private static final String TAG = MainActivity.class.getName();
 
     @Override
@@ -65,10 +67,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.main_menu:
-                mainViewModel.logout();
-                Intent intent = new Intent(this, LoginActivity.class);
-                finish();
-                startActivity(intent);
+                isUserLoggedIn = SharedPreferencesManager.getSomeBooleanValue(Constants.PREF_IS_USER_LOGGED_IN);
+                if (isUserLoggedIn) {
+                    mainViewModel.logout();
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                }else{
+                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
