@@ -5,6 +5,11 @@
  
 ![login](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png)
 
+![register](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/register.png)
+
+![home](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/home.png)
+
+![new_recipe](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/add_new.png)
 
 ### Descripción
 
