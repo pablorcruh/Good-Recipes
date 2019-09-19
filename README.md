@@ -2,7 +2,7 @@
 
 ## GOOD RECIPES
  
-<img src="https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png" width="250" height="200"/>
+<img src="https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png" width="550" height="300"/>
 ### Descripción
 
 El siguiente proyecto tiene como objetivo compartir información sobre recetas de comida saludable.
