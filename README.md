@@ -2,6 +2,12 @@
 
 ## GOOD RECIPES
 
+
+Imágen Login: 
+![alt text][logo]
+
+[logo]: https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png "Login Activity"
+
 ### Descripción
 
 El siguiente proyecto tiene como objetivo compartir información sobre recetas de comida saludable.
