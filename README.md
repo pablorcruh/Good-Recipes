@@ -25,6 +25,9 @@ La aplicación usa varios servicios de Firebase:
 * Cloud Functions.
 * Firestore.
 
+El proyecto hace uso de otro repositorio en donde se encuentran las cloud functions que generan las notificaciones, 
+el código se encuentra en el siguiente [link](https://github.com/pablorcruh/Good-Recipes-Cloud-Functions)
+
 El proyecto hace uso de dos colecciones, la coleccion de usuarios y la colección de recetas para el almacenamiento
 de la información.
 
