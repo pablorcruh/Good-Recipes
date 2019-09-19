@@ -11,6 +11,46 @@ adjuntar una imagen con la receta y compartirla dentro de la comunidad de usuari
 Para poder acceder a la aplicación es necesario que crees una cuenta con una dirección de correo electrónico,
 para de esta manera poder indetificar a los usuarios dentro de la aplicación de manera única
 
+Es necesario crear un proyecto dentro de la console de firebase para poder descargar el archivo **google-services.json**
+que permite la configuración de firebase dentro del proyecto android
+
+La aplicación usa varios servicios de Firebase:
+
+* Autenticación.
+* Storage.
+* Cloud Functions.
+* Firestore.
+
+El proyecto hace uso de dos colecciones, la coleccion de usuarios y la colección de recetas para el almacenamiento
+de la información.
+
+#### Coleccion Usuarios
+
+```
+{ 
+   "email":"string",
+   "followers":[],
+   "token":"string",
+   "username":"string"
+}
+
+```
+
+#### Colección Recetas
+
+```
+{ 
+   "author":"string",
+   "creationDate":"timestamp",
+   "description":"string",
+   "ingredients":[],
+   "name":"string",
+   "recipeImageUrl":"string",
+   "steps":[]
+}
+
+```
+
 ### Agregar Fastlane dentro del Proyecto
 
 Para poder automatizar los despliegues dentro de Google Play Console es necesario el uso de una 
