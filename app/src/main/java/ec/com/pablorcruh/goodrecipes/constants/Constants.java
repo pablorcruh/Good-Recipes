@@ -25,4 +25,7 @@ public class Constants {
     public static final String SORTING_CRITERIA = "creationDate";
 
     public static final String EMPTY_RECIPE_URL = "https://firebasestorage.googleapis.com/v0/b/good-recipes.appspot.com/o/default%2Fempty_recipe.jpg?alt=media&token=f45e014a-cb1f-4506-a54b-3febd5af83c7";
+
+    public static final String PREF_IS_USER_LOGGED_IN = "PREF_IS_USER_LOGGED_IN";
+
 }

@@ -197,7 +197,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
 
     private void requestStoragePermission() {
         if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
-            new AlertDialog.Builder(getActivity())
+             new AlertDialog.Builder(getActivity())
                     .setTitle("Permission needed")
                     .setMessage("this permission is needed to upload image")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -261,4 +261,5 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
         stepsArray.remove(step);
         adapterSteps.notifyDataSetChanged();
     }
+
 }

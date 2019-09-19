@@ -1,6 +1,5 @@
 package ec.com.pablorcruh.goodrecipes.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,11 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import ec.com.pablorcruh.goodrecipes.R;
-import ec.com.pablorcruh.goodrecipes.activities.EditRecipe;
-import ec.com.pablorcruh.goodrecipes.common.MyApp;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
-import ec.com.pablorcruh.goodrecipes.firebase.CallbackGetRecipe;
-import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.viewmodel.MainViewModel;
 
 public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
@@ -85,4 +80,9 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
         mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getDialog().dismiss();
+    }
 }

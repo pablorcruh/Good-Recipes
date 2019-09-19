@@ -88,6 +88,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     public FirestoreLoginLiveData loginExistingUser(User user) {
         FirestoreLoginLiveData loginLiveData = new FirestoreLoginLiveData(firebaseAuth, user);
+        SharedPreferencesManager.setSomeBooleanValue(Constants.PREF_IS_USER_LOGGED_IN, true);
         return loginLiveData;
     }
 
@@ -176,6 +177,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     public void logout() {
         Log.d(TAG, "logout: ");
+        SharedPreferencesManager.setSomeBooleanValue(Constants.PREF_IS_USER_LOGGED_IN, false);
         firebaseAuth.signOut();
     }
 
