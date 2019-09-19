@@ -1,12 +1,10 @@
 # TRABAJO FINAL DE MASTER
 
 ## GOOD RECIPES
-
-
-Imágen Login: 
+ 
 ![alt text][logo]
 
-[logo]: https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png "Login Activity"
+[logo]: (https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png =150x100)"Login Activity"
 
 ### Descripción
 
