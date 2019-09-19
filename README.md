@@ -2,14 +2,9 @@
 
 ## GOOD RECIPES
 
- 
-![login](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png)
-
-![register](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/register.png)
-
-![home](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/home.png)
-
-![new_recipe](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/add_new.png)
+| Figura 1 									        | Figura 2 | Figura 3 |
+| -------------------------------------------------------------------------------------:| 
+| ![login](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png)| ![home](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/home.png) | ![new_recipe](https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/add_new.png) |
 
 ### Descripción
 
