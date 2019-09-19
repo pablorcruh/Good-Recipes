@@ -1,8 +1,10 @@
 # TRABAJO FINAL DE MASTER
 
 ## GOOD RECIPES
- 
-<img src="https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png" width="750" height="200"/>
+
+<div style="width:50%"> 
+	<img src="https://github.com/pablorcruh/Good-Recipes/blob/master/repo_assets/login.png"/>
+</div>
 ### Descripción
 
 El siguiente proyecto tiene como objetivo compartir información sobre recetas de comida saludable.
