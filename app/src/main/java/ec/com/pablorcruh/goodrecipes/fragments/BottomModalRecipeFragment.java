@@ -79,10 +79,4 @@ public class BottomModalRecipeFragment extends BottomSheetDialogFragment {
         super.onActivityCreated(savedInstanceState);
         mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getDialog().dismiss();
-    }
 }

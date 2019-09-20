@@ -166,14 +166,11 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                            Toast.makeText(getActivity(), "No image was loaded", Toast.LENGTH_SHORT).show();
                        }
                        FragmentManager fragmentManager = getFragmentManager();
-                       for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
-                           fragmentManager.popBackStack();
-                       }
                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                       fragmentTransaction.replace(R.id.fragment_container, new HomeFragment());
-                       fragmentTransaction.addToBackStack(null);
-                       fragmentTransaction.commit();
-
+                       fragmentTransaction
+                               .replace(R.id.fragment_container, new HomeFragment(), "home")
+                               .addToBackStack("home")
+                               .commit();
                    }
                }
            });

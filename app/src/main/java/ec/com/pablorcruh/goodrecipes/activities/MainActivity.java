@@ -113,4 +113,19 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack(0,0);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if(selectedFragment!=null){
+            fragmentTransaction.remove(selectedFragment);
+            fragmentTransaction.addToBackStack("Remove "+selectedFragment.toString());
+            fragmentTransaction.commit();
+        }else{
+            super.onBackPressed();
+        }
+
+    }
+
 }
