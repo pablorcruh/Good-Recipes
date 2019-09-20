@@ -119,19 +119,5 @@ public class HomeFragment extends Fragment{
                 return true;
             }
         });
-
-        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                adapterRecipe.getFilter().filter("");
-                adapterRecipe.notifyDataSetChanged();
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                return true;
-            }
-        });
     }
 }
