@@ -120,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if(selectedFragment!=null){
             fragmentTransaction.remove(selectedFragment);
-            fragmentTransaction.addToBackStack("Remove "+selectedFragment.toString());
+            fragmentTransaction.add(new HomeFragment(), "home");
+            fragmentTransaction.addToBackStack("home");
             fragmentTransaction.commit();
         }else{
             super.onBackPressed();
