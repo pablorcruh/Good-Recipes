@@ -3,6 +3,8 @@ package ec.com.pablorcruh.goodrecipes.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean isUserLoggedIn;
 
     private static final String TAG = MainActivity.class.getName();
+
+    private Fragment selectedFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     mainViewModel.logout();
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
+                    finishAffinity();
                 }else{
                  startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    Fragment selectedFragment = null;
+
                     switch (menuItem.getItemId()) {
                         case R.id.nav_home:
                             selectedFragment = new HomeFragment();
@@ -107,4 +112,5 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }
