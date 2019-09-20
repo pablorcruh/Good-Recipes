@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,13 +29,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ec.com.pablorcruh.goodrecipes.activities.RegisterActivity;
 import ec.com.pablorcruh.goodrecipes.common.MyApp;
 import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
 import ec.com.pablorcruh.goodrecipes.common.Util;
 import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.Recipe;
 import ec.com.pablorcruh.goodrecipes.model.User;
-import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreAuthLiveData;
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreLoginLiveData;
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreParameterizedQuerySnapshotLiveData;
 import ec.com.pablorcruh.goodrecipes.firebase.firestorelivedata.FirestoreQuerySnapshotLiveData;
@@ -53,22 +54,45 @@ public class FirebaseServiceImpl implements FirebaseService {
     public FirebaseServiceImpl() {
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseFirestore.getInstance();
-        firebaseAuth = FirebaseAuth.getInstance();
     }
 
 
-    public FirestoreAuthLiveData registerNewUser(User user) {
-        FirestoreAuthLiveData authLiveData = new FirestoreAuthLiveData(firebaseAuth, user);
-        return authLiveData;
+    public Task<AuthResult> registerNewUser(final User user) {
+        return firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            task.getResult().getUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(MyApp.getContext(), "Please check to inbox to verify your email", Toast.LENGTH_SHORT).show();
+                                    createUserOnFirestore(user);
+                                }
+                            });
+                        }else{
+                            String errorCode =  ((FirebaseAuthException) task.getException()).getErrorCode();
+                            Log.d(TAG, "Error code >>>: "+errorCode);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MyApp.getContext(), "User already in use", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
 
     public FirestoreLoginLiveData loginExistingUser(User user) {
         FirestoreLoginLiveData loginLiveData = new FirestoreLoginLiveData(firebaseAuth, user);
+        SharedPreferencesManager.setSomeBooleanValue(Constants.PREF_IS_USER_LOGGED_IN, true);
         return loginLiveData;
     }
 
-    public void createUserOnFirestore(User user) {
+    private void createUserOnFirestore(User user) {
         Map<String, Object> userdb = new HashMap<>();
         userdb.put("username", user.getUserName());
         userdb.put("email", user.getEmail());
@@ -153,6 +177,7 @@ public class FirebaseServiceImpl implements FirebaseService {
 
     public void logout() {
         Log.d(TAG, "logout: ");
+        SharedPreferencesManager.setSomeBooleanValue(Constants.PREF_IS_USER_LOGGED_IN, false);
         firebaseAuth.signOut();
     }
 

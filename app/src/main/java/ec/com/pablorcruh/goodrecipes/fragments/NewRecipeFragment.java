@@ -166,14 +166,11 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
                            Toast.makeText(getActivity(), "No image was loaded", Toast.LENGTH_SHORT).show();
                        }
                        FragmentManager fragmentManager = getFragmentManager();
-                       for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
-                           fragmentManager.popBackStack();
-                       }
                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                       fragmentTransaction.replace(R.id.fragment_container, new HomeFragment());
-                       fragmentTransaction.addToBackStack(null);
-                       fragmentTransaction.commit();
-
+                       fragmentTransaction
+                               .replace(R.id.fragment_container, new HomeFragment(), "home")
+                               .addToBackStack("home")
+                               .commit();
                    }
                }
            });
@@ -197,7 +194,7 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
 
     private void requestStoragePermission() {
         if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)){
-            new AlertDialog.Builder(getActivity())
+             new AlertDialog.Builder(getActivity())
                     .setTitle("Permission needed")
                     .setMessage("this permission is needed to upload image")
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -261,4 +258,5 @@ public class NewRecipeFragment extends Fragment implements IngredientsAdapter.On
         stepsArray.remove(step);
         adapterSteps.notifyDataSetChanged();
     }
+
 }

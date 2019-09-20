@@ -22,7 +22,9 @@ import com.google.firebase.auth.AuthResult;
 
 import ec.com.pablorcruh.goodrecipes.R;
 import ec.com.pablorcruh.goodrecipes.common.MyApp;
+import ec.com.pablorcruh.goodrecipes.common.SharedPreferencesManager;
 import ec.com.pablorcruh.goodrecipes.common.Util;
+import ec.com.pablorcruh.goodrecipes.constants.Constants;
 import ec.com.pablorcruh.goodrecipes.model.User;
 import ec.com.pablorcruh.goodrecipes.viewmodel.LoginViewModel;
 
@@ -40,64 +42,70 @@ public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
 
-
     private View focusView;
+
+    private boolean isUserLoggedIn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            setContentView(R.layout.activity_login);
-            loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+            isUserLoggedIn = SharedPreferencesManager.getSomeBooleanValue(Constants.PREF_IS_USER_LOGGED_IN);
+            if (!isUserLoggedIn) {
+                setContentView(R.layout.activity_login);
+                loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
-            loginEmail = findViewById(R.id.login_email);
-            loginPassword = findViewById(R.id.login_password);
+                loginEmail = findViewById(R.id.login_email);
+                loginPassword = findViewById(R.id.login_password);
 
-            loginEmail.setError(null);
-            loginPassword.setError(null);
+                loginEmail.setError(null);
+                loginPassword.setError(null);
 
-            tvRegisterLogin = findViewById(R.id.text_view_login_register);
-            tvRegisterLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                    finish();
-                    startActivity(intent);
-                }
-            });
+                tvRegisterLogin = findViewById(R.id.text_view_login_register);
+                tvRegisterLogin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                        finish();
+                        startActivity(intent);
+                    }
+                });
 
-            btnLogin = findViewById(R.id.button_login);
-            btnLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String userEmail = loginEmail.getText().toString().trim();
-                    String userPassword = loginPassword.getText().toString().trim();
-                    User user = new User(userEmail, userPassword.toString());
-                    if (isEmailValid(userEmail)) {
-                        if (isPasswordValid(userPassword)) {
-                            LiveData<Task<AuthResult>> liveData = loginViewModel.loginExistingUser(user);
-                            liveData.observe(LoginActivity.this, new Observer<Task<AuthResult>>() {
-                                @Override
-                                public void onChanged(Task<AuthResult> authResultTask) {
-                                    if (authResultTask.isSuccessful()) {
-                                        if(authResultTask.getResult().getUser().isEmailVerified()){
-                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                            finish();
-                                            startActivity(intent);
-                                        }else{
-                                            Toast.makeText(LoginActivity.this, "Email not verified", Toast.LENGTH_SHORT).show();
+                btnLogin = findViewById(R.id.button_login);
+                btnLogin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String userEmail = loginEmail.getText().toString().trim();
+                        String userPassword = loginPassword.getText().toString().trim();
+                        User user = new User(userEmail, userPassword.toString());
+                        if (isEmailValid(userEmail)) {
+                            if (isPasswordValid(userPassword)) {
+                                LiveData<Task<AuthResult>> liveData = loginViewModel.loginExistingUser(user);
+                                liveData.observe(LoginActivity.this, new Observer<Task<AuthResult>>() {
+                                    @Override
+                                    public void onChanged(Task<AuthResult> authResultTask) {
+                                        if (authResultTask.isSuccessful()) {
+                                            if (authResultTask.getResult().getUser().isEmailVerified()) {
+                                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                finish();
+                                                startActivity(intent);
+                                            } else {
+                                                Toast.makeText(LoginActivity.this, "Email not verified", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, "Please check yor credentials", Toast.LENGTH_SHORT).show();
                                         }
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, "Please check yor credentials", Toast.LENGTH_SHORT).show();
-                                    }
 
-                                }
-                            });
+                                    }
+                                });
+                            }
                         }
                     }
-                }
-            });
-        }catch(Exception e){
+                });
+            } else {
+                startActivity(new Intent(this, MainActivity.class));
+            }
+        } catch (Exception e) {
             Crashlytics.log(e.getMessage());
             Log.e(TAG, "onCreate: ", e);
         }

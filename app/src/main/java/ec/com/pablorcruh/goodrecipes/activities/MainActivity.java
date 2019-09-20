@@ -3,6 +3,8 @@ package ec.com.pablorcruh.goodrecipes.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -32,7 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseUser firebaseUser;
 
+    private boolean isUserLoggedIn;
+
     private static final String TAG = MainActivity.class.getName();
+
+    private Fragment selectedFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +71,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.main_menu:
-                mainViewModel.logout();
-                Intent intent = new Intent(this, LoginActivity.class);
-                finish();
-                startActivity(intent);
+                isUserLoggedIn = SharedPreferencesManager.getSomeBooleanValue(Constants.PREF_IS_USER_LOGGED_IN);
+                if (isUserLoggedIn) {
+                    mainViewModel.logout();
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finishAffinity();
+                }else{
+                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -80,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    Fragment selectedFragment = null;
+
                     switch (menuItem.getItemId()) {
                         case R.id.nav_home:
                             selectedFragment = new HomeFragment();
@@ -96,4 +107,26 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStack(0,0);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if(selectedFragment!=null){
+            fragmentTransaction.remove(selectedFragment);
+            fragmentTransaction.add(new HomeFragment(), "home");
+            fragmentTransaction.addToBackStack("home");
+            fragmentTransaction.commit();
+        }else{
+            super.onBackPressed();
+        }
+
+    }
+
 }

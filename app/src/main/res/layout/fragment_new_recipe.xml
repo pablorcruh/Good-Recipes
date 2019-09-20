@@ -56,8 +56,11 @@
                     android:textColor="@color/colorPrimary"
                     android:hint="Enter new Ingredient"
                     android:textColorHint="@color/colorPrimary"
-                    android:inputType="text"
-                    android:maxLines="1"/>
+                    android:lines="5"
+                    android:minLines="2"
+                    android:maxLines="10"
+                    android:scrollbars="vertical"
+                    android:inputType="textCapSentences|textNoSuggestions|textMultiLine"/>
             </com.google.android.material.textfield.TextInputLayout>
             <ImageView
                 android:layout_marginTop="20dp"
@@ -110,8 +113,11 @@
                     android:textColor="@color/colorPrimary"
                     android:hint="Enter new Step"
                     android:textColorHint="@color/colorPrimary"
-                    android:inputType="text"
-                    android:maxLines="1"/>
+                    android:lines="5"
+                    android:minLines="2"
+                    android:maxLines="10"
+                    android:scrollbars="vertical"
+                    android:inputType="textCapSentences|textNoSuggestions|textMultiLine"/>
             </com.google.android.material.textfield.TextInputLayout>
             <ImageView
                 android:layout_marginTop="20dp"
